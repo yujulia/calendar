@@ -8,7 +8,7 @@
 	"JS_BUILD":  "./build/js/",
 	"JS_DEPLOY":  "./deploy/js/",
 	
-	"JS_BASE": "base.js",
+	"JS_BASE": "base.jsx",
 	"JS_BUNDLE": "bundle.js",
 
 	"IMG_SRC":  "./src/img/",

@@ -2,12 +2,12 @@
     
 **/
 import React from "react";
-import Calendar from "./calendar";
+import Calendar from "./calendar.jsx";
 
 function loadCalendar(){
     let Root = document.getElementById("calendar-app");
     React.render(<Calendar />, Root);
-}
+};
 
 Promise.all([
   new Promise((resolve) => {

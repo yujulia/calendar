@@ -2,7 +2,7 @@
 **/
 
 import React from "react";
-import CalButton from "./button";
+import CalButton from "./button.jsx";
 
 class Nav {
     render(){

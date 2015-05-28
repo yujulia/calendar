@@ -50,8 +50,9 @@ gulp.task("styles", function(){
     lint
 **/
 gulp.task("lint", function(){
+    console.log("linting");
     return gulp.src(gconfig.JS_SRC+"*.js")
-        .pipe(jshint())
+        .pipe(jshint({ esnext: true }))
         .pipe(jshint.reporter("default"));
 });
 
@@ -209,7 +210,7 @@ gulp.task("serve", ["styles", "build-jade", "scripts"], function(){
     });
 
     gulp.watch(gconfig.SASS_SRC + "/**/*", ["styles"]);
-    gulp.watch(gconfig.JS_SRC + "*.js", ["lint", "script-watch"]);
+    gulp.watch(gconfig.JS_SRC + "**", ["lint", "script-watch"]);
     gulp.watch(gconfig.JADE_SRC + "*.jade", ["build-jade"]);
 
     gulp.watch("build/*.html").on("change", reload);
