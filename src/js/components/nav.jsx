@@ -1,6 +1,5 @@
 /*! Calendar nav component
 **/
-
 import React from "react";
 import CalButton from "./button.jsx";
 

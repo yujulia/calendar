@@ -4,10 +4,13 @@
 import React from "react";
 import Calendar from "./calendar.jsx";
 
+// ------------------------------- load our app
+
 function loadCalendar(){
-    let Root = document.getElementById("calendar-app");
-    React.render(<Calendar />, Root);
+    React.render(<Calendar />, document.getElementById("calendar-app"));
 };
+
+// ------------------------------- on dom load
 
 Promise.all([
   new Promise((resolve) => {

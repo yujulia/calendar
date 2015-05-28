@@ -31,6 +31,7 @@ let genTimeTable = () => {
 
 /** ref data for weekdays
 */
+
 let dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 export { genTimeTable, dayNames };
