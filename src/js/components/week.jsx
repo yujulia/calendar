@@ -7,37 +7,46 @@ import { genTimeTable, dayNames } from "../helpers/time";
 */
 class Week {
     render(){
+   
+        let timeStamps = genTimeTable();    // get the list of times
+        let weekdays = dayNames;            // get the list of days
 
-        // generate the left hand time stamp label list
-        let timeStamps = genTimeTable();
-        let renderStampList = (stamp, i) => {
+        let renderDays = (day, i) => {
+            let dayClassName = "week__body__item weekday--"+i;
+            return (<td className={dayClassName}></td>);
+        };
+
+        let renderWeek = (stamp, i) => {
             if (i ==0 ) { i = 24; }
-            let stampClassName = "timestamps__stamp stamp--"+i;
-
+            let stampClassName = "timerow timerow--"+i;
             return (
-                <li className={stampClassName}>
-                    <div className="timestamps__label">{stamp}</div>
-                    <div className="timestamps__divider" />
-                </li>
+                <tr className={stampClassName}>
+                    <th className="timerow__label">{stamp}</th>
+                    { weekdays.map(renderDays) }
+                </tr>
             );
-        }
+        };
 
-        // generate the week days col list
-        let weekdays = dayNames;
-        let renderWeekDays = (day, i) => {
-            let dayClassName = "weekdays__day day--"+i;
-            return <li className={dayClassName}>{day}</li>;
-        }
+        let renderWeekHeader = (day, i) => {
+            let dayClassName = "week__header__item weekday--"+i;
+            return <th className={dayClassName}>{day.slice(0, 3)} 10/10</th>;
+        };
 
 
         // -------------------------------------- the week view
-        return (
-            <section className="week">
-                <div className="week__header">heading goes here </div>
-                <div className="week__scrollpane">
-                    <ol className="timestamps">{ timeStamps.map(renderStampList) }</ol>
-                    <ol className="weekdays">{ weekdays.map(renderWeekDays) }</ol>
-                </div>
+        return (      
+            <section className="container">
+                <table className="week">
+                    <thead className="week__header">
+                        <tr className="week__header__row">
+                            <th className="timerow__label"><span>11pm</span></th>
+                            { weekdays.map(renderWeekHeader) }
+                        </tr>
+                    </thead>
+                    <tbody className="week__body">
+                        { timeStamps.map(renderWeek) }
+                    </tbody>
+                </table>
             </section>
         );
     }

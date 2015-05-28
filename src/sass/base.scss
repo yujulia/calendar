@@ -41,14 +41,14 @@ body {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
-    border-bottom: 1px solid #ebebeb;
-    padding: 9px 20px;
+    border-bottom: $border;
+    padding: 9px 35px 9px 20px;
     height: $h-nav;
 
     .logo {
         @extend %nofrill;
         color: $color-google;
-        font: $regular 16px $font-base;
+        font: $regular 24px $font-base;
         width: 184px;
     }
 
@@ -111,84 +111,91 @@ body {
 }
 
 // ------------------------------------ week view
-.week {
-    position: relative;
+.container {
+    position: fixed;
+   
     margin-left: 200px;
     height: 100%;
-    overflow: hidden;
+    overflow-y: auto;
+    width: calc(100% - 200px);
+}
+
+.week {
+    width: calc(100% - 20px);
+    margin: 0px 0 60px 1px;
 
     &__header {
-        width: 100%;
-        height: $h-header;
-        // border: solid 1px green;
+        background-color: #fff;
+        border-bottom: $border;
+        position: fixed;
+        left: 200px;
+        display: table;
+        width: calc(100% - 234px);
+
+        &__row {
+            display: table-row;
+        }
+
+        &__item {
+            display: table-cell;
+            width: 10%;
+            height: 40px;
+            font-weight: $regular;
+            font-size: 12px;  
+            // border-left: $border;
+        }
+
+        .timerow__label {
+            border-color: transparent;
+
+            span {
+                visibility: hidden;
+            }
+        }
     }
 
-    &__scrollpane {
-        position: fixed;
-        width: 82%;
-        height: calc(100% - #{$h-nav} - #{$h-header});
-        border-top: $border;
-        overflow-y: scroll;
+    .weekday--empty {
+        width: 5%;
+        border: none;
+    }
+
+    &__body {
+
+        
+        &__item {
+            border-right: $border;
+            width: 10%;
+            box-sizing: content-box;
+            height: 60px;
+
+        }
     }
 }
 
-.timestamps {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 1010px;
-    border: $border;
-    border-top: none;
+.timerow {
+    border-top: $border;
     width: 100%;
-    text-align: right;    
-
-    &__stamp {
-        height: 42px;
-        border-top: $border;
-
-        display: flex;
-        flex-flow: row nowrap;
-        align-items: flex-start;
-
-        &:first-child {
-            border: none;
-        }
-    }
 
     &__label {
-        width: 60px;
-        height: 42px;
-        padding: 3px;
-        border-right: $border;
         font-size: 12px;
-    }
-
-    &__divider {
-        flex-grow: 1;
-        height: 21px;
-        border-bottom: dashed 1px #ccc;
-    }
-}
-
-.weekdays {
-    width: 100%;
-    height: 1010px;
-    padding-left: 60px;
-    display: flex;
-    flex-flow: rows nowrap;
-    align-items: stretch;
-
-    &__day {
+        width: 5%;
+        font-weight: $regular;
+        padding: 5px;
         border-left: $border;
-        flex-grow: 1;
+        border-right: $border;
+        text-align: right;
+        vertical-align: top;
+        color: #666;
+    }
 
-        &:first-child {
-            // border-left: none;
+    &:first-child {
+        .week__body__item, .timerow__label {
+            padding-top: 45px;
         }
     }
-
-
 }
+
+
 
 // ------------------------------------  ipad and smaller
 @media screen and (max-width: 980px) {

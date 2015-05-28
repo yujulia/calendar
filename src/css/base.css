@@ -152,12 +152,12 @@ body {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  border-bottom: 1px solid #ebebeb;
-  padding: 9px 20px;
+  border-bottom: solid 1px #ddd;
+  padding: 9px 35px 9px 20px;
   height: 60px; }
   .nav .logo {
     color: #dd4b39;
-    font: 400 16px Arial, sans-serif;
+    font: 400 24px Arial, sans-serif;
     width: 184px; }
   .nav__button {
     display: inline-block;
@@ -200,57 +200,57 @@ body {
   .nav__views {
     margin-left: auto; }
 
-.week {
-  position: relative;
+.container {
+  position: fixed;
   margin-left: 200px;
   height: 100%;
-  overflow: hidden; }
+  overflow-y: auto;
+  width: calc(100% - 200px); }
+
+.week {
+  width: calc(100% - 20px);
+  margin: 0px 0 60px 1px; }
   .week__header {
-    width: 100%;
-    height: 60px; }
-  .week__scrollpane {
+    background-color: #fff;
+    border-bottom: solid 1px #ddd;
     position: fixed;
-    width: 82%;
-    height: calc(100% - 60px - 60px);
-    border-top: solid 1px #ddd;
-    overflow-y: scroll; }
-
-.timestamps {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 1010px;
-  border: solid 1px #ddd;
-  border-top: none;
-  width: 100%;
-  text-align: right; }
-  .timestamps__stamp {
-    height: 42px;
-    border-top: solid 1px #ddd;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: flex-start; }
-    .timestamps__stamp:first-child {
-      border: none; }
-  .timestamps__label {
-    width: 60px;
-    height: 42px;
-    padding: 3px;
+    left: 200px;
+    display: table;
+    width: calc(100% - 234px); }
+    .week__header__row {
+      display: table-row; }
+    .week__header__item {
+      display: table-cell;
+      width: 10%;
+      height: 40px;
+      font-weight: 400;
+      font-size: 12px; }
+    .week__header .timerow__label {
+      border-color: transparent; }
+      .week__header .timerow__label span {
+        visibility: hidden; }
+  .week .weekday--empty {
+    width: 5%;
+    border: none; }
+  .week__body__item {
     border-right: solid 1px #ddd;
-    font-size: 12px; }
-  .timestamps__divider {
-    flex-grow: 1;
-    height: 21px;
-    border-bottom: dashed 1px #ccc; }
+    width: 10%;
+    box-sizing: content-box;
+    height: 60px; }
 
-.weekdays {
-  width: 100%;
-  height: 1010px;
-  padding-left: 60px;
-  display: flex;
-  flex-flow: rows nowrap;
-  align-items: stretch; }
-  .weekdays__day {
+.timerow {
+  border-top: solid 1px #ddd;
+  width: 100%; }
+  .timerow__label {
+    font-size: 12px;
+    width: 5%;
+    font-weight: 400;
+    padding: 5px;
     border-left: solid 1px #ddd;
-    flex-grow: 1; }
+    border-right: solid 1px #ddd;
+    text-align: right;
+    vertical-align: top;
+    color: #666; }
+  .timerow:first-child .week__body__item, .timerow:first-child .timerow__label {
+    padding-top: 45px; }
 
