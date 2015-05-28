@@ -541,7 +541,7 @@ body {
     position: fixed;
     left: 200px;
     display: table;
-    width: calc(100% - 234px); }
+    width: calc(100% - 233px); }
     .week__header__row {
       display: table-row; }
     .week__header__item {
@@ -562,6 +562,9 @@ body {
     width: 10%;
     box-sizing: content-box;
     height: 60px; }
+
+.divider {
+  border-top: dotted 1px #ccc; }
 
 .timerow {
   border-top: solid 1px #ddd;

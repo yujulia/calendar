@@ -13,7 +13,7 @@ class Week {
 
         let renderDays = (day, i) => {
             let dayClassName = "week__body__item weekday--"+i;
-            return (<td className={dayClassName}></td>);
+            return (<td className={dayClassName}><div className="divider" /></td>);
         };
 
         let renderWeek = (stamp, i) => {

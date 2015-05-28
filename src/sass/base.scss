@@ -130,7 +130,7 @@ body {
         position: fixed;
         left: 200px;
         display: table;
-        width: calc(100% - 234px);
+        width: calc(100% - 233px);
 
         &__row {
             display: table-row;
@@ -143,6 +143,7 @@ body {
             font-weight: $regular;
             font-size: 12px;  
             // border-left: $border;
+           
         }
 
         .timerow__label {
@@ -170,6 +171,10 @@ body {
 
         }
     }
+}
+
+.divider {
+    border-top: dotted 1px #ccc;
 }
 
 .timerow {
