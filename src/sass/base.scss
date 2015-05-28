@@ -1,0 +1,200 @@
+@charset "UTF-8";
+
+@import "partials/vars";
+@import "partials/fonts";
+
+// -------------------------------- resets 
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+ol, ul {
+    @extend %nofrill;
+    list-style: none;
+}
+
+
+img {
+    display: block;
+}
+
+:focus {
+    outline: none;
+    border-bottom: solid 3px gray;
+}
+
+// --------------------------------
+
+body {
+    color: $color-font;
+    font: 13px $font-base;
+    overflow: hidden;
+}
+.calendar {
+    height: 100%;
+}
+
+.nav {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    border-bottom: 1px solid #ebebeb;
+    padding: 9px 20px;
+    height: $h-nav;
+
+    .logo {
+        @extend %nofrill;
+        color: $color-google;
+        font: $regular 16px $font-base;
+        width: 184px;
+    }
+
+    &__button {
+        display: inline-block;
+        white-space: nowrap;
+        background: #f5f5f5 -webkit-linear-gradient(top,#f5f5f5,#f1f1f1);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 2px;
+        color: #444;
+        cursor: pointer;
+        font-size: 11px;
+        font-weight: $bold;
+        height: 27px;
+        line-height: 27px;
+        min-width: 54px;
+        padding: 0 8px;
+        text-align: center;
+
+        &:hover {
+            background: #F8F8F8 -webkit-linear-gradient(top,#f8f8f8,#f1f1f1);
+            border: 1px solid #C6C6C6;
+            color: #333;
+            box-shadow: 0px 1px 1px rgba(0,0,0,.1);
+        }
+
+        &.on {
+            background: #eee -webkit-linear-gradient(top,#eeeeee, #e0e0e0);
+            border: 1px solid #ccc;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+            color: #333;
+        }
+
+        &--today {
+          margin-right: 7px;
+        }
+
+        &--prev, &--week {
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+
+        &--next, &--month {
+            border-top-left-radius: 0px;
+            border-bottom-left-radius: 0px;
+            border-left: none;
+            &:hover {
+                border-left: none;
+            }
+        }
+    }
+
+    &__time {
+        margin-right: 20px;
+    }
+
+    &__views {
+        margin-left: auto;
+    }
+}
+
+// ------------------------------------ week view
+.week {
+    position: relative;
+    margin-left: 200px;
+    height: 100%;
+    overflow: hidden;
+
+    &__header {
+        width: 100%;
+        height: $h-header;
+        // border: solid 1px green;
+    }
+
+    &__scrollpane {
+        position: fixed;
+        width: 82%;
+        height: calc(100% - #{$h-nav} - #{$h-header});
+        border-top: $border;
+        overflow-y: scroll;
+    }
+}
+
+.timestamps {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1010px;
+    border: $border;
+    border-top: none;
+    width: 100%;
+    text-align: right;    
+
+    &__stamp {
+        height: 42px;
+        border-top: $border;
+
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: flex-start;
+
+        &:first-child {
+            border: none;
+        }
+    }
+
+    &__label {
+        width: 60px;
+        height: 42px;
+        padding: 3px;
+        border-right: $border;
+        font-size: 12px;
+    }
+
+    &__divider {
+        flex-grow: 1;
+        height: 21px;
+        border-bottom: dashed 1px #ccc;
+    }
+}
+
+.weekdays {
+    width: 100%;
+    height: 1010px;
+    padding-left: 60px;
+    display: flex;
+    flex-flow: rows nowrap;
+    align-items: stretch;
+
+    &__day {
+        border-left: $border;
+        flex-grow: 1;
+
+        &:first-child {
+            // border-left: none;
+        }
+    }
+
+
+}
+
+// ------------------------------------  ipad and smaller
+@media screen and (max-width: 980px) {
+}
+
+// ------------------------------------  iphone
+@media screen and (max-width: 600px)  {
+
+}

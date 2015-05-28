@@ -1,0 +1,40 @@
+// ----------------------------------------------- font weights
+
+$xlight: 100;
+$light: 300;
+$regular: 400;
+$book: 500;
+$semibold: 600;
+$bold: 700;
+
+$font-base: Arial, sans-serif;
+
+// ----------------------------------------------- colors
+
+$color-font: #222;
+$color-google: #dd4b39;
+
+$border: solid 1px #ddd;
+$h-nav: 60px;
+$h-header: 60px;
+
+
+
+// ----------------------------------------------- extendables
+%clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+%nofrill {
+    margin: 0; /* test */
+    padding: 0; 
+}
+
+
+
+
+    

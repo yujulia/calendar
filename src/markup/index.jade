@@ -1,0 +1,14 @@
+-var addMin = (dev == true) ? "" : ".min"
+
+doctype html
+html(lang="en")
+    head
+        meta(charset="utf-8", http-equiv="X-UA-Compatible", content="IE=edge,chrome=1") 
+        title Calendar
+        meta(name="viewport", content="width=device-width,initial-scale=1.0")
+        link(rel="shortcut icon", href="img/favicon.ico", type="image/x-icon")
+        link(rel="icon", href="img/favicon.ico", type="image/x-icon")
+        link(rel="stylesheet", href="css/main"+ addMin +".css")
+
+    body#calendar-app 
+        script(src="js/bundle" + addMin + ".js")

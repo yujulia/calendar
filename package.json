@@ -1,0 +1,70 @@
+{
+  "name": "boilerplate",
+  "private": true,
+  "version": "1.0.0",
+  "description": "static site boilerplate",
+  "main": "base.js",
+  "browser": {
+    "jquery": "./node_modules/jquery/dist/jquery.min.js"
+  },
+  "browserify-shim": {
+    "jquery": "$"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publish": "echo \"Don't publish me\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jyuya/static-boilerplate.git"
+  },
+  "author": "Julia Yu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jyuya/static-boilerplate/issues"
+  },
+  "homepage": "http://yujulia.com",
+  "devDependencies": {
+    "autoprefixer-core": "^5.1.11",
+    "babelify": "^6.1.2",
+    "browser-sync": "^2.7.1",
+    "browserify": "^10.1.0",
+    "browserify-shim": "^3.8.6",
+    "chalk": "^1.0.0",
+    "csswring": "^3.0.5",
+    "dateformat": "^1.0.11",
+    "flux": "^2.0.3",
+    "gulp": "^3.8.11",
+    "gulp-changed": "^1.2.1",
+    "gulp-concat": "^2.5.2",
+    "gulp-foreach": "^0.1.0",
+    "gulp-ignore": "^1.2.1",
+    "gulp-imagemin": "^2.2.1",
+    "gulp-jade": "^1.0.0",
+    "gulp-jshint": "^1.10.0",
+    "gulp-load-utils": "0.0.4",
+    "gulp-postcss": "^5.1.8",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^1.3.3",
+    "gulp-size": "^1.2.1",
+    "gulp-sym": "0.0.14",
+    "gulp-uglify": "^1.2.0",
+    "gulp-util": "^3.0.4",
+    "hisrc": "^2.0.0",
+    "jquery": "^2.1.4",
+    "lodash": "^3.8.0",
+    "normalize.css": "^3.0.3",
+    "react": "^0.13.3",
+    "reactify": "^1.1.1",
+    "underscore": "^1.8.3",
+    "velocity-animate": "^1.2.2",
+    "vinyl-ftp": "^0.4.1",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.2.1"
+  }
+}

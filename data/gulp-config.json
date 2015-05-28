@@ -1,0 +1,28 @@
+{
+	"SASS_SRC":  "./src/sass/",
+	"CSS_SRC":  "./src/css/",
+	"CSS_BUILD":  "./build/css/",
+	"CSS_DEPLOY":  "./deploy/css/",
+
+	"JS_SRC":  "./src/js/",
+	"JS_BUILD":  "./build/js/",
+	"JS_DEPLOY":  "./deploy/js/",
+	
+	"JS_BASE": "base.js",
+	"JS_BUNDLE": "bundle.js",
+
+	"IMG_SRC":  "./src/img/",
+	"IMG_BUILD":  "./build/img/",
+	"IMG_DEPLOY":  "./deploy/img/",
+
+	"FONT_BUILD":  "./build/fonts/",
+	"FONT_DEPLOY":  "./deploy/fonts/",
+
+	"JADE_SRC":  "./src/markup/",
+	"HTML_BUILD":  "./build/",
+	"HTML_DEPLOY":  "./deploy/",
+
+
+
+	"FTP_DEST" : "/somewhereonyourserver"
+}
