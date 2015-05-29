@@ -1,6 +1,12 @@
-/** generate the time stamp labels in array form
+
+/** ref data for weekdays
 */
 
+let dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+let monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+/** generate the time stamp labels in array form
+*/
 let genTimeTable = () => {
 
     let stampArray = [];
@@ -29,9 +35,30 @@ let genTimeTable = () => {
 };
 
 
-/** ref data for weekdays
+/** 
 */
 
-let dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+let currentTime = () => {
+    let rightnow = new Date();
 
-export { genTimeTable, dayNames };
+    return {
+        "year" : rightnow.getFullYear(),
+        "month" : rightnow.getMonth(),
+        "day" : rightnow.getDate(),
+        "hour" : rightnow.getHours(),
+        "minute" : rightnow.getMinutes(),
+        "weekday" : rightnow.getDay(),
+        "dayname" : dayNames[ rightnow.getDay() ],
+        "monthname" : monthNames[ rightnow.getMonth() ]
+    }
+}
+
+let timestuff = {
+
+    daysInMonth: (month, year) => {
+        return new Date(year, month+1, 0).getDate();
+    }
+    
+}
+
+export { genTimeTable, dayNames, monthNames, currentTime, timestuff };

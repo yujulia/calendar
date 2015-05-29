@@ -3,7 +3,7 @@
 import React from "react";
 import CalButton from "./button.jsx";
 
-class Nav {
+class Nav extends React.Component {
     render(){
         return (
             <nav className="nav">

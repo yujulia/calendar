@@ -3,14 +3,15 @@
 
 import React from "react";
 import Nav from "./components/nav.jsx";
-import Week from "./components/week.jsx";
+import CalendarWeek from "./components/calendar-week.jsx";
+import CalendarMonth from "./components/calendar-month.jsx";
 
-class Calendar {
+class Calendar extends React.Component {
     render(){
         return (
             <main className="calendar">
                 <Nav />
-                <Week />
+                <CalendarMonth />
             </main>
         );
     }
