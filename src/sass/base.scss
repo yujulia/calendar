@@ -33,72 +33,19 @@ body {
     font: 13px $font-base;
     overflow: hidden;
 }
-.calendar {
-    height: 100%;
-}
 
 .nav {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
     border-bottom: $border;
-    padding: 9px 35px 9px 20px;
-    height: $h-nav;
+    padding: 9px $pad-right 9px $pad-left;
 
     .logo {
         @extend %nofrill;
         color: $color-google;
         font: $regular 24px $font-base;
-        width: 184px;
-    }
-
-    &__button {
-        display: inline-block;
-        white-space: nowrap;
-        background: #f5f5f5 -webkit-linear-gradient(top,#f5f5f5,#f1f1f1);
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        border-radius: 2px;
-        color: #444;
-        cursor: pointer;
-        font-size: 11px;
-        font-weight: $bold;
-        height: 27px;
-        line-height: 27px;
-        min-width: 54px;
-        padding: 0 8px;
-        text-align: center;
-
-        &:hover {
-            background: #F8F8F8 -webkit-linear-gradient(top,#f8f8f8,#f1f1f1);
-            border: 1px solid #C6C6C6;
-            color: #333;
-            box-shadow: 0px 1px 1px rgba(0,0,0,.1);
-        }
-
-        &.on {
-            background: #eee -webkit-linear-gradient(top,#eeeeee, #e0e0e0);
-            border: 1px solid #ccc;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
-            color: #333;
-        }
-
-        &--today {
-          margin-right: 7px;
-        }
-
-        &--prev, &--week {
-            border-top-right-radius: 0px;
-            border-bottom-right-radius: 0px;
-        }
-
-        &--next, &--month {
-            border-top-left-radius: 0px;
-            border-bottom-left-radius: 0px;
-            border-left: none;
-            &:hover {
-                border-left: none;
-            }
-        }
+        width: $aside-w - $pad-left;
     }
 
     &__time {
@@ -110,27 +57,82 @@ body {
     }
 }
 
+.button {
+    display: inline-block;
+    white-space: nowrap;
+    background: #f5f5f5;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    color: #444;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: $bold;
+    height: 27px;
+    line-height: 27px;
+    min-width: 54px;
+    padding: 0 8px;
+    text-align: center;
+
+    &:hover {
+        background: #F8F8F8;
+        border: 1px solid #C6C6C6;
+        color: #333;
+        box-shadow: 0px 1px 1px rgba(0,0,0,.1);
+    }
+
+    &.on {
+        background: #eee;
+        border: 1px solid #ccc;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+        color: #333;
+    }
+
+    &--today {
+      margin-right: 7px;
+    }
+
+    &--prev, &--week {
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
+    &--next, &--month {
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border-left: none;
+        
+        &:hover {
+            border-left: none;
+        }
+    }
+}
+
 // ------------------------------------ week view
+
 .container {
+    @extend %clearfix;
     position: fixed;
-   
-    margin-left: 200px;
+    margin-left: $aside-w;
     height: 100%;
     overflow-y: auto;
-    width: calc(100% - 200px);
+    width: calc(100% - #{$aside-w});
 }
 
 .week {
     width: calc(100% - 20px);
-    margin: 0px 0 60px 1px;
+    margin: 0px 0 50px 0px;
+    border-bottom: $border;
+    border-collapse: 0;
 
     &__header {
         background-color: #fff;
         border-bottom: $border;
         position: fixed;
-        left: 200px;
+        left: $aside-w;
+        -webkit-transform: translateZ(0);
         display: table;
-        width: calc(100% - 233px);
+        width: calc(100% - 234px);
+        height: $theader-h;
 
         &__row {
             display: table-row;
@@ -138,17 +140,14 @@ body {
 
         &__item {
             display: table-cell;
-            width: 10%;
-            height: 40px;
+            width: $days-col-w;
             font-weight: $regular;
             font-size: 12px;  
             // border-left: $border;
-           
         }
 
-        .timerow__label {
+        .empty {
             border-color: transparent;
-
             span {
                 visibility: hidden;
             }
@@ -156,19 +155,41 @@ body {
     }
 
     .weekday--empty {
-        width: 5%;
+        width: $time-label-w;
         border: none;
     }
 
-    &__body {
+    &__row {
+        border-top: $border;
+        width: 100%;
 
-        
         &__item {
             border-right: $border;
-            width: 10%;
-            box-sizing: content-box;
-            height: 60px;
+            width: $days-col-w;
+            height: $hour-h;
+        }
 
+        &__label {
+            font-size: 12px;
+            width: $time-label-w;
+            font-weight: $regular;
+            padding: $pad-label;
+            border-left: $border;
+            border-right: $border;
+            text-align: right;
+            vertical-align: top;
+            color: #666;
+        }
+
+        &:first-child {
+            .week__row__item, .week__row__label {
+                padding-top: $theader-h;
+                height: $theader-h + $hour-h;
+            }
+
+            .week__row__label {
+                padding-top: $theader-h + $pad-label;
+            }
         }
     }
 }
@@ -177,30 +198,12 @@ body {
     border-top: dotted 1px #ccc;
 }
 
-.timerow {
-    border-top: $border;
-    width: 100%;
-
-    &__label {
-        font-size: 12px;
-        width: 5%;
-        font-weight: $regular;
-        padding: 5px;
-        border-left: $border;
-        border-right: $border;
-        text-align: right;
-        vertical-align: top;
-        color: #666;
-    }
-
-    &:first-child {
-        .week__body__item, .timerow__label {
-            padding-top: 45px;
-        }
-    }
+// ------------------------------------  firefox
+@-moz-document url-prefix() { 
+  .container {
+     padding-left: 1px;
+  }
 }
-
-
 
 // ------------------------------------  ipad and smaller
 @media screen and (max-width: 980px) {

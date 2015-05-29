@@ -11,25 +11,28 @@ class Week {
         let timeStamps = genTimeTable();    // get the list of times
         let weekdays = dayNames;            // get the list of days
 
+        // --------------------------- render the week day 
         let renderDays = (day, i) => {
-            let dayClassName = "week__body__item weekday--"+i;
-            return (<td className={dayClassName}><div className="divider" /></td>);
+            if (i == 0) { i = 7; }
+            return (<td className="week__row__item" data-day={i}><div className="divider" /></td>);
         };
 
+        // --------------------------- render the week 
         let renderWeek = (stamp, i) => {
-            if (i ==0 ) { i = 24; }
-            let stampClassName = "timerow timerow--"+i;
+            if (i == 0 ) { i = 24; }
+ 
             return (
-                <tr className={stampClassName}>
-                    <th className="timerow__label">{stamp}</th>
+                <tr className="week__row" data-time={i}>
+                    <th className="week__row__label">{stamp}</th>
                     { weekdays.map(renderDays) }
                 </tr>
             );
         };
 
+        // --------------------------- render the week headers
         let renderWeekHeader = (day, i) => {
-            let dayClassName = "week__header__item weekday--"+i;
-            return <th className={dayClassName}>{day.slice(0, 3)} 10/10</th>;
+            if (i == 0) { i = 7; }
+            return <th className="week__header__item" data-day={i}>{day.slice(0, 3)} 10/10</th>;
         };
 
 
@@ -39,11 +42,11 @@ class Week {
                 <table className="week">
                     <thead className="week__header">
                         <tr className="week__header__row">
-                            <th className="timerow__label"><span>11pm</span></th>
+                            <th className="week__row__label empty"><span>11pm</span></th>
                             { weekdays.map(renderWeekHeader) }
                         </tr>
                     </thead>
-                    <tbody className="week__body">
+                    <tbody>
                         { timeStamps.map(renderWeek) }
                     </tbody>
                 </table>

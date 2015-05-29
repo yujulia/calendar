@@ -7,18 +7,23 @@ $book: 500;
 $semibold: 600;
 $bold: 700;
 
+// ----------------------------------------------- relevant to this app
+
 $font-base: Arial, sans-serif;
+$aside-w: 200px;    // aside area where mini cal is
+$pad-left: 20px;    // gutter on the left
+$pad-right: 35px;   // gutter on the right
+$theader-h: 40px;   // fixed table header height
+$hour-h: 60px;      // how high a row is, 60 for 60 mins
+$pad-label: 5px;    // time label padding
+$time-label-w: 5%;  // label colum
+$days-col-w: 10%;   // the column
 
 // ----------------------------------------------- colors
 
 $color-font: #222;
 $color-google: #dd4b39;
-
 $border: solid 1px #ddd;
-$h-nav: 60px;
-$h-header: 60px;
-
-
 
 // ----------------------------------------------- extendables
 %clearfix {
