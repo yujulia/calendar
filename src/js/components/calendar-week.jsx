@@ -1,7 +1,7 @@
 /*! Calendar week view
 **/
 import React from "react/addons";
-import timestuff from "../helpers/time";
+import Time from "../helpers/time";
 
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -32,8 +32,8 @@ class CalendarWeek extends React.Component {
     // --------------------------- week data
     setData(){
         this.setState({ 
-            weekData: timestuff.getDays(this.props.week.weekStart, this.props.week.weekEnd), 
-            hourData: timestuff.getHours() 
+            weekData: Time.getDays(this.props.week.weekStart, this.props.week.weekEnd), 
+            hourData: Time.getHours() 
         });
     }
 
@@ -66,8 +66,7 @@ class CalendarWeek extends React.Component {
 
     renderWeekHeader(day, i) {
         let whkey = "wh"+i,
-            dayName = timestuff.getDayNames()[i].slice(0,3);
-
+            dayName = Time.getDayNames()[i].slice(0,3);
 
         return (
             <th className="week__header__item" data-day={i} key={whkey}>

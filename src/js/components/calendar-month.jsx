@@ -2,7 +2,7 @@
 
 **/
 import React from "react/addons";
-import timestuff from "../helpers/time";
+import Time from "../helpers/time";
 import _ from "underscore";
 
 const WEEKDAYS = 7;
@@ -38,8 +38,8 @@ class CalendarMonth extends React.Component {
     setData(){
         let monthData = [],
             start = 0,
-            weekCount = timestuff.getWeeks(this.props.month.monthStart, this.props.month.monthEnd),
-            days = timestuff.getDays(this.props.month.monthStart, this.props.month.monthEnd);
+            weekCount = Time.getWeeks(this.props.month.monthStart, this.props.month.monthEnd),
+            days = Time.getDays(this.props.month.monthStart, this.props.month.monthEnd);
 
         for (let i=0; i < weekCount; i++){
             let myslice = days.slice(start, start+WEEKDAYS);
@@ -94,7 +94,7 @@ class CalendarMonth extends React.Component {
                 <table className="month" key="m">
                     <thead className="month__header" key="mh">
                         <tr className="month__header__row" key="mhr">
-                            { timestuff.getDayNames().map(this.renderMonthHeader) }
+                            { Time.getDayNames().map(this.renderMonthHeader) }
                         </tr>
                     </thead>
                     <tbody key="mb">

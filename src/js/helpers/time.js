@@ -1,6 +1,6 @@
 /** some useful date/time methods
 */
-let timestuff = () => {
+let Time = () => {
 
     let dayNames = [
         'Sunday', 
@@ -173,4 +173,4 @@ let timestuff = () => {
     }
 }();
 
-export default timestuff;
+export default Time;
