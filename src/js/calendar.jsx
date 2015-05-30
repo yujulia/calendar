@@ -16,14 +16,14 @@ class Calendar extends React.Component {
         this.updateTimeRange = this.updateTimeRange.bind(this);
         this.handleToggleView = this.handleToggleView.bind(this);
 
-        let mdata = Time.getMonthData(),
-            wdata = Time.getWeekData();
+        let mdata = Time.getThisMonthData(),
+            wdata = Time.getThisWeekData();
 
         this.state = {
-            week : false,
-            month : true,
+            week : true,
+            month : false,
             today : true,
-            viewType: "month",
+            viewType: "week",
             realMonth: mdata.month, // the month we are actually on
             currentMonthStart: mdata.start,  // the starting day of this calendar
             currentMonthEnd: mdata.end,
@@ -60,11 +60,12 @@ class Calendar extends React.Component {
                 mstart : mdata.start,
                 mend : mdata.end,
                 wstart : wdata.start,
-                wend : wdata.start
-            };
+                wend : wdata.end
+            },
+            todayIn = Time.isTodayInView(todayData);
 
         this.setState({
-            today: Time.isTodayInView(todayData), 
+            today: (this.state.week) ? todayIn.inWeek : todayIn.inMonth, 
             dateRange: this.getTimeRangeString(this.state.viewType, mdata.month),
             realMonth: mdata.month,
             currentMonthStart: mdata.start,  // the starting day of this calendar
@@ -81,7 +82,7 @@ class Calendar extends React.Component {
     handleToggleView(view){
 
         if (view === "today" && !this.state.today) {
-            this.updateTimeRange(Time.getWeekData, Time.getMonthData);
+            this.updateTimeRange(Time.getThisWeekData, Time.getThisMonthData);
         }
         if (view === "next") {
             this.updateTimeRange(Time.getNextWeekData, Time.getNextMonthData);
@@ -106,7 +107,7 @@ class Calendar extends React.Component {
 
         let week = this.state.week ? <CalendarWeek data={this.state.weekData} /> : '',
             month = this.state.month ? <CalendarMonth data={this.state.monthData} realmonth={this.state.realMonth.getMonth()} /> : '',
-            viewObj = { week: this.state.week, month: this.state.month, today: this.state.month };
+            viewObj = { week: this.state.week, month: this.state.month, today: this.state.today };
 
         return (
             <main className="calendar">

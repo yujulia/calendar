@@ -17,6 +17,9 @@ class CalButton extends React.Component {
     // --------------------------- button clicked, let parent know if button is on
 
     handleClick(e) {
+        let BTN = React.findDOMNode(this.refs.btn);
+        BTN.blur(); // clear focus in chrome...
+
         if (this.props.onBtnClick) {
             this.props.onBtnClick(this.props.id);
         }
@@ -39,13 +42,12 @@ class CalButton extends React.Component {
 
         if (this.props.id) { classArray.push("button--"+this.props.id)} // add element class
         if (this.props.classes) { classArray.push(this.props.classes); } // add passed in class
-        if (this.props.toggle){
-            if (this.props.on) { 
-                classArray.push("on"); // add on state
-            } else { 
-                classArray = _.without(classArray, "on"); // remove on state
-            }
+        if (this.props.on) { 
+            classArray.push("on"); // add on state
+        } else { 
+            classArray = _.without(classArray, "on"); // remove on state
         }
+        
         if (this.props.useicon){ buttonInside = this.renderIcon(); }
         
         return (

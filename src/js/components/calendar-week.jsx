@@ -19,7 +19,8 @@ class CalendarWeek extends React.Component {
         this.renderWeekHeader = this.renderWeekHeader.bind(this);
 
         this.state = {
-            hourData: Time.getHours()
+            hourData: Time.getHours(),
+            today : Time.current()
         }
     }
 
@@ -29,8 +30,15 @@ class CalendarWeek extends React.Component {
             dhtopkey = dhkey+1,
             dhbotkey = dhkey+2;
 
+        let todayClass = 'week__row__item', 
+            today = this.state.today;
+            
+        if (today.year == day.year && today.month == day.month && today.day == day.day) {
+            todayClass += ' today';
+        } 
+
         return (
-            <td className="week__row__item" data-month={day.month} data-day={ day.day } data-year={day.year} data-hour={hour.id} key={dhkey}>
+            <td className={todayClass} data-month={day.month} data-day={ day.day } data-year={day.year} data-hour={hour.id} key={dhkey}>
                 <div className="halfhour" data-month={day.month} data-day={ day.day } data-year={day.year} data-hour={hour.id} data-minute="0" key={dhtopkey}/>
                 <div className="halfhour divider" data-month={day.month} data-day={ day.day } data-year={day.year} data-hour={hour.id} data-minute="30" key={dhbotkey}/>
             </td>
@@ -40,7 +48,7 @@ class CalendarWeek extends React.Component {
     // --------------------------- render the week 
     renderHour(hour) {
         let wrlkey = "hourlbl"+hour.id;
-        
+
         return (
             <tr className="week__row" data-time={ hour.id } key={ hour.id }>
                 <th className="week__row__label" data-time={ hour.id } key={ wrlkey }>{hour.label}</th>
@@ -55,8 +63,15 @@ class CalendarWeek extends React.Component {
         let whkey = "wh"+i,
             dayName = Time.getDayNames()[i].slice(0,3);
 
+        let todayClass = 'week__header__item', 
+            today = this.state.today;
+            
+        if (today.year == day.year && today.month == day.month && today.day == day.day) {
+            todayClass += ' today';
+        } 
+
         return (
-            <th className="week__header__item" data-day={i} key={whkey}>
+            <th className={todayClass} data-day={i} key={whkey}>
                 <strong>{dayName}</strong> {day.month}/{day.day}
             </th>
         );

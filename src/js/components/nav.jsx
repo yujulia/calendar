@@ -24,19 +24,18 @@ class Nav extends React.Component {
     // --------------------------- RENDER
 
     render(){
-
         return (
             <nav className="nav">
                 <h1 className="logo">Calendar</h1>
                 <div className="nav__time">
-                    <CalButton text="Today" id="today" on={this.props.view.today} toggle={true} onBtnClick={this.handleClick}/>
+                    <CalButton text="Today" id="today" on={this.props.view.today} onBtnClick={this.handleClick}/>
                     <CalButton text="Prev" id="prev" useicon="icon-prev" onBtnClick={this.handleClick}/>
                     <CalButton text="Next" id="next" useicon="icon-next" onBtnClick={this.handleClick}/>
                 </div>
                 <date className="nav__today">{this.props.dateRange}</date>
                 <div className="nav__views">
-                    <CalButton text="Week" id="week" on={this.props.view.week} toggle={true} onBtnClick={this.handleClick}/>
-                    <CalButton text="Month" id="month" on={this.props.view.month} toggle={true} onBtnClick={this.handleClick} />
+                    <CalButton text="Week" id="week" on={this.props.view.week} onBtnClick={this.handleClick}/>
+                    <CalButton text="Month" id="month" on={this.props.view.month} onBtnClick={this.handleClick} />
                 </div>
             </nav>
         );

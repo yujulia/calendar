@@ -22,7 +22,7 @@ img {
 }
 
 :focus {
-    outline: solid 2px $color-google;
+    outline: none; // set on button
 }
 
 // --------------------------------
@@ -79,12 +79,22 @@ body {
         box-shadow: 0px 1px 1px rgba(0,0,0,.1);
     }
 
+    &:focus {
+        border: 1px solid $color-google;
+        box-shadow: 0px 1px 1px rgba(0,0,0,.1);
+        background: #F8F8F8;
+    }
+
     &.on {
         background: #ddd;
         border: 1px solid #ccc;
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
         color: #333;
         cursor: default;
+
+        &:focus {
+            border: solid 1px $color-google;
+        }
     }
 
     &--today {
@@ -107,6 +117,10 @@ body {
         
         &:hover {
             border-left: none;
+        }
+
+        &:focus {
+            border-left: solid 1px $color-google;
         }
     }
 }
@@ -139,10 +153,10 @@ body {
         border-bottom: $border;
         position: fixed;
         top: $nav-h;
-        left: $aside-w;
+        left: $aside-w - 1;
         transition: 0;
         display: table;
-        width: calc(100% - 234px);
+        width: calc(100% - 233px);
         height: $theader-h;
 
         &__row {
@@ -154,7 +168,8 @@ body {
             width: $days-col-w;
             font-weight: $regular;
             font-size: 12px;  
-            // border-left: $border;
+            border-left: solid 1px transparent;
+
         }
 
         .empty {
@@ -218,6 +233,10 @@ body {
     color: $color-lightest-font;
 }
 
+.today {
+    background-color: #efefef;
+}
+
 // ------------------------------------ month view
 .month {
     width: calc(100% - 20px);
@@ -248,10 +267,6 @@ body {
         &:first-child {
             border-left: $border;
         }
-    }
-
-    .today {
-        background-color: #efefef;
     }
 
 }

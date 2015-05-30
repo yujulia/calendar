@@ -52,8 +52,9 @@ class CalendarMonth extends React.Component {
             dayString = <span className="fade">{ dayString }</span>;
         }
 
-        let todayClass = 'month__item', today = this.state.today;
-
+        let todayClass = 'month__item', 
+            today = this.state.today;
+            
         if (today.year == day.year && today.month == day.month && today.day == day.day) {
             todayClass += ' today';
         } 

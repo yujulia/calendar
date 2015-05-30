@@ -193,16 +193,15 @@ let Time = () => {
     // return: return: OBJ { data, date }
 
     let findWeekData = (somedate) => {
-        let thisDate = somedate ? new Date(somedate) : new Date();
-        let thisWeek = fullWeek(thisDate);
-
-        return { 
-            data: getDays(thisWeek.start, thisWeek.end), 
-            start: new Date(thisWeek.start.year, thisWeek.start.month, thisWeek.start.day),
-            end: new Date(thisWeek.end.year, thisWeek.end.month, thisWeek.end.day),
-            date: thisDate 
-        };
-
+        let thisDate = somedate ? new Date(somedate) : new Date(),
+            thisWeek = fullWeek(thisDate),
+            wdata = { 
+                data: getDays(thisWeek.start, thisWeek.end), 
+                start: new Date(thisWeek.start.year, thisWeek.start.month, thisWeek.start.day),
+                end: new Date(thisWeek.end.year, thisWeek.end.month, thisWeek.end.day),
+                date: thisDate 
+            };
+            return wdata;
     }
 
     // ------------------------------------------- get next month's data
@@ -249,6 +248,27 @@ let Time = () => {
         return findWeekData(thisDate);
     };
 
+    // ------------------------------------------- get current week data
+    // args:
+    // return: OBJ { data, date }
+
+    let thisWeekData = () => {
+        let thisDate = new Date();
+
+        return findWeekData(thisDate);
+    };
+
+    // ------------------------------------------- get current month's data
+    // args: 
+    // return: OBJ { data, date }
+
+    let thisMonthData = () => {   
+        let thisDate = new Date();
+
+        return findMonthData(thisDate);
+    };
+
+
     // ------------------------------------------- format date range
     // args: STR type, DATE somedate
     // return STR 
@@ -266,16 +286,9 @@ let Time = () => {
                 sameMonth = (thisWeek.start.month == thisWeek.end.month) ? true : false,
                 temp = monthNames[thisWeek.start.month] + " " + thisWeek.start.day;
 
-            if (!sameYear) {
-                temp += thisWeek.start.year;
-            }
-
+            if (!sameYear) { temp += thisWeek.start.year; }
             temp += " - ";
-
-            if (!sameMonth) {
-                temp += monthNames[thisWeek.end.month]; 
-            }
-
+            if (!sameMonth) { temp += monthNames[thisWeek.end.month];  }
             temp += " " + thisWeek.end.day + " " + thisWeek.end.year;
 
             return temp;
@@ -307,8 +320,6 @@ let Time = () => {
             if (todayMS >= data.wstart && todayMS <= data.wend ) {
                 todayInWeek = true;
             }
-
-            console.log("today in month? ", todayInMonth, " in week ", todayInWeek);
         return {
             inMonth : todayInMonth,
             inWeek : todayInWeek
@@ -326,9 +337,9 @@ let Time = () => {
 
         getHours: () => { return makeHours(); },
 
-        getMonthData: (somedate) => { return findMonthData(somedate); },
+        getThisMonthData: () => { return thisMonthData(); },
 
-        getWeekData: (somedate) => { return findWeekData(somedate); },
+        getThisWeekData: () => { return thisWeekData(); },
 
         getNextMonthData: (somedate) => { return nextMonthData(somedate); },
 

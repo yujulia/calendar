@@ -520,7 +520,7 @@ img {
   display: block; }
 
 :focus {
-  outline: solid 2px #dd4b39; }
+  outline: none; }
 
 body {
   color: #222;
@@ -568,12 +568,18 @@ body {
     border: 1px solid #C6C6C6;
     color: #dd4b39;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1); }
+  .button:focus {
+    border: 1px solid #dd4b39;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+    background: #F8F8F8; }
   .button.on {
     background: #ddd;
     border: 1px solid #ccc;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
     color: #333;
     cursor: default; }
+    .button.on:focus {
+      border: solid 1px #dd4b39; }
   .button--today {
     margin-right: 7px; }
   .button--prev, .button--week {
@@ -587,6 +593,8 @@ body {
     border-left: none; }
     .button--next:hover, .button--month:hover {
       border-left: none; }
+    .button--next:focus, .button--month:focus {
+      border-left: solid 1px #dd4b39; }
 
 .access-text {
   position: absolute;
@@ -608,10 +616,10 @@ body {
     border-bottom: solid 1px #ddd;
     position: fixed;
     top: 40px;
-    left: 200px;
+    left: 199px;
     transition: 0;
     display: table;
-    width: calc(100% - 234px);
+    width: calc(100% - 233px);
     height: 40px; }
     .week__header__row {
       display: table-row; }
@@ -619,7 +627,8 @@ body {
       display: table-cell;
       width: 10%;
       font-weight: 400;
-      font-size: 12px; }
+      font-size: 12px;
+      border-left: solid 1px transparent; }
     .week__header .empty {
       border-color: transparent; }
       .week__header .empty span {
@@ -659,6 +668,9 @@ body {
 .fade {
   color: #ccc; }
 
+.today {
+  background-color: #efefef; }
+
 .month {
   width: calc(100% - 20px);
   height: 100%;
@@ -678,8 +690,6 @@ body {
     color: #666; }
     .month__item:first-child {
       border-left: solid 1px #ddd; }
-  .month .today {
-    background-color: #efefef; }
 
 @-moz-document url-prefix() {
   .container {
