@@ -1,8 +1,9 @@
 /*! Calendar week view
 **/
 import React from "react/addons";
-import { genTimeTable, timestuff } from "../helpers/time";
+import timestuff from "../helpers/time";
 
+let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 /** REACT component Week
 */
@@ -12,26 +13,51 @@ class CalendarWeek extends React.Component {
         super();
 
         this.render = this.render.bind(this);
-        this.renderDays = this.renderDays.bind(this);
-        this.renderWeek = this.renderWeek.bind(this);
+        this.renderDay = this.renderDay.bind(this);
+        this.renderHour = this.renderHour.bind(this);
         this.renderWeekHeader = this.renderWeekHeader.bind(this);
+        this.setData = this.setData.bind(this);
+
+        this.state = {
+            weekData: [],
+            hourData: []
+        };
+    }
+
+    // --------------------------- load data
+    componentWillMount() {
+        this.setData();
+    }
+
+    // --------------------------- week data
+    setData(){
+        this.setState({ 
+            weekData: timestuff.getDays(this.props.week.weekStart, this.props.week.weekEnd), 
+            hourData: timestuff.getHours() 
+        });
     }
 
     // --------------------------- render the week day 
-    renderDays(day, i) {
-        if (i == 0) { i = 7; }
-        return (<td className="week__row__item" data-day={i} key={i}><div className="divider" /></td>);
+    renderDay(hour, day, i) {
+        let dhkey = day.day + hour.id +i,
+            dhtopkey = dhkey+1,
+            dhbotkey = dhkey+2;
+
+        return (
+            <td className="week__row__item" data-month={day.month} data-day={ day.day } data-year={day.year} data-hour={hour.id} key={dhkey}>
+                <div className="halfhour" data-month={day.month} data-day={ day.day } data-year={day.year} data-hour={hour.id} data-minute="0" key={dhtopkey}/>
+                <div className="halfhour divider" data-month={day.month} data-day={ day.day } data-year={day.year} data-hour={hour.id} data-minute="30" key={dhbotkey}/>
+            </td>
+        );
     }
 
     // --------------------------- render the week 
-    renderWeek(stamp, i) {
-        if (i == 0 ) { i = 24; }
-        let dayNames = timestuff.getDayNames();
-
+    renderHour(hour) {
+        let wrlkey = "hourlbl"+hour.id;
         return (
-            <tr className="week__row" data-time={i} key={i}>
-                <th className="week__row__label">{stamp}</th>
-                { dayNames.map(this.renderDays) }
+            <tr className="week__row" data-time={ hour.id } key={ hour.id }>
+                <th className="week__row__label" data-time={ hour.id } key={ wrlkey }>{hour.label}</th>
+                { this.state.weekData.map(function(day, hour, i){ return this.renderDay.apply(this, arguments) }.bind(this, hour)) }
             </tr>
         );
     }
@@ -39,16 +65,19 @@ class CalendarWeek extends React.Component {
     // --------------------------- render the week headers
 
     renderWeekHeader(day, i) {
-        if (i == 0) { i = 7; }
-        return (<th className="week__header__item" data-day={i} key={i}><strong>{day.slice(0, 3)}</strong> 10/10</th>);
+        let whkey = "wh"+i,
+            dayName = timestuff.getDayNames()[i].slice(0,3);
+
+
+        return (
+            <th className="week__header__item" data-day={i} key={whkey}>
+                <strong>{dayName}</strong> {day.month}/{day.day}
+            </th>
+        );
     }
 
     // --------------------------- RETURN
     render(){
-   
-        let timeStamps = genTimeTable();    // get the list of times
-        let dayNames = timestuff.getDayNames();
-        let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
         return (      
             <section className="container">
@@ -56,12 +85,14 @@ class CalendarWeek extends React.Component {
                 <table className="week" key="w">
                     <thead className="week__header" key="wh">
                         <tr className="week__header__row" key="whr">
-                            <th className="week__row__label empty" key="whre"><span key="whres">11pm</span></th>
-                            { dayNames.map(this.renderWeekHeader) }
+                            <th className="week__row__label empty" key="whre">
+                                <span key="whres" aria-hidden="true">00pm</span>
+                            </th>
+                            { this.state.weekData.map(this.renderWeekHeader) }
                         </tr>
                     </thead>
                     <tbody key="wb">
-                        { timeStamps.map(this.renderWeek) }
+                        { this.state.hourData.map(this.renderHour) }
                     </tbody>
                 </table>
                 </ReactCSSTransitionGroup>

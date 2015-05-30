@@ -5,7 +5,7 @@ import React from "react";
 import Nav from "./components/nav.jsx";
 import CalendarWeek from "./components/calendar-week.jsx";
 import CalendarMonth from "./components/calendar-month.jsx";
-import { timestuff } from "./helpers/time";
+import timestuff from "./helpers/time";
 
 class Calendar extends React.Component {
     constructor() {
@@ -47,8 +47,8 @@ class Calendar extends React.Component {
 
     render(){
 
-        let week = this.state.viewSelect.week ? <CalendarWeek week={ this.state.weekSelect } /> : '';
-        let month = this.state.viewSelect.month ? <CalendarMonth month={ this.state.monthSelect} /> : '';
+        let week = this.state.viewSelect.week ? <CalendarWeek week={ this.state.weekSelect } /> : '',
+            month = this.state.viewSelect.month ? <CalendarMonth month={ this.state.monthSelect} /> : '';
 
         return (
             <main className="calendar">

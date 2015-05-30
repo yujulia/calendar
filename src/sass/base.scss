@@ -208,6 +208,11 @@ body {
     border-top: dotted 1px #ccc;
 }
 
+.halfhour {
+    height: $hour-h/2;
+    
+}
+
 // ------------------------------------ month view
 .month {
     width: calc(100% - 20px);

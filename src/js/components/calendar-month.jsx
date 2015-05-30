@@ -2,7 +2,7 @@
 
 **/
 import React from "react/addons";
-import { timestuff } from "../helpers/time";
+import timestuff from "../helpers/time";
 import _ from "underscore";
 
 const WEEKDAYS = 7;
@@ -18,10 +18,11 @@ class CalendarMonth extends React.Component {
         super();
 
         this.render = this.render.bind(this);
-        this.renderDays = this.renderDays.bind(this);
-        this.renderWeeks = this.renderWeeks.bind(this);
+        this.renderDay = this.renderDay.bind(this);
+        this.renderWeek = this.renderWeek.bind(this);
         this.renderMonthHeader = this.renderMonthHeader.bind(this);
         this.setData = this.setData.bind(this);
+
         this.state = {
             data: [],
             weeks: 0
@@ -33,10 +34,27 @@ class CalendarMonth extends React.Component {
         this.setData();
     }
 
+    // --------------------------- find how many weeks in this month and every day
+    setData(){
+        let monthData = [],
+            start = 0,
+            weekCount = timestuff.getWeeks(this.props.month.monthStart, this.props.month.monthEnd),
+            days = timestuff.getDays(this.props.month.monthStart, this.props.month.monthEnd);
+
+        for (let i=0; i < weekCount; i++){
+            let myslice = days.slice(start, start+WEEKDAYS);
+            start = start + WEEKDAYS;
+            monthData.push(myslice);
+        }
+
+        this.setState({ weeks: weekCount, data: monthData });
+    }
+
     // --------------------------- render the week headers
 
     renderMonthHeader(day, i) {
         let mhkey = "mh"+i;
+
         return (
             <th className="month__header__item" data-day={i} key={mhkey}>
                 <strong>{day.slice(0, 3)}</strong>
@@ -45,41 +63,25 @@ class CalendarMonth extends React.Component {
     }
 
     // --------------------------- render days of this month
-    renderDays(day, i){
-        console.log(day.id);
+    renderDay(day, i){
         let dkey = "day"+day.id;
+
         return(
-            <td className="month__item" key={dkey}>
-             { day.day }
+            <td className="month__item" data-month={day.month} data-day={ day.day } data-year={day.year} key={dkey}>
+                { day.day }
             </td>
         );
     }
 
     // --------------------------- render weeks of this month
-    renderWeeks(week, i){
+    renderWeek(week, i){
         let wkey = "week"+i;
+
         return (
             <tr className="month__row" key={wkey}> 
-                { week.map(this.renderDays) }
+                { week.map(this.renderDay) }
             </tr>
         );
-    }
-
-    // --------------------------- find how many weeks in this month and every day
-    setData(){
-        let monthData = [];
-
-        let weekCount = timestuff.getWeeks(this.props.month.monthStart, this.props.month.monthEnd);
-        let days = timestuff.getDays(this.props.month.monthStart, this.props.month.monthEnd);
-
-        let start = 0;
-        for (let i=0; i < weekCount; i++){
-            let myslice = days.slice(start, start+WEEKDAYS);
-            start = start + WEEKDAYS;
-            monthData.push(myslice);
-        }
-
-        this.setState({ weeks: weekCount, data: monthData });
     }
 
     // --------------------------- RENDER
@@ -96,7 +98,7 @@ class CalendarMonth extends React.Component {
                         </tr>
                     </thead>
                     <tbody key="mb">
-                        { this.state.data.map(this.renderWeeks) }
+                        { this.state.data.map(this.renderWeek) }
                     </tbody>
                 </table>
                 </ReactCSSTransitionGroup>

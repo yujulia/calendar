@@ -1,33 +1,3 @@
-
-/** generate the time stamp labels in array form
-*/
-let genTimeTable = () => {
-
-    let stampArray = [];
-
-    for (let i=24; i>0; i--){
-        let timestamp = 0;
-        if (i > 12) { 
-            let amdiff = 24-i;
-            if (amdiff == 0) {
-                timestamp = '12am';
-            } else {
-                timestamp = 24-i + 'am'; 
-            }
-        } else { 
-            let pmdiff = 12-i;
-            if (pmdiff == 0) {
-                timestamp = '12pm'; 
-            } else {
-                timestamp = pmdiff +'pm'; 
-            }
-        }
-        stampArray.push(timestamp);
-    }
-
-    return stampArray;
-};
-
 /** some useful date/time methods
 */
 let timestuff = () => {
@@ -57,10 +27,43 @@ let timestuff = () => {
         'December'
     ];
 
-    let getDaysInMonth = (
-        month, year) => {
+    // find how many days in a certain month
+
+    let getDaysInMonth = (month, year) => {
         return new Date(year, month+1, 0).getDate();
     };
+
+    // make the array of time stamps
+    // return array of objects 
+
+    let makeHours = () => {
+        let hourArray = [];
+
+        for (let i=24; i>0; i--){
+
+            let timestamp = 0;
+
+            if (i > 12) { 
+                let amdiff = 24-i;
+                if (amdiff == 0) {
+                    timestamp = '12am';
+                } else {
+                    timestamp = amdiff + 'am'; 
+                }
+            } else { 
+                let pmdiff = 12-i;
+                if (pmdiff == 0) {
+                    timestamp = '12pm'; 
+                } else {
+                    timestamp = pmdiff +'pm'; 
+                }
+            }
+
+            hourArray.push({ id: i, label: timestamp });
+        }
+
+        return hourArray;
+    }
 
     // use somedate or current date
     // return formatted time obj
@@ -136,6 +139,7 @@ let timestuff = () => {
         while (startDate <= endDate) {
             let oneDate = formatDate(startDate);
             oneDate.id = i;
+            oneDate.month = oneDate.month+1; // fix month being off by 1
             days.push(oneDate);
             startDate.setDate(startDate.getDate()+1);
             i++;
@@ -156,6 +160,8 @@ let timestuff = () => {
 
         getMonthNames: () => { return monthNames; },
 
+        getHours: () => { return makeHours(); },
+
         getFullMonth: (somedate) => { return fullMonth(somedate); },
 
         getFullWeek: (somedate) => { return fullWeek(somedate); },
@@ -167,4 +173,4 @@ let timestuff = () => {
     }
 }();
 
-export { genTimeTable, timestuff };
+export default timestuff;

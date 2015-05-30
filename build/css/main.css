@@ -652,6 +652,9 @@ body {
 .divider {
   border-top: dotted 1px #ccc; }
 
+.halfhour {
+  height: 30px; }
+
 .month {
   width: calc(100% - 20px);
   height: 100%;
