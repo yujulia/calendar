@@ -180,8 +180,12 @@ let Time = () => {
     let findMonthData = (somedate) => {
         let thisDate = somedate ? new Date(somedate) : new Date();
         let thisMonth = fullMonth(thisDate);
+        
+        let realMonth = new Date(thisMonth.monthStart.year, thisMonth.monthStart.month, thisMonth.monthStart.day+10);
 
-        return { data: splitMonthToWeeks(thisMonth.monthStart, thisMonth.monthEnd), date: thisDate };
+        console.log("real month", realMonth, thisDate);
+
+        return { data: splitMonthToWeeks(thisMonth.monthStart, thisMonth.monthEnd), date: thisDate, month: realMonth };
     };
 
     // ------------------------------------------- given date, find this entire week's data
@@ -258,6 +262,8 @@ let Time = () => {
 
     let formatDateRange = (type, somedate) => {
         let thisDate = somedate ? new Date(somedate) : new Date();
+
+        console.log(thisDate);
 
         if (type == "m") {
             return monthNames[ thisDate.getMonth() ] + " " + thisDate.getFullYear();

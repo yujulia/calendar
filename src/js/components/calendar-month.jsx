@@ -41,15 +41,11 @@ class CalendarMonth extends React.Component {
     renderDay(day, i){
         let dkey = "day"+day.id, dayString;
 
-            // dayNumber = (day.month == this.props.month) ? day.day : <span className="fade">{ day.day }</span>,
-            // monName = (day.day == 1) ? this.state.monthNames[day.month-1].slice(0,3)+' ' : '';
-
         if (day.day == 1) {
             dayString = this.state.monthNames[day.month-1].slice(0,3) + " " + day.day;
         } else {
             dayString = day.day;
         }
-
         if (day.month !== this.props.month ) {
             dayString = <span className="fade">{ dayString }</span>;
         }
