@@ -13,16 +13,20 @@ class Calendar extends React.Component {
         super();
         this.render = this.render.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.getDateRangeString = this.getDateRangeString.bind(this);
         this.handleToggleView = this.handleToggleView.bind(this);
+        this.updateTimeRange = this.updateTimeRange.bind(this);
+
 
         this.state = {
             week : false,
             month : true,
             today : true,
-
+            viewType: "month",
             todayDate: new Date(),
             currentMonth: new Date(),
             currentWeekStart: Time.getWeekStartDate(),
+            dateRange: Time.getDateRange("m"),
 
             monthData: Time.getMonthData().data,
             weekData: Time.getWeekData().data
@@ -35,6 +39,22 @@ class Calendar extends React.Component {
 
     }
 
+    // --------------------------- 
+    getDateRangeString(type){
+        let title = "Wibbly Wobbly Timey Wimey";
+
+        console.log("GET ", type);
+        if (type == "month") {
+            title = Time.getDateRange("m", this.state.currentMonth);
+        }
+
+        if (type == "week") {
+            title = Time.getDateRange("w", this.state.currentWeekStart);
+        }
+
+        return title;
+    }
+
     // ---------------------------  update the range
 
     updateTimeRange(getweek, getmonth){
@@ -42,8 +62,13 @@ class Calendar extends React.Component {
         let weekData = getweek(this.state.currentWeekStart);
         let monthData = getmonth(this.state.currentMonth);
 
+        console.log("V", this.state);
+
+        let somestring = this.getDateRangeString(this.state.viewType);
+
         this.setState({
             today: false,
+            dateRange: somestring,
             currentMonth: new Date(monthData.date),
             currentWeekStart: new Date(weekData.date),
             monthData: monthData.data,
@@ -54,6 +79,7 @@ class Calendar extends React.Component {
     // --------------------------- the view needs to be changed
 
     handleToggleView(view){
+
         if (view === "today") {
             if (!this.state.today) {
                 this.updateTimeRange(Time.getWeekData, Time.getMonthData);
@@ -67,11 +93,11 @@ class Calendar extends React.Component {
         }
 
         if (view === "week") {
-            this.setState({ week: true, month: false });
+            this.setState({ week: true, month: false, viewType: view, dateRange: this.getDateRangeString(view) });
         }
 
         if (view === "month") {
-            this.setState({ week: false, month: true });
+            this.setState({ week: false, month: true, viewType: view, dateRange: this.getDateRangeString(view) });
         }
 
     }
@@ -87,7 +113,7 @@ class Calendar extends React.Component {
 
         return (
             <main className="calendar">
-                <Nav onToggleView={ this.handleToggleView.bind(this) } viewSelect={this.state} />
+                <Nav onToggleView={ this.handleToggleView.bind(this) } viewSelect={this.state} dateRange={ this.state.dateRange } />
                 { week }{ month }
             </main>
         );

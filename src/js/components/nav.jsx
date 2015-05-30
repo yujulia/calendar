@@ -77,6 +77,8 @@ class Nav extends React.Component {
     // --------------------------- RENDER
 
     render(){
+        console.log("render nav");
+
         return (
             <nav className="nav">
                 <h1 className="logo">Calendar</h1>
@@ -87,7 +89,7 @@ class Nav extends React.Component {
                     <CalButton text="Next" id="next" useicon="icon-next" onBtnClick={ this.handleNext }/>
                 </div>
 
-                <date className="nav__today">April 2015</date>
+                <date className="nav__today">{ this.props.dateRange }</date>
 
                 <div className="nav__views">
                     <CalButton text="Week" id="week" on={ this.state.showWeek } toggle={true} onBtnClick={ this.handleWeekClick.bind(this) }/>

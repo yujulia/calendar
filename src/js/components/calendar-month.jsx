@@ -19,6 +19,10 @@ class CalendarMonth extends React.Component {
         this.renderDay = this.renderDay.bind(this);
         this.renderWeek = this.renderWeek.bind(this);
         this.renderMonthHeader = this.renderMonthHeader.bind(this);
+
+        this.state = {
+            monthNames : Time.getMonthNames()
+        }
     }
 
     // --------------------------- render the week headers
@@ -35,12 +39,24 @@ class CalendarMonth extends React.Component {
 
     // --------------------------- render days of this month
     renderDay(day, i){
-        let dkey = "day"+day.id,
-            dayNumber = (day.month == this.props.month) ? day.day : <span className="fade">{ day.day }</span>;
+        let dkey = "day"+day.id, dayString;
+
+            // dayNumber = (day.month == this.props.month) ? day.day : <span className="fade">{ day.day }</span>,
+            // monName = (day.day == 1) ? this.state.monthNames[day.month-1].slice(0,3)+' ' : '';
+
+        if (day.day == 1) {
+            dayString = this.state.monthNames[day.month-1].slice(0,3) + " " + day.day;
+        } else {
+            dayString = day.day;
+        }
+
+        if (day.month !== this.props.month ) {
+            dayString = <span className="fade">{ dayString }</span>;
+        }
 
         return(
             <td className="month__item" data-month={day.month} data-day={ day.day } data-year={day.year} key={dkey}>
-                { dayNumber } 
+                { dayString } 
             </td>
         );
     }
@@ -60,7 +76,7 @@ class CalendarMonth extends React.Component {
 
     render(){
         console.log("render month");
-        
+
         return (      
             <section className="container">
                 <ReactCSSTransitionGroup transitionName="month" transitionAppear={true}>

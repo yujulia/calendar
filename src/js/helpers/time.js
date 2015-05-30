@@ -252,6 +252,40 @@ let Time = () => {
         return findWeekData(thisDate);
     };
 
+    // ------------------------------------------- format date range
+    // args: STR type, DATE somedate
+    // return STR 
+
+    let formatDateRange = (type, somedate) => {
+        let thisDate = somedate ? new Date(somedate) : new Date();
+
+        if (type == "m") {
+            return monthNames[ thisDate.getMonth() ] + " " + thisDate.getFullYear();
+        }
+
+        if (type == "w"){
+            let thisWeek = fullWeek(thisDate),
+                sameYear = (thisWeek.weekStart.year == thisWeek.weekEnd.year) ? true : false,
+                sameMonth = (thisWeek.weekStart.month == thisWeek.weekEnd.month) ? true : false,
+                temp = monthNames[thisWeek.weekStart.month] + " " + thisWeek.weekStart.day;
+
+            if (!sameYear) {
+                temp += thisWeek.weekStart.year;
+            }
+
+            temp += " - ";
+
+            if (!sameMonth) {
+                temp += monthNames[thisWeek.weekEnd.month]; 
+            }
+
+            temp += " " + thisWeek.weekEnd.day + " " + thisWeek.weekEnd.year;
+
+            return temp;
+        }
+
+    };
+
 
     return {
 
@@ -275,7 +309,9 @@ let Time = () => {
 
         getPrevMonthData: (somedate) => { return prevMonthData(somedate); },
 
-        getPrevWeekData: (somedate) => { return prevWeekData(somedate); }
+        getPrevWeekData: (somedate) => { return prevWeekData(somedate); },
+
+        getDateRange: (type, somedate) => { return formatDateRange(type, somedate); }
 
     }
 }();

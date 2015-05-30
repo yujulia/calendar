@@ -336,7 +336,8 @@ body {
 .month {
   width: calc(100% - 20px);
   height: 100%;
-  min-height: 400px; }
+  min-height: 400px;
+  table-layout: fixed; }
   .month__header__item {
     font-weight: 400;
     font-size: 12px;
