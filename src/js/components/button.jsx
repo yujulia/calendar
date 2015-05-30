@@ -12,15 +12,13 @@ class CalButton extends React.Component {
         this.render = this.render.bind(this);   
         this.handleClick = this.handleClick.bind(this);
         this.renderIcon = this.renderIcon.bind(this);
-
-        this.state = { on: false };
     }
 
     // --------------------------- button clicked, let parent know if button is on
 
     handleClick(e) {
         if (this.props.onBtnClick) {
-            this.props.onBtnClick(this.props.on);
+            this.props.onBtnClick(this.props.id);
         }
     }
 
@@ -36,8 +34,8 @@ class CalButton extends React.Component {
     // --------------------------- RENDER
 
     render(){
-        let classArray = ["button"];
-        let buttonInside = this.props.text;
+        let classArray = ["button"],
+            buttonInside = this.props.text;
 
         if (this.props.id) { classArray.push("button--"+this.props.id)} // add element class
         if (this.props.classes) { classArray.push(this.props.classes); } // add passed in class

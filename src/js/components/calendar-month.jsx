@@ -21,7 +21,8 @@ class CalendarMonth extends React.Component {
         this.renderMonthHeader = this.renderMonthHeader.bind(this);
 
         this.state = {
-            monthNames : Time.getMonthNames()
+            monthNames : Time.getMonthNames(),
+            today : Time.current()
         }
     }
 
@@ -39,19 +40,26 @@ class CalendarMonth extends React.Component {
 
     // --------------------------- render days of this month
     renderDay(day, i){
-        let dkey = "day"+day.id, dayString;
+        let dkey = "day"+day.id, 
+            dayString='';
 
         if (day.day == 1) {
-            dayString = this.state.monthNames[day.month-1].slice(0,3) + " " + day.day;
+            dayString = this.state.monthNames[day.month].slice(0,3) + " " + day.day;
         } else {
             dayString = day.day;
         }
-        if (day.month !== this.props.month ) {
+        if (day.month !== this.props.realmonth ) {
             dayString = <span className="fade">{ dayString }</span>;
         }
 
+        let todayClass = 'month__item', today = this.state.today;
+
+        if (today.year == day.year && today.month == day.month && today.day == day.day) {
+            todayClass += ' today';
+        } 
+
         return(
-            <td className="month__item" data-month={day.month} data-day={ day.day } data-year={day.year} key={dkey}>
+            <td className={todayClass} data-month={day.month} data-day={ day.day } data-year={day.year} key={dkey}>
                 { dayString } 
             </td>
         );

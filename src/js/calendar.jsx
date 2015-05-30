@@ -12,43 +12,37 @@ class Calendar extends React.Component {
     constructor() {
         super();
         this.render = this.render.bind(this);
-        this.componentDidMount = this.componentDidMount.bind(this);
-        this.getDateRangeString = this.getDateRangeString.bind(this);
-        this.handleToggleView = this.handleToggleView.bind(this);
+        this.getTimeRangeString = this.getTimeRangeString.bind(this);
         this.updateTimeRange = this.updateTimeRange.bind(this);
+        this.handleToggleView = this.handleToggleView.bind(this);
 
+        let mdata = Time.getMonthData(),
+            wdata = Time.getWeekData();
 
         this.state = {
             week : false,
             month : true,
             today : true,
             viewType: "month",
-            todayDate: new Date(),
-            realMonth: new Date(),
-            currentMonthStart: new Date(),
-            currentWeekStart: Time.getWeekStartDate(),
-            dateRange: Time.getDateRange("m"),
-
-            monthData: Time.getMonthData().data,
-            weekData: Time.getWeekData().data
+            realMonth: mdata.month, // the month we are actually on
+            currentMonthStart: mdata.start,  // the starting day of this calendar
+            currentMonthEnd: mdata.end,
+            currentWeekStart: wdata.start, // the starting date of this week
+            currentWeekEnd: wdata.end,
+            dateRange: Time.getDateRange("m"), // the string title of the date range
+            monthData: mdata.data, 
+            weekData: wdata.data 
         };
     }
 
-    // --------------------------- 
+    // --------------------------- get the time range as string
 
-    componentDidMount(){
-
-    }
-
-    // --------------------------- 
-    getDateRangeString(type, realmonth){
+    getTimeRangeString(type, realmonth){
         let title = "Wibbly Wobbly Timey Wimey";
-
         if (type == "month") {
             realmonth = realmonth ? realmonth : this.state.realMonth;
             title = Time.getDateRange("m", realmonth);
         }
-
         if (type == "week") {
             title = Time.getDateRange("w", this.state.currentWeekStart);
         }
@@ -60,17 +54,25 @@ class Calendar extends React.Component {
 
     updateTimeRange(getweek, getmonth){
         // test if today is true or false in here?
-        let weekData = getweek(this.state.currentWeekStart),
-            monthData = getmonth(this.state.currentMonthStart);
+        let wdata = getweek(this.state.currentWeekStart),
+            mdata = getmonth(this.state.realMonth),
+            todayData = {
+                mstart : mdata.start,
+                mend : mdata.end,
+                wstart : wdata.start,
+                wend : wdata.start
+            };
 
         this.setState({
-            today: false,
-            dateRange: this.getDateRangeString(this.state.viewType, monthData.month),
-            realMonth: new Date(monthData.month),
-            currentMonthStart: new Date(monthData.date),
-            currentWeekStart: new Date(weekData.date),
-            monthData: monthData.data,
-            weekData: weekData.data
+            today: Time.isTodayInView(todayData), 
+            dateRange: this.getTimeRangeString(this.state.viewType, mdata.month),
+            realMonth: mdata.month,
+            currentMonthStart: mdata.start,  // the starting day of this calendar
+            currentMonthEnd: mdata.end,
+            currentWeekStart: wdata.start, // the starting date of this week
+            currentWeekEnd: wdata.end,
+            monthData: mdata.data, 
+            weekData: wdata.data 
         });
     }
 
@@ -78,10 +80,8 @@ class Calendar extends React.Component {
 
     handleToggleView(view){
 
-        if (view === "today") {
-            if (!this.state.today) {
-                this.updateTimeRange(Time.getWeekData, Time.getMonthData);
-            }
+        if (view === "today" && !this.state.today) {
+            this.updateTimeRange(Time.getWeekData, Time.getMonthData);
         }
         if (view === "next") {
             this.updateTimeRange(Time.getNextWeekData, Time.getNextMonthData);
@@ -90,12 +90,12 @@ class Calendar extends React.Component {
             this.updateTimeRange(Time.getPrevWeekData, Time.getPrevMonthData); 
         }
 
-        if (view === "week") {
-            this.setState({ week: true, month: false, viewType: view, dateRange: this.getDateRangeString(view) });
+        if ((view === "week") && (view !== this.state.viewType)) {
+            this.setState({ week: true, month: false, viewType: view, dateRange: this.getTimeRangeString(view) });
         }
 
-        if (view === "month") {
-            this.setState({ week: false, month: true, viewType: view, dateRange: this.getDateRangeString(view) });
+        if ((view === "month") && (view !== this.state.viewType)) {
+            this.setState({ week: false, month: true, viewType: view, dateRange: this.getTimeRangeString(view) });
         }
 
     }
@@ -104,14 +104,13 @@ class Calendar extends React.Component {
 
     render(){
 
-        console.log("render calendar");
-
-        let week = this.state.week ? <CalendarWeek data={ this.state.weekData } /> : '',
-            month = this.state.month ? <CalendarMonth data={ this.state.monthData } month={ this.state.currentMonthStart.getMonth() + 1 } /> : '';
+        let week = this.state.week ? <CalendarWeek data={this.state.weekData} /> : '',
+            month = this.state.month ? <CalendarMonth data={this.state.monthData} realmonth={this.state.realMonth.getMonth()} /> : '',
+            viewObj = { week: this.state.week, month: this.state.month, today: this.state.month };
 
         return (
             <main className="calendar">
-                <Nav onToggleView={ this.handleToggleView.bind(this) } viewSelect={this.state} dateRange={ this.state.dateRange } />
+                <Nav onToggleView={ this.handleToggleView } view={viewObj} dateRange={this.state.dateRange} />
                 { week }{ month }
             </main>
         );
