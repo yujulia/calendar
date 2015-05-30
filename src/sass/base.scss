@@ -30,7 +30,6 @@ img {
 body {
     color: $color-font;
     font: 13px $font-base;
-    overflow: hidden;
 }
 
 .nav {
@@ -213,6 +212,7 @@ body {
 .month {
     width: calc(100% - 20px);
     height: 100%;
+    min-height: 400px;
 
     &__header {
         &__item {

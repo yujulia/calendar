@@ -83,7 +83,7 @@ let timestuff = () => {
     // uses somedate or current date
     // returns array of formatted date objects
 
-    let getFullWeek = (somedate) => {
+    let fullWeek = (somedate) => {
         let rightnow = somedate ? new Date(somedate) : new Date();
         rightnow.setHours(0,0,0,0);
 
@@ -97,9 +97,9 @@ let timestuff = () => {
     };
 
     // uses somedate or current date
-    // like get week return the date names from start of month to end of month
+    // return the formatted dates from start of month to end of month
 
-    let getFullMonth = (somedate) => {
+    let fullMonth = (somedate) => {
         let rightnow = somedate ? new Date(somedate) : new Date();
 
         let month = rightnow.getMonth();
@@ -108,13 +108,13 @@ let timestuff = () => {
         let firstday = new Date(year, month, 1);
         let lastday =  new Date(year, month, getDaysInMonth(month, year));
  
-        return { monthStart: getFullWeek(firstday).weekStart, monthEnd: getFullWeek(lastday).weekEnd };
+        return { monthStart: fullWeek(firstday).weekStart, monthEnd: fullWeek(lastday).weekEnd };
     };
 
     // takes in FORMATTED objects not date objects
     // count how many weeks are in this month
 
-    let getCountWeeks = (start, end) => {
+    let countWeeks = (start, end) => {
         const MS_WEEK = 1000 * 60 * 60 * 24 * 7;
 
         let startInMS = Date.UTC(start.year, start.month, start.day);
@@ -123,62 +123,46 @@ let timestuff = () => {
         return Math.ceil((endInMS - startInMS) / MS_WEEK);
     }
 
+    // given formatted objects range of days
+    // return array of formatted objects + an id
+
+    let countDays = (start, end) => {
+
+        let days = [], 
+            i = 0, 
+            startDate = new Date(start.year, start.month, start.day),
+            endDate = new Date(end.year, end.month, end.day);
+
+        while (startDate <= endDate) {
+            let oneDate = formatDate(startDate);
+            oneDate.id = i;
+            days.push(oneDate);
+            startDate.setDate(startDate.getDate()+1);
+            i++;
+        }
+
+        return days;
+    }
+
+
+
     // make date readable by returning an object
     // optional date object
     return {
-        
-        // takes month int and year int, note MONTH is 1 off bc DATE makes no sense
-        // returns INT
 
-        daysInMonth: (month, year) => {
-            return getDaysInMonth();
-        },
+        current: () => { return formatDate(); },
 
-        // ------------------------------ helpers for current time
+        getDayNames: () => { return dayNames; },
 
-        current: () => {
-            return formatDate();
-        },
+        getMonthNames: () => { return monthNames; },
 
-        currentMonth: () => {
-            return new Date().getMonth();
-        },
+        getFullMonth: (somedate) => { return fullMonth(somedate); },
 
-        currentYear: () => {
-            return new Date().getFullYear();
-        },
+        getFullWeek: (somedate) => { return fullWeek(somedate); },
 
-        currentDate: () => {
-            return new Date().getDate();
-        },
+        getWeeks: (start, end) => { return countWeeks(start, end); },
 
-        currentHour: () => {
-            return new Date().getHours();
-        },
-
-        currentMinute: () => {
-            return new Date().getMinutes();
-        },
-
-        currentFullMonth: () => {
-            return getFullMonth();
-        },
-
-        currentFullWeek: () => {
-            return getFullWeek();
-        },
-
-        getDayNames: () => {
-            return dayNames;
-        },
-
-        getMonthNames: () => {
-            return monthNames;
-        },
-
-        countWeeks: (start, end) => {
-            return getCountWeeks(start, end);
-        }
+        getDays: (start, end) => { return countDays(start, end) }
 
     }
 }();

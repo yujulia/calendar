@@ -19,8 +19,8 @@ class Calendar extends React.Component {
                 month : false,
                 today : true
             },
-            monthSelect : timestuff.currentFullMonth(),
-            weekSelect : timestuff.currentFullWeek()
+            monthSelect : timestuff.getFullMonth(),
+            weekSelect : timestuff.getFullWeek()
         };
     }
 

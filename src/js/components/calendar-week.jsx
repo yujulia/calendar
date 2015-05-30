@@ -3,8 +3,6 @@
 import React from "react/addons";
 import { genTimeTable, timestuff } from "../helpers/time";
 
-let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-
 
 /** REACT component Week
 */
@@ -50,6 +48,7 @@ class CalendarWeek extends React.Component {
    
         let timeStamps = genTimeTable();    // get the list of times
         let dayNames = timestuff.getDayNames();
+        let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
         return (      
             <section className="container">
