@@ -210,7 +210,11 @@ body {
 
 .halfhour {
     height: $hour-h/2;
-    
+
+}
+
+.fade {
+    color: $color-lightest-font;
 }
 
 // ------------------------------------ month view
@@ -237,6 +241,7 @@ body {
         border-right: $border;
         padding: 5px;
         vertical-align: top;
+        color: $color-lighter-font;
 
         &:first-child {
             border-left: $border;

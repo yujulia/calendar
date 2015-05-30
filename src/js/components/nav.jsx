@@ -83,8 +83,8 @@ class Nav extends React.Component {
 
                 <div className="nav__time">
                     <CalButton text="Today" id="today" on={ this.state.today } toggle={true} onBtnClick={ this.handleTodayClick }/>
-                    <CalButton text="Prev" id="prev" useicon="icon-prev" onBtnClick={ this.handleNext }/>
-                    <CalButton text="Next" id="next" useicon="icon-next" onBtnClick={ this.handlePrev }/>
+                    <CalButton text="Prev" id="prev" useicon="icon-prev" onBtnClick={ this.handlePrev }/>
+                    <CalButton text="Next" id="next" useicon="icon-next" onBtnClick={ this.handleNext }/>
                 </div>
 
                 <date className="nav__today">April 2015</date>

@@ -1,4 +1,5 @@
 /*! Calendar week view
+
 **/
 import React from "react/addons";
 import Time from "../helpers/time";
@@ -16,25 +17,10 @@ class CalendarWeek extends React.Component {
         this.renderDay = this.renderDay.bind(this);
         this.renderHour = this.renderHour.bind(this);
         this.renderWeekHeader = this.renderWeekHeader.bind(this);
-        this.setData = this.setData.bind(this);
 
         this.state = {
-            weekData: [],
-            hourData: []
-        };
-    }
-
-    // --------------------------- load data
-    componentWillMount() {
-        this.setData();
-    }
-
-    // --------------------------- week data
-    setData(){
-        this.setState({ 
-            weekData: Time.getDays(this.props.week.weekStart, this.props.week.weekEnd), 
-            hourData: Time.getHours() 
-        });
+            hourData: Time.getHours()
+        }
     }
 
     // --------------------------- render the week day 
@@ -54,10 +40,11 @@ class CalendarWeek extends React.Component {
     // --------------------------- render the week 
     renderHour(hour) {
         let wrlkey = "hourlbl"+hour.id;
+        
         return (
             <tr className="week__row" data-time={ hour.id } key={ hour.id }>
                 <th className="week__row__label" data-time={ hour.id } key={ wrlkey }>{hour.label}</th>
-                { this.state.weekData.map(function(day, hour, i){ return this.renderDay.apply(this, arguments) }.bind(this, hour)) }
+                { this.props.data.map(function(day, hour, i){ return this.renderDay.apply(this, arguments) }.bind(this, hour)) }
             </tr>
         );
     }
@@ -87,7 +74,7 @@ class CalendarWeek extends React.Component {
                             <th className="week__row__label empty" key="whre">
                                 <span key="whres" aria-hidden="true">00pm</span>
                             </th>
-                            { this.state.weekData.map(this.renderWeekHeader) }
+                            { this.props.data.map(this.renderWeekHeader) }
                         </tr>
                     </thead>
                     <tbody key="wb">

@@ -330,6 +330,9 @@ body {
 .halfhour {
   height: 30px; }
 
+.fade {
+  color: #ccc; }
+
 .month {
   width: calc(100% - 20px);
   height: 100%;
@@ -344,7 +347,8 @@ body {
   .month__item {
     border-right: solid 1px #ddd;
     padding: 5px;
-    vertical-align: top; }
+    vertical-align: top;
+    color: #666; }
     .month__item:first-child {
       border-left: solid 1px #ddd; }
 

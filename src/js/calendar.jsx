@@ -8,52 +8,87 @@ import CalendarMonth from "./components/calendar-month.jsx";
 import Time from "./helpers/time";
 
 class Calendar extends React.Component {
+
     constructor() {
         super();
         this.render = this.render.bind(this);
-        this.componentWillMount = this.componentWillMount.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
+        this.handleToggleView = this.handleToggleView.bind(this);
 
         this.state = {
-            viewSelect : {
-                week : true,
-                month : false,
-                today : true
-            },
-            monthSelect : Time.getFullMonth(),
-            weekSelect : Time.getFullWeek()
+            week : false,
+            month : true,
+            today : true,
+
+            todayDate: new Date(),
+            currentMonth: new Date(),
+            currentWeekStart: Time.getWeekStartDate(),
+
+            monthData: Time.getMonthData().data,
+            weekData: Time.getWeekData().data
         };
     }
 
-    // ---------------------------  
-    componentWillMount(){
+    // --------------------------- 
+
+    componentDidMount(){
 
     }
 
-    // --------------------------- toggle between week and month
+    // ---------------------------  update the range
+
+    updateTimeRange(getweek, getmonth){
+        // test if today is true or false in here?
+        let weekData = getweek(this.state.currentWeekStart);
+        let monthData = getmonth(this.state.currentMonth);
+
+        this.setState({
+            today: false,
+            currentMonth: new Date(monthData.date),
+            currentWeekStart: new Date(weekData.date),
+            monthData: monthData.data,
+            weekData: weekData.data
+        });
+    }
+
+    // --------------------------- the view needs to be changed
 
     handleToggleView(view){
-        this.setState({ 
-            viewSelect: {
-                week: (view ==="week") ? true : false,
-                month: (view === "month") ? true: false,
-                today: (view === "today") ? true: false
+        if (view === "today") {
+            if (!this.state.today) {
+                this.updateTimeRange(Time.getWeekData, Time.getMonthData);
             }
-        });
+        }
+        if (view === "next") {
+            this.updateTimeRange(Time.getNextWeekData, Time.getNextMonthData);
+        }
+        if (view === "prev") {  
+            this.updateTimeRange(Time.getPrevWeekData, Time.getPrevMonthData); 
+        }
 
-        // other states like prev and next here
+        if (view === "week") {
+            this.setState({ week: true, month: false });
+        }
+
+        if (view === "month") {
+            this.setState({ week: false, month: true });
+        }
+
     }
 
     // --------------------------- RENDER
 
     render(){
 
-        let week = this.state.viewSelect.week ? <CalendarWeek week={ this.state.weekSelect } /> : '',
-            month = this.state.viewSelect.month ? <CalendarMonth month={ this.state.monthSelect} /> : '';
+        console.log("render calendar");
+
+        let week = this.state.week ? <CalendarWeek data={ this.state.weekData } /> : '',
+            month = this.state.month ? <CalendarMonth data={ this.state.monthData } month={ this.state.currentMonth.getMonth() + 1 } /> : '';
 
         return (
             <main className="calendar">
-                <Nav onToggleView={ this.handleToggleView.bind(this) } viewSelect={this.state.viewSelect} />
-                { week } { month }
+                <Nav onToggleView={ this.handleToggleView.bind(this) } viewSelect={this.state} />
+                { week }{ month }
             </main>
         );
     }

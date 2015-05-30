@@ -5,8 +5,6 @@ import React from "react/addons";
 import Time from "../helpers/time";
 import _ from "underscore";
 
-const WEEKDAYS = 7;
-
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 
@@ -21,33 +19,6 @@ class CalendarMonth extends React.Component {
         this.renderDay = this.renderDay.bind(this);
         this.renderWeek = this.renderWeek.bind(this);
         this.renderMonthHeader = this.renderMonthHeader.bind(this);
-        this.setData = this.setData.bind(this);
-
-        this.state = {
-            data: [],
-            weeks: 0
-        };
-    }
-
-    // --------------------------- load data
-    componentWillMount() {
-        this.setData();
-    }
-
-    // --------------------------- find how many weeks in this month and every day
-    setData(){
-        let monthData = [],
-            start = 0,
-            weekCount = Time.getWeeks(this.props.month.monthStart, this.props.month.monthEnd),
-            days = Time.getDays(this.props.month.monthStart, this.props.month.monthEnd);
-
-        for (let i=0; i < weekCount; i++){
-            let myslice = days.slice(start, start+WEEKDAYS);
-            start = start + WEEKDAYS;
-            monthData.push(myslice);
-        }
-
-        this.setState({ weeks: weekCount, data: monthData });
     }
 
     // --------------------------- render the week headers
@@ -64,11 +35,12 @@ class CalendarMonth extends React.Component {
 
     // --------------------------- render days of this month
     renderDay(day, i){
-        let dkey = "day"+day.id;
+        let dkey = "day"+day.id,
+            dayNumber = (day.month == this.props.month) ? day.day : <span className="fade">{ day.day }</span>;
 
         return(
             <td className="month__item" data-month={day.month} data-day={ day.day } data-year={day.year} key={dkey}>
-                { day.day }
+                { dayNumber } 
             </td>
         );
     }
@@ -87,6 +59,7 @@ class CalendarMonth extends React.Component {
     // --------------------------- RENDER
 
     render(){
+        console.log("render month");
         
         return (      
             <section className="container">
@@ -98,7 +71,7 @@ class CalendarMonth extends React.Component {
                         </tr>
                     </thead>
                     <tbody key="mb">
-                        { this.state.data.map(this.renderWeek) }
+                        { this.props.data.map(this.renderWeek) }
                     </tbody>
                 </table>
                 </ReactCSSTransitionGroup>
