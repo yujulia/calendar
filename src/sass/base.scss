@@ -22,8 +22,7 @@ img {
 }
 
 :focus {
-    outline: none;
-    border-bottom: solid 3px gray;
+    outline: solid 2px $color-google;
 }
 
 // --------------------------------
@@ -40,6 +39,7 @@ body {
     align-items: center;
     border-bottom: $border;
     padding: 9px $pad-right 9px $pad-left;
+    height: $nav-h; 
 
     .logo {
         @extend %nofrill;
@@ -76,12 +76,12 @@ body {
     &:hover {
         background: #F8F8F8;
         border: 1px solid #C6C6C6;
-        color: #333;
+        color: $color-google;
         box-shadow: 0px 1px 1px rgba(0,0,0,.1);
     }
 
     &.on {
-        background: #eee;
+        background: #ddd;
         border: 1px solid #ccc;
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
         color: #333;
@@ -96,6 +96,10 @@ body {
         border-bottom-right-radius: 0px;
     }
 
+    &--prev, &--next {
+        min-width: 0;
+    }
+
     &--next, &--month {
         border-top-left-radius: 0px;
         border-bottom-left-radius: 0px;
@@ -107,29 +111,36 @@ body {
     }
 }
 
-// ------------------------------------ week view
+.access-text { 
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
 
+
+// ------------------------------------ scrolling container
 .container {
     @extend %clearfix;
     position: fixed;
     margin-left: $aside-w;
-    height: 100%;
+    height: calc(100% - #{$nav-h});
     overflow-y: auto;
     width: calc(100% - #{$aside-w});
 }
 
+// ------------------------------------ week view
+
 .week {
     width: calc(100% - 20px);
-    margin: 0px 0 50px 0px;
     border-bottom: $border;
-    border-collapse: 0;
-
+  
     &__header {
         background-color: #fff;
         border-bottom: $border;
         position: fixed;
+        top: $nav-h;
         left: $aside-w;
-        -webkit-transform: translateZ(0);
+        transition: 0;
         display: table;
         width: calc(100% - 234px);
         height: $theader-h;
@@ -196,6 +207,71 @@ body {
 
 .divider {
     border-top: dotted 1px #ccc;
+}
+
+// ------------------------------------ month view
+.month {
+    width: calc(100% - 20px);
+    height: 100%;
+
+    &__header {
+        &__item {
+            font-weight: $regular;
+            font-size: 12px;  
+            height: $theader-h;
+            text-align: left;
+        }
+    }
+
+    &__row {
+        border-top: $border;
+
+    }
+
+    &__item {
+        border-right: $border;
+        padding: 5px;
+        vertical-align: top;
+
+        &:first-child {
+            border-left: $border;
+        }
+    }
+
+}
+
+// ------------------------------------  animations
+
+.month-appear {
+  @extend %transparent;
+}
+
+.month-appear.month-appear-active {
+  @extend %solid;
+}
+
+.month-leave {
+  @extend %solid;
+}
+
+.month-leave.month-leave-active {
+  @extend %transparent;
+}
+
+.week-appear {
+    @extend %transparent;
+}
+
+.week-appear.week-appear-active {
+    @extend %solid;
+}
+
+.week-leave {
+    @extend %solid;
+}
+
+.week-leave.week-leave-active {
+    @extend %transparent;
 }
 
 // ------------------------------------  firefox

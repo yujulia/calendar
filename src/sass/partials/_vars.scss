@@ -18,6 +18,7 @@ $hour-h: 60px;      // how high a row is, 60 for 60 mins
 $pad-label: 5px;    // time label padding
 $time-label-w: 5%;  // label colum
 $days-col-w: 10%;   // the column
+$nav-h: 40px;
 
 // ----------------------------------------------- colors
 
@@ -39,7 +40,17 @@ $border: solid 1px #ddd;
     padding: 0; 
 }
 
+// ----------------------------------------------- animation
 
+%transparent {
+    opacity: 0.01;
+    transition: opacity 0.2s ease-in;
+}
 
+%solid {
+    opacity: 1;
+    transition: opacity 0.2s ease-in;
+
+}
 
     

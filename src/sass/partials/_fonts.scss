@@ -1,150 +1,189 @@
-%beforeCarrotCell {
-    font-family: "carrotcell" !important;
-    font-style: normal !important;
-    font-weight: normal !important;
-    font-variant: normal !important;
-    text-transform: none !important;
-    speak: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    vertical-align: middle;
+%beforeGeneric {
+  font-family: "generic" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  vertical-align: center;
 }
 
-@font-face { 
-    font-family: 'code';
-    src: url('../fonts/Code-Light.eot');
-    src: url('../fonts/Code-Light.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/Code-Light.woff') format('woff'),
-         url('../fonts/Code-Light.ttf') format('truetype'),
-         url('../fonts/Code-Light.svg#webfont') format('svg');
-    font-style: normal;
-    unicode-range: U+00-FFFF;
-}
-
-@font-face { 
-    font-family: 'PT';
-    src: url('../fonts/PTS55F-webfont.eot');
-    src: url('../fonts/PTS55F-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/PTS55F-webfont.woff') format('woff'),
-         url('../fonts/PTS55F-webfont.ttf') format('truetype'),
-         url('../fonts/PTS55F-webfont.svg#webfont') format('svg');
-    font-style: normal;
-    unicode-range: U+00-FFFF;
-}
-
-@font-face { 
-    font-family: 'raleway';
-    src: url('../fonts/raleway_thin-webfont.eot');
-    src: url('../fonts/raleway_thin-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/raleway_thin-webfont.woff') format('woff'),
-         url('../fonts/raleway_thin-webfont.ttf') format('truetype'),
-         url('../fonts/raleway_thin-webfont.svg#webfont') format('svg');
-    font-style: normal;
-    unicode-range: U+00-FFFF;
-}
+@charset "UTF-8";
 
 @font-face {
-  font-family: "carrotcell";
-  src:url("../fonts/carrotcell.eot");
-  src:url("../fonts/carrotcell.eot?#iefix") format("embedded-opentype"),
-    url("../fonts/carrotcell.woff") format("woff"),
-    url("../fonts/carrotcell.ttf") format("truetype"),
-    url("../fonts/carrotcell.svg#carrotcell") format("svg");
+  font-family: "generic";
+  src:url("../fonts/generic.eot");
+  src:url("../fonts/generic.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/generic.woff") format("woff"),
+    url("../fonts/generic.ttf") format("truetype"),
+    url("../fonts/generic.svg#generic") format("svg");
   font-weight: normal;
   font-style: normal;
 
 }
 
 [data-icon]:before {
-  content: attr(data-icon);
-  @extend %beforeCarrotCell;
+  @extend %beforeGeneric;
 }
 
-[class^="cc-"]:before,
-[class*=" cc-"]:before,
-[class^="cc-"]:after,
-[class*=" cc-"]:after  {
-  @extend %beforeCarrotCell;
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  @extend %beforeGeneric;
 }
 
-
-.cc-carrot-after:after {
-  content: "\e001";
-}
-
-.cc-github:before {
-  content: "\e003";
-}
-.cc-carrot:before {
-  content: "\e001";
-}
-.cc-download:before {
-  content: "\e002";
-}
-.cc-lab:before {
-  content: "\e00a";
-}
-.cc-files:before {
-  content: "\e00b";
-}
-.cc-dot:before {
-  content: "\e004";
-}
-.cc-circle:before {
-  content: "\e007";
-}
-.cc-down:before {
+.icon-star:before {
   content: "\e000";
 }
-.cc-up:before {
+.icon-prev-bold:before {
+  content: "\e001";
+}
+.icon-next-bold:before {
+  content: "\e002";
+}
+.icon-plus:before {
+  content: "\e003";
+}
+.icon-minus:before {
+  content: "\e004";
+}
+.icon-dotdotdot:before {
   content: "\e005";
 }
-.cc-right:before {
+.icon-i:before {
   content: "\e006";
 }
-.cc-delete:before {
-  content: "\e009";
+.icon-x:before {
+  content: "\e007";
 }
-.cc-left:before {
-  content: "\e00c";
-}
-.cc-play:before {
+.icon-clock:before {
   content: "\e008";
 }
-.cc-pause:before {
-  content: "\e00e";
+.icon-next-block:before {
+  content: "\e009";
 }
-.cc-stop:before {
-  content: "\e00f";
+.icon-down-block:before {
+  content: "\e00a";
 }
-.cc-link:before {
+.icon-prev-block:before {
+  content: "\e00b";
+}
+.icon-up-block:before {
+  content: "\e00c";
+}
+.icon-mail:before {
   content: "\e00d";
 }
-.cc-star:before {
+.icon-pencil:before {
+  content: "\e00e";
+}
+.icon-alert:before {
+  content: "\e00f";
+}
+.icon-check:before {
   content: "\e010";
 }
-.cc-book:before {
-  content: "\e012";
-}
-.cc-moon:before {
-  content: "\e013";
-}
-.cc-eye:before {
+.icon-question:before {
   content: "\e011";
 }
-.cc-code:before {
+.icon-zoomin:before {
+  content: "\e012";
+}
+.icon-zoomout:before {
+  content: "\e013";
+}
+.icon-drag:before {
   content: "\e014";
 }
-.cc-like:before {
-  content: "\e016";
-}
-.cc-pictures:before {
+.icon-chatting:before {
   content: "\e015";
 }
-.cc-info:before {
+.icon-loc:before {
+  content: "\e016";
+}
+.icon-db:before {
+  content: "\e017";
+}
+.icon-grid:before {
   content: "\e018";
 }
-.cc-external:before {
-  content: "\e017";
+.icon-col:before {
+  content: "\e019";
+}
+.icon-row:before {
+  content: "\e01a";
+}
+.icon-udpate:before {
+  content: "\e01b";
+}
+.icon-wait:before {
+  content: "\e01c";
+}
+.icon-up-bold:before {
+  content: "\e01d";
+}
+.icon-down-bold:before {
+  content: "\e01e";
+}
+.icon-upvote:before {
+  content: "\e01f";
+}
+.icon-downvote:before {
+  content: "\e020";
+}
+.icon-chat:before {
+  content: "\e021";
+}
+.icon-clip:before {
+  content: "\e022";
+}
+.icon-search:before {
+  content: "\e023";
+}
+.icon-link:before {
+  content: "\e024";
+}
+.icon-conctact:before {
+  content: "\e025";
+}
+.icon-heart:before {
+  content: "\e026";
+}
+.icon-download:before {
+  content: "\e027";
+}
+.icon-plus-round:before {
+  content: "\e028";
+}
+.icon-minus-round:before {
+  content: "\e029";
+}
+.icon-home:before {
+  content: "\e02a";
+}
+.icon-close-round:before {
+  content: "\e02b";
+}
+.icon-person-x:before {
+  content: "\e02c";
+}
+.icon-person-plus:before {
+  content: "\e02d";
+}
+.icon-calendar:before {
+  content: "\e02e";
+}
+.icon-up:before {
+  content: "\e02f";
+}
+.icon-next:before {
+  content: "\e030";
+}
+.icon-prev:before {
+  content: "\e031";
+}
+.icon-down:before {
+  content: "\e032";
 }

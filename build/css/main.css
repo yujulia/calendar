@@ -327,126 +327,185 @@ ol, ul, .nav .logo {
   /* test */
   padding: 0; }
 
-[data-icon]:before, [class^="cc-"]:before, [class*=" cc-"]:before, [class^="cc-"]:after, [class*=" cc-"]:after {
-  font-family: "carrotcell" !important;
+.month-appear, .month-leave.month-leave-active, .week-appear, .week-leave.week-leave-active {
+  opacity: 0.01;
+  transition: opacity 0.2s ease-in; }
+
+.month-appear.month-appear-active, .month-leave, .week-appear.week-appear-active, .week-leave {
+  opacity: 1;
+  transition: opacity 0.2s ease-in; }
+
+[data-icon]:before, [class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "generic" !important;
   font-style: normal !important;
   font-weight: normal !important;
   font-variant: normal !important;
   text-transform: none !important;
   speak: none;
-  line-height: 1;
+  line-height: 1em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  vertical-align: middle; }
+  vertical-align: center; }
 
 @font-face {
-  font-family: 'code';
-  src: url('../fonts/Code-Light.eot');
-  src: url('../fonts/Code-Light.eot?#iefix') format('embedded-opentype'), url('../fonts/Code-Light.woff') format('woff'), url('../fonts/Code-Light.ttf') format('truetype'), url('../fonts/Code-Light.svg#webfont') format('svg');
-  font-style: normal;
-  unicode-range: U0-FFFF; }
-
-@font-face {
-  font-family: 'PT';
-  src: url('../fonts/PTS55F-webfont.eot');
-  src: url('../fonts/PTS55F-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/PTS55F-webfont.woff') format('woff'), url('../fonts/PTS55F-webfont.ttf') format('truetype'), url('../fonts/PTS55F-webfont.svg#webfont') format('svg');
-  font-style: normal;
-  unicode-range: U0-FFFF; }
-
-@font-face {
-  font-family: 'raleway';
-  src: url('../fonts/raleway_thin-webfont.eot');
-  src: url('../fonts/raleway_thin-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/raleway_thin-webfont.woff') format('woff'), url('../fonts/raleway_thin-webfont.ttf') format('truetype'), url('../fonts/raleway_thin-webfont.svg#webfont') format('svg');
-  font-style: normal;
-  unicode-range: U0-FFFF; }
-
-@font-face {
-  font-family: "carrotcell";
-  src: url("../fonts/carrotcell.eot");
-  src: url("../fonts/carrotcell.eot?#iefix") format("embedded-opentype"), url("../fonts/carrotcell.woff") format("woff"), url("../fonts/carrotcell.ttf") format("truetype"), url("../fonts/carrotcell.svg#carrotcell") format("svg");
+  font-family: "generic";
+  src: url("../fonts/generic.eot");
+  src: url("../fonts/generic.eot?#iefix") format("embedded-opentype"), url("../fonts/generic.woff") format("woff"), url("../fonts/generic.ttf") format("truetype"), url("../fonts/generic.svg#generic") format("svg");
   font-weight: normal;
   font-style: normal; }
 
-[data-icon]:before {
-  content: attr(data-icon); }
-
-.cc-carrot-after:after {
-  content: "\e001"; }
-
-.cc-github:before {
-  content: "\e003"; }
-
-.cc-carrot:before {
-  content: "\e001"; }
-
-.cc-download:before {
-  content: "\e002"; }
-
-.cc-lab:before {
-  content: "\e00a"; }
-
-.cc-files:before {
-  content: "\e00b"; }
-
-.cc-dot:before {
-  content: "\e004"; }
-
-.cc-circle:before {
-  content: "\e007"; }
-
-.cc-down:before {
+.icon-star:before {
   content: "\e000"; }
 
-.cc-up:before {
+.icon-prev-bold:before {
+  content: "\e001"; }
+
+.icon-next-bold:before {
+  content: "\e002"; }
+
+.icon-plus:before {
+  content: "\e003"; }
+
+.icon-minus:before {
+  content: "\e004"; }
+
+.icon-dotdotdot:before {
   content: "\e005"; }
 
-.cc-right:before {
+.icon-i:before {
   content: "\e006"; }
 
-.cc-delete:before {
-  content: "\e009"; }
+.icon-x:before {
+  content: "\e007"; }
 
-.cc-left:before {
-  content: "\e00c"; }
-
-.cc-play:before {
+.icon-clock:before {
   content: "\e008"; }
 
-.cc-pause:before {
-  content: "\e00e"; }
+.icon-next-block:before {
+  content: "\e009"; }
 
-.cc-stop:before {
-  content: "\e00f"; }
+.icon-down-block:before {
+  content: "\e00a"; }
 
-.cc-link:before {
+.icon-prev-block:before {
+  content: "\e00b"; }
+
+.icon-up-block:before {
+  content: "\e00c"; }
+
+.icon-mail:before {
   content: "\e00d"; }
 
-.cc-star:before {
+.icon-pencil:before {
+  content: "\e00e"; }
+
+.icon-alert:before {
+  content: "\e00f"; }
+
+.icon-check:before {
   content: "\e010"; }
 
-.cc-book:before {
-  content: "\e012"; }
-
-.cc-moon:before {
-  content: "\e013"; }
-
-.cc-eye:before {
+.icon-question:before {
   content: "\e011"; }
 
-.cc-code:before {
+.icon-zoomin:before {
+  content: "\e012"; }
+
+.icon-zoomout:before {
+  content: "\e013"; }
+
+.icon-drag:before {
   content: "\e014"; }
 
-.cc-like:before {
-  content: "\e016"; }
-
-.cc-pictures:before {
+.icon-chatting:before {
   content: "\e015"; }
 
-.cc-info:before {
+.icon-loc:before {
+  content: "\e016"; }
+
+.icon-db:before {
+  content: "\e017"; }
+
+.icon-grid:before {
   content: "\e018"; }
 
-.cc-external:before {
-  content: "\e017"; }
+.icon-col:before {
+  content: "\e019"; }
+
+.icon-row:before {
+  content: "\e01a"; }
+
+.icon-udpate:before {
+  content: "\e01b"; }
+
+.icon-wait:before {
+  content: "\e01c"; }
+
+.icon-up-bold:before {
+  content: "\e01d"; }
+
+.icon-down-bold:before {
+  content: "\e01e"; }
+
+.icon-upvote:before {
+  content: "\e01f"; }
+
+.icon-downvote:before {
+  content: "\e020"; }
+
+.icon-chat:before {
+  content: "\e021"; }
+
+.icon-clip:before {
+  content: "\e022"; }
+
+.icon-search:before {
+  content: "\e023"; }
+
+.icon-link:before {
+  content: "\e024"; }
+
+.icon-conctact:before {
+  content: "\e025"; }
+
+.icon-heart:before {
+  content: "\e026"; }
+
+.icon-download:before {
+  content: "\e027"; }
+
+.icon-plus-round:before {
+  content: "\e028"; }
+
+.icon-minus-round:before {
+  content: "\e029"; }
+
+.icon-home:before {
+  content: "\e02a"; }
+
+.icon-close-round:before {
+  content: "\e02b"; }
+
+.icon-person-x:before {
+  content: "\e02c"; }
+
+.icon-person-plus:before {
+  content: "\e02d"; }
+
+.icon-calendar:before {
+  content: "\e02e"; }
+
+.icon-up:before {
+  content: "\e02f"; }
+
+.icon-next:before {
+  content: "\e030"; }
+
+.icon-prev:before {
+  content: "\e031"; }
+
+.icon-down:before {
+  content: "\e032"; }
 
 html {
   box-sizing: border-box; }
@@ -461,8 +520,7 @@ img {
   display: block; }
 
 :focus {
-  outline: none;
-  border-bottom: solid 3px gray; }
+  outline: solid 2px #dd4b39; }
 
 body {
   color: #222;
@@ -480,7 +538,8 @@ body {
       -ms-flex-align: center;
           align-items: center;
   border-bottom: solid 1px #ddd;
-  padding: 9px 35px 9px 20px; }
+  padding: 9px 35px 9px 20px;
+  height: 40px; }
   .nav .logo {
     color: #dd4b39;
     font: 400 24px Arial, sans-serif;
@@ -508,10 +567,10 @@ body {
   .button:hover {
     background: #F8F8F8;
     border: 1px solid #C6C6C6;
-    color: #333;
+    color: #dd4b39;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1); }
   .button.on {
-    background: #eee;
+    background: #ddd;
     border: 1px solid #ccc;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
     color: #333; }
@@ -520,6 +579,8 @@ body {
   .button--prev, .button--week {
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px; }
+  .button--prev, .button--next {
+    min-width: 0; }
   .button--next, .button--month {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
@@ -527,24 +588,28 @@ body {
     .button--next:hover, .button--month:hover {
       border-left: none; }
 
+.access-text {
+  position: absolute;
+  top: -9999px;
+  left: -9999px; }
+
 .container {
   position: fixed;
   margin-left: 200px;
-  height: 100%;
+  height: calc(100% - 40px);
   overflow-y: auto;
   width: calc(100% - 200px); }
 
 .week {
   width: calc(100% - 20px);
-  margin: 0px 0 50px 0px;
-  border-bottom: solid 1px #ddd;
-  border-collapse: 0; }
+  border-bottom: solid 1px #ddd; }
   .week__header {
     background-color: #fff;
     border-bottom: solid 1px #ddd;
     position: fixed;
+    top: 40px;
     left: 200px;
-    -webkit-transform: translateZ(0);
+    transition: 0;
     display: table;
     width: calc(100% - 234px);
     height: 40px; }
@@ -587,6 +652,23 @@ body {
 
 .divider {
   border-top: dotted 1px #ccc; }
+
+.month {
+  width: calc(100% - 20px);
+  height: 100%; }
+  .month__header__item {
+    font-weight: 400;
+    font-size: 12px;
+    height: 40px;
+    text-align: left; }
+  .month__row {
+    border-top: solid 1px #ddd; }
+  .month__item {
+    border-right: solid 1px #ddd;
+    padding: 5px;
+    vertical-align: top; }
+    .month__item:first-child {
+      border-left: solid 1px #ddd; }
 
 @-moz-document url-prefix() {
   .container {
