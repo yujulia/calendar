@@ -620,7 +620,8 @@ body {
     transition: 0;
     display: table;
     width: calc(100% - 233px);
-    height: 40px; }
+    height: 40px;
+    z-index: 10; }
     .week__header__row {
       display: table-row; }
     .week__header__item {
@@ -628,7 +629,7 @@ body {
       width: 10%;
       font-weight: 400;
       font-size: 12px;
-      border-left: solid 1px transparent; }
+      border-top: solid 1px #ddd; }
     .week__header .empty {
       border-color: transparent; }
       .week__header .empty span {
@@ -638,38 +639,28 @@ body {
     border: none; }
   .week__row {
     border-top: solid 1px #ddd;
-    width: 100%; }
+    width: 100%;
+    height: 60px;
+    box-sizing: border-box; }
     .week__row__item {
       border-right: solid 1px #ddd;
       width: 10%;
-      height: 60px; }
+      height: 59px; }
     .week__row__label {
       font-size: 12px;
       width: 5%;
       font-weight: 400;
       padding: 5px;
-      border-left: solid 1px #ddd;
-      border-right: solid 1px #ddd;
       text-align: right;
       vertical-align: top;
-      color: #666; }
+      color: #666;
+      border-left: solid 1px #ddd;
+      border-right: solid 1px #ddd; }
     .week__row:first-child .week__row__item, .week__row:first-child .week__row__label {
       padding-top: 40px;
-      height: 100px; }
+      height: 99px; }
     .week__row:first-child .week__row__label {
       padding-top: 45px; }
-
-.divider {
-  border-top: dotted 1px #ccc; }
-
-.halfhour {
-  height: 30px; }
-
-.fade {
-  color: #ccc; }
-
-.today {
-  background-color: #efefef; }
 
 .month {
   width: calc(100% - 20px);
@@ -687,11 +678,49 @@ body {
     border-right: solid 1px #ddd;
     padding: 5px;
     vertical-align: top;
-    color: #666; }
+    color: #666;
+    position: relative; }
     .month__item:first-child {
       border-left: solid 1px #ddd; }
 
+.hour {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; }
+  .hour .divider {
+    border-top: dotted 1px #ccc; }
+  .hour .halfhour {
+    height: 50%; }
+  .hour .timeLine {
+    border-top: solid 2px #dd4b39;
+    opacity: 0.6px;
+    position: absolute;
+    top: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px; }
+
+.fade {
+  color: #ccc; }
+
+.today {
+  background-color: #efefef; }
+
+.timepointer {
+  position: absolute;
+  top: 0;
+  left: -3px;
+  color: #dd4b39;
+  z-index: 2;
+  font-size: 12px;
+  height: 10px;
+  transition: 0.2s; }
+
 @-moz-document url-prefix() {
   .container {
-    padding-left: 1px; } }
+    padding-left: 1px; }
+
+  .week__header {
+    left: 198px; } }
 

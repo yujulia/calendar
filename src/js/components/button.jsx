@@ -28,7 +28,7 @@ class CalButton extends React.Component {
     // ---------------------------- render icon and hidden text
     renderIcon(){
         return(
-            <span aria-hidden="true" className={this.props.useicon}>
+            <span className={this.props.useicon}>
                 <span className="access-text">{this.props.text}</span> 
             </span>
         );

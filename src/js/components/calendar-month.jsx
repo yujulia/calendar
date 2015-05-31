@@ -20,10 +20,8 @@ class CalendarMonth extends React.Component {
         this.renderWeek = this.renderWeek.bind(this);
         this.renderMonthHeader = this.renderMonthHeader.bind(this);
 
-        this.state = {
-            monthNames : Time.getMonthNames(),
-            today : Time.current()
-        }
+        this.monthNames = Time.getMonthNames();
+        this.today = Time.current();
     }
 
     // --------------------------- render the week headers
@@ -44,7 +42,7 @@ class CalendarMonth extends React.Component {
             dayString='';
 
         if (day.day == 1) {
-            dayString = this.state.monthNames[day.month].slice(0,3) + " " + day.day;
+            dayString = this.monthNames[day.month].slice(0,3) + " " + day.day;
         } else {
             dayString = day.day;
         }
@@ -52,10 +50,9 @@ class CalendarMonth extends React.Component {
             dayString = <span className="fade">{ dayString }</span>;
         }
 
-        let todayClass = 'month__item', 
-            today = this.state.today;
-            
-        if (today.year == day.year && today.month == day.month && today.day == day.day) {
+        let todayClass = 'month__item';
+
+        if (this.today.year == day.year && this.today.month == day.month && this.today.day == day.day) {
             todayClass += ' today';
         } 
 

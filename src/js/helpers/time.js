@@ -5,6 +5,7 @@ import _ from "underscore";
 let Time = () => {
 
     const WEEKDAYS = 7;
+    const MINUTE_IN_HOUR = 60;
 
     let dayNames = [
         'Sunday', 
@@ -31,6 +32,33 @@ let Time = () => {
         'December'
     ];
 
+    let timeLabels = [
+        '12am',
+        '1am',
+        '2am',
+        '3am',
+        '4am',
+        '5am',
+        '6am',
+        '7am',
+        '8am',
+        '9am',
+        '10am',
+        '11am',
+        '12pm',
+        '1pm',
+        '2pm',
+        '3pm',
+        '4pm',
+        '5pm',
+        '6pm',
+        '7pm',
+        '8pm',
+        '9pm',
+        '10pm',
+        '11pm'
+    ];
+
     // ------------------------------------------- find how many days in a certain month
     // args: INT month, INT year
     // return: INT day count
@@ -38,35 +66,6 @@ let Time = () => {
     let getDaysInMonth = (month, year) => {
 
         return new Date(year, month+1, 0).getDate();
-    };
-
-    // ------------------------------------------- make array of time intervals 12am - 11pm
-    // return: ARRAY of { id, label }
-
-    let makeHours = () => {
-        let hourArray = [];
-
-        for (let i=24; i>0; i--){
-            let timestamp = 0;
-            if (i > 12) { 
-                let amdiff = 24-i;
-                if (amdiff == 0) {
-                    timestamp = '12am';
-                } else {
-                    timestamp = amdiff + 'am'; 
-                }
-            } else { 
-                let pmdiff = 12-i;
-                if (pmdiff == 0) {
-                    timestamp = '12pm'; 
-                } else {
-                    timestamp = pmdiff +'pm'; 
-                }
-            }
-            hourArray.push({ id: i, label: timestamp });
-        }
-
-        return hourArray;
     };
 
     // ------------------------------------------- make DATE obj into lookup
@@ -126,7 +125,6 @@ let Time = () => {
             end: fullWeek(lastday).end 
         };
     };
-
 
     // ------------------------------------------- given time range, find all the dates
     // args: OBJ start, OBJ end
@@ -268,7 +266,6 @@ let Time = () => {
         return findMonthData(thisDate);
     };
 
-
     // ------------------------------------------- format date range
     // args: STR type, DATE somedate
     // return STR 
@@ -326,6 +323,29 @@ let Time = () => {
         };
     };
 
+    // ------------------------------------------- find where we should render the arrow
+    // args: 
+    // return INT minutes of the day 
+
+    let findMinuteMark = () => {
+        let now = formatDate(new Date());
+
+        return now.hour * MINUTE_IN_HOUR + now.minute;
+    };
+
+    // ------------------------------------------- find where we should render the line
+    // args: 
+    // return INT minutes of the hour and what hour it is 
+
+    let findHourMark = () => {
+        let now = formatDate(new Date());
+        
+        return {
+            minute: now.minute,
+            hour: now.hour
+        }
+    };
+
 
     return {
 
@@ -335,7 +355,7 @@ let Time = () => {
 
         getMonthNames: () => { return monthNames; },
 
-        getHours: () => { return makeHours(); },
+        getTimeLabels: () => { return timeLabels; },
 
         getThisMonthData: () => { return thisMonthData(); },
 
@@ -351,7 +371,11 @@ let Time = () => {
 
         getDateRange: (type, somedate) => { return formatDateRange(type, somedate); },
 
-        isTodayInView: (data) => { return checkTodayInView(data); }
+        isTodayInView: (data) => { return checkTodayInView(data); },
+
+        getMinuteMark: () => { return findMinuteMark(); },
+
+        getHourMark: () => { return findHourMark(); }
 
     }
 }();

@@ -158,6 +158,7 @@ body {
         display: table;
         width: calc(100% - 233px);
         height: $theader-h;
+        z-index: 10;
 
         &__row {
             display: table-row;
@@ -168,8 +169,7 @@ body {
             width: $days-col-w;
             font-weight: $regular;
             font-size: 12px;  
-            border-left: solid 1px transparent;
-
+            border-top: $border;
         }
 
         .empty {
@@ -188,11 +188,13 @@ body {
     &__row {
         border-top: $border;
         width: 100%;
+        height: 60px;
+        box-sizing: border-box;
 
         &__item {
             border-right: $border;
             width: $days-col-w;
-            height: $hour-h;
+            height: $hour-h - 1;
         }
 
         &__label {
@@ -200,17 +202,17 @@ body {
             width: $time-label-w;
             font-weight: $regular;
             padding: $pad-label;
-            border-left: $border;
-            border-right: $border;
             text-align: right;
             vertical-align: top;
             color: #666;
+            border-left: $border;
+            border-right: $border;
         }
 
         &:first-child {
             .week__row__item, .week__row__label {
                 padding-top: $theader-h;
-                height: $theader-h + $hour-h;
+                height: $theader-h + $hour-h - 1;
             }
 
             .week__row__label {
@@ -218,23 +220,6 @@ body {
             }
         }
     }
-}
-
-.divider {
-    border-top: dotted 1px #ccc;
-}
-
-.halfhour {
-    height: $hour-h/2;
-
-}
-
-.fade {
-    color: $color-lightest-font;
-}
-
-.today {
-    background-color: #efefef;
 }
 
 // ------------------------------------ month view
@@ -263,11 +248,63 @@ body {
         padding: 5px;
         vertical-align: top;
         color: $color-lighter-font;
+        position: relative;
 
         &:first-child {
             border-left: $border;
         }
     }
+
+}
+
+// ------------------------------------  hour in the week
+
+.hour {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+
+    .divider {
+        border-top: dotted 1px #ccc;
+    }
+
+    .halfhour {
+        height: 50%;
+    }
+
+    .timeLine {
+        border-top: solid 2px $color-google;
+        opacity: 0.6px;
+        position: absolute;
+        top: -5px;
+        left: 0;   
+        width: 100%;
+        height: 2px;
+
+    }
+
+}
+
+// ------------------------------------  
+
+.fade {
+    color: $color-lightest-font;
+}
+
+.today {
+    background-color: #efefef;
+}
+
+.timepointer {
+    position: absolute;
+    top: 0; 
+    left: -3px;
+    color: $color-google;
+    z-index: 2;
+    font-size: 12px;
+    height: 10px;
+    transition: 0.2s;
 
 }
 
@@ -307,9 +344,16 @@ body {
 
 // ------------------------------------  firefox
 @-moz-document url-prefix() { 
-  .container {
-     padding-left: 1px;
-  }
+    .container {
+        padding-left: 1px;
+    }
+
+    .week {
+  
+        &__header {
+            left: $aside-w - 2;
+        }
+    }
 }
 
 // ------------------------------------  ipad and smaller

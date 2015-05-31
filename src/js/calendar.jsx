@@ -105,7 +105,7 @@ class Calendar extends React.Component {
 
     render(){
 
-        let week = this.state.week ? <CalendarWeek data={this.state.weekData} /> : '',
+        let week = this.state.week ? <CalendarWeek data={this.state.weekData} today={this.state.today}/> : '',
             month = this.state.month ? <CalendarMonth data={this.state.monthData} realmonth={this.state.realMonth.getMonth()} /> : '',
             viewObj = { week: this.state.week, month: this.state.month, today: this.state.today };
 

@@ -3,6 +3,8 @@
 **/
 import React from "react/addons";
 import Time from "../helpers/time";
+import TimePointer from "./timepointer.jsx";
+import TimeLine from "./timeline.jsx";
 
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -18,41 +20,44 @@ class CalendarWeek extends React.Component {
         this.renderHour = this.renderHour.bind(this);
         this.renderWeekHeader = this.renderWeekHeader.bind(this);
 
-        this.state = {
-            hourData: Time.getHours(),
-            today : Time.current()
-        }
+        this.timeLabels = Time.getTimeLabels(); 
+        this.today = Time.current();
+        
     }
 
     // --------------------------- render the week day 
-    renderDay(hour, day, i) {
-        let dhkey = day.day + hour.id +i,
-            dhtopkey = dhkey+1,
-            dhbotkey = dhkey+2;
 
-        let todayClass = 'week__row__item', 
-            today = this.state.today;
-            
-        if (today.year == day.year && today.month == day.month && today.day == day.day) {
-            todayClass += ' today';
-        } 
+    renderDay(hourID, day, i) {
+
+        let dhkey = day.day + hourID +i,
+            dhtopkey = dhkey+1,
+            dhbotkey = dhkey+2,
+            timelineKey = "timeline-" + hourID,
+            isToday = (this.today.year == day.year && this.today.month == day.month && this.today.day == day.day),
+            todayClass = isToday ? 'week__row__item today' : 'week__row__item',
+            timeline = isToday ? <TimeLine day={day} hour={hourID} key={timelineKey} /> : '';
 
         return (
-            <td className={todayClass} data-month={day.month} data-day={ day.day } data-year={day.year} data-hour={hour.id} key={dhkey}>
-                <div className="halfhour" data-month={day.month} data-day={ day.day } data-year={day.year} data-hour={hour.id} data-minute="0" key={dhtopkey}/>
-                <div className="halfhour divider" data-month={day.month} data-day={ day.day } data-year={day.year} data-hour={hour.id} data-minute="30" key={dhbotkey}/>
+            <td className={todayClass} key={dhkey} >
+                <div className="hour">
+                    <div className="halfhour" data-month={day.month} data-day={ day.day } data-year={day.year} data-hour={hourID} data-minute="0" key={dhtopkey}/>
+                    <div className="halfhour divider" data-month={day.month} data-day={ day.day } data-year={day.year} data-hour={hourID} data-minute="30" key={dhbotkey}/>
+                    {timeline}
+                </div>
             </td>
         );
     }
 
     // --------------------------- render the week 
-    renderHour(hour) {
-        let wrlkey = "hourlbl"+hour.id;
+    renderHour(label, timeID) {
+        let wrlkey = "hourlbl" + timeID;
 
         return (
-            <tr className="week__row" data-time={ hour.id } key={ hour.id }>
-                <th className="week__row__label" data-time={ hour.id } key={ wrlkey }>{hour.label}</th>
-                { this.props.data.map(function(day, hour, i){ return this.renderDay.apply(this, arguments) }.bind(this, hour)) }
+            <tr className="week__row" data-time={timeID} key={timeID}>
+                <th className="week__row__label" data-time={timeID} key={wrlkey}>
+                    {label}
+                </th>
+                { this.props.data.map(function(timeID){ return this.renderDay.apply(this, arguments) }.bind(this, timeID)) }
             </tr>
         );
     }
@@ -61,12 +66,10 @@ class CalendarWeek extends React.Component {
 
     renderWeekHeader(day, i) {
         let whkey = "wh"+i,
-            dayName = Time.getDayNames()[i].slice(0,3);
-
-        let todayClass = 'week__header__item', 
-            today = this.state.today;
+            dayName = Time.getDayNames()[i].slice(0,3),
+            todayClass = 'week__header__item';
             
-        if (today.year == day.year && today.month == day.month && today.day == day.day) {
+        if (this.today.year == day.year && this.today.month == day.month && this.today.day == day.day) {
             todayClass += ' today';
         } 
 
@@ -93,9 +96,10 @@ class CalendarWeek extends React.Component {
                         </tr>
                     </thead>
                     <tbody key="wb">
-                        { this.state.hourData.map(this.renderHour) }
+                        { this.timeLabels.map(this.renderHour) }
                     </tbody>
                 </table>
+                <TimePointer />
                 </ReactCSSTransitionGroup>
             </section>
         );
