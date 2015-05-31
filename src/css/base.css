@@ -291,7 +291,7 @@ body {
     border-bottom: solid 1px #ddd;
     position: fixed;
     top: 40px;
-    left: 199px;
+    left: 200px;
     display: table;
     width: calc(100% - 233px);
     height: 40px;
@@ -356,6 +356,18 @@ body {
     position: relative; }
     .month__item:first-child {
       border-left: solid 1px #ddd; }
+    .month__item__label {
+      position: absolute;
+      top: 0;
+      right: 0; }
+      .month__item__label .num {
+        background: #f6f6f6;
+        text-align: center;
+        padding: 3px;
+        width: 24px;
+        height: 20px;
+        display: inline-block;
+        margin-left: 5px; }
 
 .hour {
   position: relative;
@@ -377,9 +389,14 @@ body {
 
 .fade {
   color: #ccc; }
+  .fade .num {
+    background-color: transparent; }
 
 .today {
-  background-color: #efefef; }
+  background-color: #f6f6f6; }
+
+.today.week__header__item {
+  color: #dd4b39; }
 
 .timepointer {
   position: absolute;

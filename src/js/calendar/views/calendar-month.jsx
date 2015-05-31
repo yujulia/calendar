@@ -41,12 +41,13 @@ class CalendarMonth extends React.Component {
     // --------------------------- render days of this month
     renderDay(day, i){
         let dkey = "day"+day.id, 
+            dlkey = "daylabel"+day.id,
             dayString='';
 
         if (day.day == 1) {
-            dayString = this.monthNames[day.month].slice(0,3) + " " + day.day;
+            dayString = <span>{ this.monthNames[day.month].slice(0,3) }<span className="num">{day.day}</span></span>;
         } else {
-            dayString = day.day;
+            dayString = <span className="num">{day.day}</span>;
         }
         if (day.month !== this.props.realmonth ) {
             dayString = <span className="fade">{ dayString }</span>;
@@ -60,7 +61,7 @@ class CalendarMonth extends React.Component {
 
         return(
             <td className={todayClass} data-month={day.month} data-day={ day.day } data-year={day.year} key={dkey}>
-                { dayString } 
+                <span className="month__item__label" key={dlkey}>{ dayString }</span>
             </td>
         );
     }
