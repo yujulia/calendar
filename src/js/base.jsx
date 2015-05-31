@@ -2,7 +2,7 @@
     
 **/
 import React from "react";
-import Calendar from "./calendar.jsx";
+import Calendar from "./calendar/calendar.jsx";
 import $ from "jquery";
 
 // ------------------------------- load our app

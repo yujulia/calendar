@@ -3,9 +3,10 @@
 
 import React from "react";
 import _ from "underscore";
+
 import Nav from "./components/nav.jsx";
-import CalendarWeek from "./components/calendar-week.jsx";
-import CalendarMonth from "./components/calendar-month.jsx";
+import CalendarWeek from "./views/calendar-week.jsx";
+import CalendarMonth from "./views/calendar-month.jsx";
 import Time from "./helpers/time";
 
 
@@ -91,10 +92,8 @@ class Calendar extends React.Component {
 
         // ok now get the data 
 
-        let someData = getData(startOn), // this new date set's data
-            range = this.getTimeRangeString(viewType, startOn); // title string
-
-        console.log(someData);
+        let someData = getData(startOn); // this new date set's data
+        let range = this.getTimeRangeString(viewType, someData.month); // title string
         let todayInView = Time.isTodayInView(someData.start, someData.end); // is today in new set of dates?
 
         // put data into state object
@@ -117,82 +116,14 @@ class Calendar extends React.Component {
         if (viewState){ _.extend(stateObj, viewState); } // add view state if any
         _.extend(stateObj, { dateRange: range, today: todayInView, realMonth: someData.month }); // add common info
 
-
-        console.log("--------------- setting state ---------------- ");
-        console.log(stateObj);
-
+        // set the state finally
+        
         this.setState(stateObj);
-
-
-        // ----------------------------------------
-
-        // let getWstart, getMstart;
-
-        // if (viewWeek){
-        //     if (this.state.week == viewWeek) {
-        //         getWstart = this.state.currentWeekStart;
-        //     } else {
-        //         getWstart = this.state.realMonth;
-        //     }
-        //     getMstart = this.state.currentMonthStart;
-        // }
-        // if (viewMonth) {
-        //     if (this.state.month == viewMonth) {
-        //         getMstart = this.state.currentMonthStart;
-        //     } else {
-        //         getMstart = this.state.realMonth;
-        //     }
-        //     getWstart = this.state.realMonth;
-        // } 
-
-        // let wdata = getweek(getWstart),
-        //     mdata = getmonth(getMstart),
-
-        //     todayData = {
-        //         mstart : mdata.start,
-        //         mend : mdata.end,
-        //         wstart : wdata.start,
-        //         wend : wdata.end
-        //     },
-        //     todayIn = Time.isTodayInView(todayData),
-
-        //     rangeStart = viewWeek ? wdata.start : mdata.month,
-
-        //     stateObj = {
-        //         today: viewWeek ? todayIn.inWeek : todayIn.inMonth, 
-        //         dateRange: this.getTimeRangeString(viewType, rangeStart), 
-        //         realMonth: viewWeek ? wdata.month : mdata.month,
-        //         currentMonthStart: mdata.start,  // the starting day of this calendar
-        //         currentMonthEnd: mdata.end,
-        //         currentWeekStart: wdata.start, // the starting date of this week
-        //         currentWeekEnd: wdata.end,
-        //         monthData: mdata.data, 
-        //         weekData: wdata.data 
-        //     };
-
-        //     if (viewState){
-        //         console.log("extned");
-        //         _.extend(stateObj, viewState);
-        //     }
-
-        // console.log("Mstart", getMstart, " Wstart", getWstart);
-            
-        // this.setState(stateObj);
     }
 
     // --------------------------- the view needs to be changed
 
     handleToggleView(view){
-
-        // if (view === "today" && !this.state.today) {
-        //     this.updateAppState(Time.getThisWeekData, Time.getThisMonthData);
-        // }
-        // if (view === "next") {
-        //     this.updateAppState(Time.getNextWeekData, Time.getNextMonthData);
-        // }
-        // if (view === "prev") {  
-        //     this.updateAppState(Time.getPrevWeekData, Time.getPrevMonthData); 
-        // }
 
         if (view === "today" && !this.state.today) {
             this.updateAppState("today");
@@ -203,15 +134,12 @@ class Calendar extends React.Component {
         if (view === "prev") {  
             this.updateAppState("prev");
         }
-
         if ((view === "week") && (view !== this.state.viewType)) {
             this.updateAppState("current", { week: true, month: false, viewType: view});
         }
-
         if ((view === "month") && (view !== this.state.viewType)) {
             this.updateAppState("current", { week: false, month: true, viewType: view});
         }
-
     }
 
     // --------------------------- RENDER

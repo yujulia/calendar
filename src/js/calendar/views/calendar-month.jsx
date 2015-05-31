@@ -2,8 +2,10 @@
 
 **/
 import React from "react/addons";
-import Time from "../helpers/time";
 import _ from "underscore";
+
+import Time from "../helpers/time";
+
 
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 

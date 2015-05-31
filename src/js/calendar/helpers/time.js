@@ -174,10 +174,10 @@ let Time = () => {
     let findMonthData = (somedate) => {
         let thisDate = somedate ? new Date(somedate) : new Date(),
             thisMonth = fullMonth(thisDate),
-            realMonth = new Date(thisMonth.start.year, thisMonth.start.month, thisMonth.start.day+10);
+            realMonth = new Date(thisMonth.start.year, thisMonth.start.month, thisMonth.start.day);
+
+            realMonth.setDate(realMonth.getDate() + 15);
             realMonth.setDate(1); // start new month on the first
-   
-            console.log("real month Month ", realMonth);
 
         let mdata = { 
             data: splitMonthToWeeks(thisMonth.start, thisMonth.end), 
@@ -196,7 +196,8 @@ let Time = () => {
     let findWeekData = (somedate) => {
         let thisDate = somedate ? new Date(somedate) : new Date(),
             thisWeek = fullWeek(thisDate),
-            realMonth = new Date(thisDate);
+            realMonth = new Date(thisDate); // find the middle of the week?
+            realMonth.setDate(realMonth.getDate() + WEEKDAYS/2);
             realMonth.setDate(1);
   
             console.log("real month Week ", realMonth);
@@ -217,11 +218,7 @@ let Time = () => {
 
     let nextMonthData = (somedate) => {     
         let thisDate = somedate ? new Date(somedate) : new Date();
-        console.log("BEFORE M ", thisDate);
-
         thisDate.setMonth(thisDate.getMonth() + 1);
-
-        console.log("NEXT M ", thisDate);
 
         return findMonthData(thisDate);
     };
@@ -243,10 +240,7 @@ let Time = () => {
 
     let nextWeekData = (somedate) => {
         let thisDate = somedate ? new Date(somedate) : new Date();
-
-        console.log("BEFORE W ", thisDate);
         thisDate.setDate(thisDate.getDate() + WEEKDAYS);
-        console.log("AFTER W ", thisDate);
 
         return findWeekData(thisDate);
     };
@@ -323,13 +317,9 @@ let Time = () => {
             startMS = Date.UTC(start.year, start.month, start.day),
             endMS = Date.UTC(end.year, end.month, end.day);
 
-        console.log("checking today ", startMS, endMS, todayMS);
-
         if (todayMS >= startMS && todayMS <= endMS) {
-            console.log(" yes today ");
             return true;
         } else {
-            console.log(" no today ");
             return false;
         }
     };
