@@ -75,7 +75,7 @@ class CalendarWeek extends React.Component {
 
         return (
             <th className={todayClass} data-day={i} key={whkey}>
-                <strong>{dayName}</strong> {day.month}/{day.day}
+                <strong>{dayName}</strong> {day.month+1}/{day.day}
             </th>
         );
     }
@@ -85,7 +85,7 @@ class CalendarWeek extends React.Component {
 
         return (      
             <section className="container">
-                <ReactCSSTransitionGroup transitionName="week" transitionAppear={true}>
+                <ReactCSSTransitionGroup transitionName="week">
                 <table className="week" key="w">
                     <thead className="week__header" key="wh">
                         <tr className="week__header__row" key="whr">

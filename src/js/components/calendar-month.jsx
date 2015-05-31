@@ -81,7 +81,7 @@ class CalendarMonth extends React.Component {
 
         return (      
             <section className="container">
-                <ReactCSSTransitionGroup transitionName="month" transitionAppear={true}>
+                <ReactCSSTransitionGroup transitionName="month">
                 <table className="month" key="m">
                     <thead className="month__header" key="mh">
                         <tr className="month__header__row" key="mhr">

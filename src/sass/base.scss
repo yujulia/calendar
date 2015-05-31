@@ -154,7 +154,6 @@ body {
         position: fixed;
         top: $nav-h;
         left: $aside-w - 1;
-        transition: 0;
         display: table;
         width: calc(100% - 233px);
         height: $theader-h;
@@ -263,7 +262,6 @@ body {
     position: relative;
     height: 100%;
     width: 100%;
-    overflow: hidden;
 
     .divider {
         border-top: dotted 1px #ccc;
@@ -281,7 +279,7 @@ body {
         left: 0;   
         width: 100%;
         height: 2px;
-
+        display: none;
     }
 
 }
@@ -304,17 +302,15 @@ body {
     z-index: 2;
     font-size: 12px;
     height: 10px;
-    transition: 0.2s;
-
 }
 
 // ------------------------------------  animations
 
-.month-appear {
+.month-enter {
   @extend %transparent;
 }
 
-.month-appear.month-appear-active {
+.month-enter.month-enter-active {
   @extend %solid;
 }
 
@@ -326,11 +322,11 @@ body {
   @extend %transparent;
 }
 
-.week-appear {
+.week-enter {
     @extend %transparent;
 }
 
-.week-appear.week-appear-active {
+.week-enter.week-enter-active {
     @extend %solid;
 }
 

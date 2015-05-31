@@ -175,6 +175,9 @@ let Time = () => {
         let thisDate = somedate ? new Date(somedate) : new Date(),
             thisMonth = fullMonth(thisDate),
             realMonth = new Date(thisMonth.start.year, thisMonth.start.month, thisMonth.start.day+10);
+            realMonth.setDate(1); // start new month on the first
+   
+            console.log("real month Month ", realMonth);
 
         let mdata = { 
             data: splitMonthToWeeks(thisMonth.start, thisMonth.end), 
@@ -193,11 +196,17 @@ let Time = () => {
     let findWeekData = (somedate) => {
         let thisDate = somedate ? new Date(somedate) : new Date(),
             thisWeek = fullWeek(thisDate),
-            wdata = { 
+            realMonth = new Date(thisDate);
+            realMonth.setDate(1);
+  
+            console.log("real month Week ", realMonth);
+
+            let wdata = { 
                 data: getDays(thisWeek.start, thisWeek.end), 
                 start: new Date(thisWeek.start.year, thisWeek.start.month, thisWeek.start.day),
                 end: new Date(thisWeek.end.year, thisWeek.end.month, thisWeek.end.day),
-                date: thisDate 
+                date: thisDate,
+                month: thisDate
             };
             return wdata;
     }
@@ -208,7 +217,11 @@ let Time = () => {
 
     let nextMonthData = (somedate) => {     
         let thisDate = somedate ? new Date(somedate) : new Date();
+        console.log("BEFORE M ", thisDate);
+
         thisDate.setMonth(thisDate.getMonth() + 1);
+
+        console.log("NEXT M ", thisDate);
 
         return findMonthData(thisDate);
     };
@@ -230,7 +243,10 @@ let Time = () => {
 
     let nextWeekData = (somedate) => {
         let thisDate = somedate ? new Date(somedate) : new Date();
+
+        console.log("BEFORE W ", thisDate);
         thisDate.setDate(thisDate.getDate() + WEEKDAYS);
+        console.log("AFTER W ", thisDate);
 
         return findWeekData(thisDate);
     };
@@ -273,11 +289,13 @@ let Time = () => {
     let formatDateRange = (type, somedate) => {
         let thisDate = somedate ? new Date(somedate) : new Date();
 
-        if (type == "m") {
+        console.log("making date range ", type, " ", somedate);
+
+        if (type == "month") {
             return monthNames[ thisDate.getMonth() ] + " " + thisDate.getFullYear();
         }
 
-        if (type == "w"){
+        if (type == "week"){
             let thisWeek = fullWeek(thisDate),
                 sameYear = (thisWeek.start.year == thisWeek.end.year) ? true : false,
                 sameMonth = (thisWeek.start.month == thisWeek.end.month) ? true : false,
@@ -286,7 +304,7 @@ let Time = () => {
             if (!sameYear) { temp += thisWeek.start.year; }
             temp += " - ";
             if (!sameMonth) { temp += monthNames[thisWeek.end.month];  }
-            temp += " " + thisWeek.end.day + " " + thisWeek.end.year;
+            temp += " " + thisWeek.end.day + ", " + thisWeek.end.year;
 
             return temp;
         }
@@ -297,30 +315,23 @@ let Time = () => {
     // args: OBJ { mstart, mend, wstart, wend }
     // return BOOLEAN 
 
-    let checkTodayInView = (data) => {
-        let todayInMonth = false,
-            todayInWeek = false;
+    let checkTodayInView = (startDate, endDate) => {
+        let today = formatDate(new Date()),
+            todayMS = Date.UTC(today.year, today.month, today.day),
+            start = formatDate(startDate),
+            end = formatDate(endDate),
+            startMS = Date.UTC(start.year, start.month, start.day),
+            endMS = Date.UTC(end.year, end.month, end.day);
 
-            let today = formatDate(new Date());
-            let todayMS = Date.UTC(today.year, today.month, today.day);
+        console.log("checking today ", startMS, endMS, todayMS);
 
-            _.each(data, function(value, key) {
-                let time = formatDate(value);
-                let utc = Date.UTC(time.year, time.month, time.day);
-                data[key] = utc;
-            });
-
-            if (todayMS >= data.mstart && todayMS <= data.mend ) {
-                todayInMonth = true;
-            }
-
-            if (todayMS >= data.wstart && todayMS <= data.wend ) {
-                todayInWeek = true;
-            }
-        return {
-            inMonth : todayInMonth,
-            inWeek : todayInWeek
-        };
+        if (todayMS >= startMS && todayMS <= endMS) {
+            console.log(" yes today ");
+            return true;
+        } else {
+            console.log(" no today ");
+            return false;
+        }
     };
 
     // ------------------------------------------- find where we should render the arrow
@@ -361,6 +372,10 @@ let Time = () => {
 
         getThisWeekData: () => { return thisWeekData(); },
 
+        getMonthData: (somedate) => { return findMonthData(somedate); },
+
+        getWeekData: (somedate) => { return findWeekData(somedate); },
+
         getNextMonthData: (somedate) => { return nextMonthData(somedate); },
 
         getNextWeekData: (somedate) => { return nextWeekData(somedate); },
@@ -371,7 +386,7 @@ let Time = () => {
 
         getDateRange: (type, somedate) => { return formatDateRange(type, somedate); },
 
-        isTodayInView: (data) => { return checkTodayInView(data); },
+        isTodayInView: (start, end) => { return checkTodayInView(start, end); },
 
         getMinuteMark: () => { return findMinuteMark(); },
 

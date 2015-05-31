@@ -327,11 +327,11 @@ ol, ul, .nav .logo {
   /* test */
   padding: 0; }
 
-.month-appear, .month-leave.month-leave-active, .week-appear, .week-leave.week-leave-active {
+.month-enter, .month-leave.month-leave-active, .week-enter, .week-leave.week-leave-active {
   opacity: 0.01;
   transition: opacity 0.2s ease-in; }
 
-.month-appear.month-appear-active, .month-leave, .week-appear.week-appear-active, .week-leave {
+.month-enter.month-enter-active, .month-leave, .week-enter.week-enter-active, .week-leave {
   opacity: 1;
   transition: opacity 0.2s ease-in; }
 
@@ -617,7 +617,6 @@ body {
     position: fixed;
     top: 40px;
     left: 199px;
-    transition: 0;
     display: table;
     width: calc(100% - 233px);
     height: 40px;
@@ -686,8 +685,7 @@ body {
 .hour {
   position: relative;
   height: 100%;
-  width: 100%;
-  overflow: hidden; }
+  width: 100%; }
   .hour .divider {
     border-top: dotted 1px #ccc; }
   .hour .halfhour {
@@ -699,7 +697,8 @@ body {
     top: -5px;
     left: 0;
     width: 100%;
-    height: 2px; }
+    height: 2px;
+    display: none; }
 
 .fade {
   color: #ccc; }
@@ -714,8 +713,7 @@ body {
   color: #dd4b39;
   z-index: 2;
   font-size: 12px;
-  height: 10px;
-  transition: 0.2s; }
+  height: 10px; }
 
 @-moz-document url-prefix() {
   .container {

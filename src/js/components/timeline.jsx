@@ -18,6 +18,7 @@ class TimeLine extends React.Component {
         this.componentDidMount = this.componentDidMount.bind(this);
         this.componentWillUnmount = this.componentWillUnmount.bind(this);
         this.minuteElapsed = this.minuteElapsed.bind(this);
+        this.notset = true;
 
     }
 
@@ -43,12 +44,18 @@ class TimeLine extends React.Component {
         let now = Time.getHourMark();
 
         if (this.hour == now.hour) {
+            if (this.notset){
+                this.node.style.display = "block";
+                this.notset = false;
+            }
             this.node.style.top = now.minute + "px";
             this.minuteMark = now.minute; // save what minute
         } 
 
         //  moved out of range so reset
         if (this.minuteMark >= 60) {
+            this.notset = true;
+            this.node.style.display = "none";
             this.node.style.top = "-5px"; // hide the red line
             this.minuteMark = 0;
         } 
