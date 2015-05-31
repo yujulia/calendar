@@ -188,6 +188,12 @@ ol, ul, fieldset, .nav .logo {
 .icon-down:before {
   content: "\e032"; }
 
+.icon-quill:before {
+  content: "\e033"; }
+
+.icon-edit:before {
+  content: "\e034"; }
+
 html {
   box-sizing: border-box; }
 
@@ -276,6 +282,14 @@ body {
       border-left: none; }
     .button--next:focus, .button--month:focus {
       border-left: solid 1px #dd4b39; }
+  .button--white {
+    background-color: #000;
+    color: #fff;
+    border-color: #000; }
+    .button--white:hover {
+      background-color: #000;
+      border-color: #fff;
+      color: #fff; }
 
 .access-text {
   position: absolute;
@@ -366,7 +380,7 @@ body {
     .month__item__label {
       position: absolute;
       top: 5px;
-      right: 5px; }
+      left: 5px; }
 
 .hour {
   position: relative;
@@ -426,6 +440,33 @@ body {
     position: absolute;
     content: " ";
     left: 50%; }
+
+.quickEvent {
+  padding-top: 10px; }
+  .quickEvent__label {
+    display: block;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin-bottom: 10px; }
+    .quickEvent__label:before {
+      vertical-align: bottom;
+      font-size: 20px; }
+  .quickEvent__text {
+    border: none;
+    min-width: 300px;
+    color: #666;
+    padding: 2px 5px; }
+  .quickEvent__action {
+    padding-top: 10px;
+    margin-bottom: 0px; }
+  .quickEvent__edit {
+    display: block;
+    padding-top: 7px;
+    float: right;
+    font-size: 12px; }
+    .quickEvent__edit:before {
+      vertical-align: bottom;
+      font-size: 16px; }
 
 @-moz-document url-prefix() {
   .container {

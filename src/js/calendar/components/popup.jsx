@@ -51,18 +51,18 @@ class Popup extends React.Component {
     render(){
         return (      
             <div className="popup" ref="popup">
-                <form className="eventForm" onSubmit={this.handleSubmit}>
-                    <fieldset>
-                        <label>When:</label>
-                        <span>some time here</span>
+                <form className="quickEvent" onSubmit={this.handleSubmit}>
+            
+                    <fieldset className="quickEvent__set">
+                        <label className="quickEvent__label icon-calendar">
+                            <span className="quickEvent__time" ref="quicktime">12/3/2 12:34pm</span>    
+                        </label>
+                        <input className="quickEvent__text" id="quickName" type="text" placeholder="describe your event" ref="quickname" />
                     </fieldset>
-                    <fieldset>
-                        <label htmlFor="eventName">What:</label>
-                        <input id="eventName" type="text" placeholder="your event" ref="eventName" />
-                    </fieldset>
-                    <fieldset>
-                        <CalButton text="Save" id="save" />
-                        <CalButton text="Edit" id="edit" />
+                    <fieldset className="quickEvent__action">
+                        <CalButton text="Save" classes="button--white" id="save" />
+                        <a className="quickEvent__edit icon-edit">Edit</a>
+                        
                     </fieldset>
                 </form>
             </div>

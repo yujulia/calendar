@@ -130,6 +130,18 @@ body {
             border-left: solid 1px $color-google;
         }
     }
+
+    &--white {
+        background-color: #000;
+        color: #fff;
+        border-color: #000;
+
+        &:hover {
+            background-color: #000;
+            border-color: #fff;
+            color: #fff;
+        }
+    }
 }
 
 .access-text { 
@@ -261,7 +273,7 @@ body {
         &__label {
             position: absolute;
             top: 5px;
-            right: 5px;       
+            left: 5px;       
         }
     }
 
@@ -346,6 +358,46 @@ body {
         content: " ";
         left: 50%;
 
+    }
+}
+
+.quickEvent {
+    padding-top: 10px;
+
+    &__label {
+        display: block;
+        text-transform: uppercase;
+        font-size: 14px;
+        margin-bottom: 10px;
+
+        &:before {
+            vertical-align: bottom;
+            font-size: 20px;
+        }
+    }
+
+    &__text {
+        border: none;
+        min-width: 300px;
+        color: $color-lighter-font;
+        padding: 2px 5px
+    }
+
+    &__action {
+        padding-top: 10px;
+        margin-bottom: 0px;
+    }
+
+    &__edit {
+        display: block;
+        padding-top: 7px;  
+        float: right;
+        font-size: 12px;
+
+        &:before {
+            vertical-align: bottom;
+            font-size: 16px;
+        }
     }
 }
 
