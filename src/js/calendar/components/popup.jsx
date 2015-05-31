@@ -14,10 +14,13 @@
 
     need to check boundaries of the browser window in case this runs off
 
+    REGEX a number, if there is and a p after, add to TODAY if nothing is selected
+
 **/
 
 import React from "react/addons";
 
+import CalButton from "./button.jsx";
 
 /** REACT component popup
 */
@@ -41,10 +44,28 @@ class Popup extends React.Component {
       
     }
 
+    handleSubmit(){
+
+    }
    
     render(){
         return (      
-            <div className="popup" ref="popup"/>
+            <div className="popup" ref="popup">
+                <form className="eventForm" onSubmit={this.handleSubmit}>
+                    <fieldset>
+                        <label>When:</label>
+                        <span>some time here</span>
+                    </fieldset>
+                    <fieldset>
+                        <label htmlFor="eventName">What:</label>
+                        <input id="eventName" type="text" placeholder="your event" ref="eventName" />
+                    </fieldset>
+                    <fieldset>
+                        <CalButton text="Save" id="save" />
+                        <CalButton text="Edit" id="edit" />
+                    </fieldset>
+                </form>
+            </div>
         );
     }
 }

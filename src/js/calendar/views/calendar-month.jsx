@@ -45,7 +45,7 @@ class CalendarMonth extends React.Component {
             dayString='';
 
         if (day.day == 1) {
-            dayString = <span>{ this.monthNames[day.month].slice(0,3) }<span className="num">{day.day}</span></span>;
+            dayString = <span>{ this.monthNames[day.month].slice(0,3) } <span className="num">{day.day}</span></span>;
         } else {
             dayString = <span className="num">{day.day}</span>;
         }

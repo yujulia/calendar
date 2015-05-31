@@ -16,13 +16,15 @@ ol, ul {
     list-style: none;
 }
 
-
 img {
     display: block;
 }
 
-:focus {
-    outline: none; // set on button
+fieldset {
+    @extend %nofrill;
+    border: none;
+    display: block;
+    margin-bottom: 10px;
 }
 
 // --------------------------------
@@ -30,6 +32,10 @@ img {
 body {
     color: $color-font;
     font: 13px $font-base;
+}
+
+.calendar {
+    position: relative;
 }
 
 .nav {
@@ -83,6 +89,7 @@ body {
         border: 1px solid $color-google;
         box-shadow: 0px 1px 1px rgba(0,0,0,.1);
         background: #F8F8F8;
+        outline: none;
     }
 
     &.on {
@@ -147,6 +154,7 @@ body {
 .week {
     width: calc(100% - 20px);
     border-bottom: $border;
+    margin-bottom: 20px;
   
     &__header {
         background-color: #fff;
@@ -168,7 +176,6 @@ body {
             width: $days-col-w;
             font-weight: $regular;
             font-size: 12px;  
-            border-top: $border;
         }
 
         .empty {
@@ -227,6 +234,8 @@ body {
     height: 100%;
     min-height: 400px;
     table-layout: fixed;
+    border-bottom: $border;
+    border-collapse: separate;
 
     &__header {
         &__item {
@@ -237,17 +246,13 @@ body {
         }
     }
 
-    &__row {
-        border-top: $border;
-
-    }
-
     &__item {
+        border-top: $border;
         border-right: $border;
-        padding: 5px;
         vertical-align: top;
         color: $color-lighter-font;
         position: relative;
+        padding: 3px;
 
         &:first-child {
             border-left: $border;
@@ -255,18 +260,8 @@ body {
 
         &__label {
             position: absolute;
-            top: 0;
-            right: 0;
-            
-            .num {
-                background: $color-faint-bg;
-                text-align: center;
-                padding: 3px;
-                width: 24px;
-                height: 20px;
-                display: inline-block;
-                margin-left: 5px;
-            }
+            top: 5px;
+            right: 5px;       
         }
     }
 
@@ -325,6 +320,33 @@ body {
     z-index: 2;
     font-size: 12px;
     height: 10px;
+}
+
+// ------------------------------------  popup
+
+.popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: $color-google;
+    color: #fff;
+    z-index: 9999;
+    padding: 10px; 
+    box-shadow: 2px 2px 4px rgba(0,0,0, 0.3);
+
+    &:after {
+        height: 0;
+        width: 0;
+        border-left: solid $arrow-size transparent;
+        border-right: solid $arrow-size transparent;
+        border-top: solid $arrow-size $color-google;
+        bottom: -1 * $arrow-size;
+        margin-left: -1 * $arrow-size/2;
+        position: absolute;
+        content: " ";
+        left: 50%;
+
+    }
 }
 
 // ------------------------------------  animations
