@@ -5,6 +5,7 @@ import React from "react/addons";
 import _ from "underscore";
 import Time from "time";
 import Day from "dayofmonth.jsx";
+import Popup from "popup.jsx";
 
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -79,6 +80,7 @@ class CalendarMonth extends React.Component {
                     </tbody>
                 </table>
                 </ReactCSSTransitionGroup>
+                <Popup />
             </section>
         );
     }

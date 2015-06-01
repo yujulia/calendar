@@ -3,9 +3,7 @@
 
 import React from "react";
 import _ from "underscore";
-
 import Nav from "nav.jsx";
-import Popup from "popup.jsx";
 import CalendarWeek from "week.jsx";
 import CalendarMonth from "month.jsx";
 import Time from "time";
@@ -149,7 +147,6 @@ class Calendar extends React.Component {
             <main className="calendar">
                 <Nav onToggleView={ this.handleToggleView } view={viewObj} dateRange={this.state.dateRange} />
                 { week }{ month }
-                <Popup />
             </main>
         );
     }
