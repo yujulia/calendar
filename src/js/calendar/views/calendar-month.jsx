@@ -80,8 +80,7 @@ class CalendarMonth extends React.Component {
     // --------------------------- RENDER
 
     render(){
-        console.log("render month");
-
+        
         return (      
             <section className="container">
                 <ReactCSSTransitionGroup transitionName="month">

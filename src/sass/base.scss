@@ -362,7 +362,7 @@ body {
 }
 
 .quickEvent {
-    padding-top: 10px;
+    width: 300px;
 
     &__label {
         display: block;
@@ -378,9 +378,9 @@ body {
 
     &__text {
         border: none;
-        min-width: 300px;
+        width: 100%;
         color: $color-lighter-font;
-        padding: 2px 5px
+        padding: 5px
     }
 
     &__action {
@@ -393,6 +393,7 @@ body {
         padding-top: 7px;  
         float: right;
         font-size: 12px;
+        color: #000;
 
         &:before {
             vertical-align: bottom;

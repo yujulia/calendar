@@ -767,7 +767,7 @@ body {
     left: 50%; }
 
 .quickEvent {
-  padding-top: 10px; }
+  width: 300px; }
   .quickEvent__label {
     display: block;
     text-transform: uppercase;
@@ -778,9 +778,9 @@ body {
       font-size: 20px; }
   .quickEvent__text {
     border: none;
-    min-width: 300px;
+    width: 100%;
     color: #666;
-    padding: 2px 5px; }
+    padding: 5px; }
   .quickEvent__action {
     padding-top: 10px;
     margin-bottom: 0px; }
@@ -788,7 +788,8 @@ body {
     display: block;
     padding-top: 7px;
     float: right;
-    font-size: 12px; }
+    font-size: 12px;
+    color: #000; }
     .quickEvent__edit:before {
       vertical-align: bottom;
       font-size: 16px; }

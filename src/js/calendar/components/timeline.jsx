@@ -30,13 +30,13 @@ class TimeLine extends React.Component {
         this.hour = this.node.dataset.hour;
         this.minuteMark = 0;
         this.minuteElapsed(); // initialize
-        this.interval = setInterval(this.minuteElapsed.bind(this), minute);
+        this.timeout = setTimeout(this.minuteElapsed, minute);
     }
 
     // --------------------------- clear the timer
 
     componentWillUnmount() {
-        clearInterval(this.interval);
+        clearTimeout(this.timeout);
     }
 
     // --------------------------- every minute if its right hour, move the line
@@ -61,6 +61,8 @@ class TimeLine extends React.Component {
             this.minuteMark = 0;
         } 
      
+        clearTimeout(this.timeout);
+        this.timeout = setTimeout(this.minuteElapsed, minute);
     }
 
     // ---------------------------

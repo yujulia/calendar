@@ -199,8 +199,6 @@ let Time = () => {
             realMonth = new Date(thisDate); // find the middle of the week?
             realMonth.setDate(realMonth.getDate() + WEEKDAYS/2);
             realMonth.setDate(1);
-  
-            console.log("real month Week ", realMonth);
 
             let wdata = { 
                 data: getDays(thisWeek.start, thisWeek.end), 
@@ -282,8 +280,6 @@ let Time = () => {
 
     let formatDateRange = (type, somedate) => {
         let thisDate = somedate ? new Date(somedate) : new Date();
-
-        console.log("making date range ", type, " ", somedate);
 
         if (type == "month") {
             return monthNames[ thisDate.getMonth() ] + " " + thisDate.getFullYear();

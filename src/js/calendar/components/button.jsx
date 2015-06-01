@@ -10,13 +10,21 @@ class CalButton extends React.Component {
         super();
 
         this.render = this.render.bind(this);   
+        this.componentWillMount = this.componentWillMount.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.renderIcon = this.renderIcon.bind(this);
+    }
+
+    // --------------------------- slightly debounce click event...
+
+    componentWillMount(){
+        this.handleClick = _.debounce(this.handleClick, 100);
     }
 
     // --------------------------- button clicked, let parent know if button is on
 
     handleClick(e) {
+
         let BTN = React.findDOMNode(this.refs.btn);
         BTN.blur(); // clear focus in chrome...
 

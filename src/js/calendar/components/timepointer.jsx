@@ -3,10 +3,10 @@
 **/
 
 import React from "react/addons";
-
 import Time from "../helpers/time";
 
 const minute = 1000 * 60;
+const offset = 34;
 
 /** REACT component pointer
 */
@@ -25,18 +25,18 @@ class TimePointer extends React.Component {
     componentDidMount() {
         this.pointer = React.findDOMNode(this.refs.pointer);
         this.minuteElapsed();
-        this.interval = setInterval(this.minuteElapsed.bind(this), minute);
+        this.timeout = setTimeout(this.minuteElapsed, minute);
     }
 
     componentWillUnmount() {
-        clearInterval(this.interval);
+        clearTimeout(this.timeout);
     }
 
     minuteElapsed(){
-        const offset = 34; // table header - arrow height
-
         let top = Time.getMinuteMark() + offset; 
         this.pointer.style.top = top + "px";
+        clearTimeout(this.timeout);
+        this.timeout = setTimeout(this.minuteElapsed, minute);
     }
 
     render(){

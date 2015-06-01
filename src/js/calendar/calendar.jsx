@@ -73,21 +73,16 @@ class Calendar extends React.Component {
 
         if (viewWeek) {
             if (this.state.week) {
-                console.log("we are already on week");
                 startOn = this.state.currentWeekStart; // on week go to next week
             } else {
-                console.log("we are going to week from month");
                 if (this.state.today) {
-                    console.log("today is in month start on today's week");
                     startOn = new Date(); // start on today
                 } else {
-                    console.log("start on first of month")
                     startOn = this.state.realMonth; // on month go to week, start on first of month
                 }
             }
         }
         if (viewMonth) {
-            console.log("we are already going to first of month");
             startOn = this.state.realMonth; // always go 1 real month 
         }
 
