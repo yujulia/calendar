@@ -3,9 +3,9 @@
 **/
 import React from "react/addons";
 
-import Time from "../helpers/time";
-import TimePointer from "../components/timepointer.jsx";
-import TimeLine from "../components/timeline.jsx";
+import Time from "time";
+import TimePointer from "week-timepointer.jsx";
+import TimeLine from "week-timeline.jsx";
 
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 

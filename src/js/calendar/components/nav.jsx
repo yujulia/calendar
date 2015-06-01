@@ -2,8 +2,7 @@
 
 **/
 import React from "react";
-
-import CalButton from "./button.jsx";
+import CalButton from "button.jsx";
 
 class Nav extends React.Component {
 

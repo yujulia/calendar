@@ -3,12 +3,9 @@
 **/
 import React from "react/addons";
 import _ from "underscore";
-
-import Time from "../helpers/time";
-
+import Time from "time";
 
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-
 
 /** REACT component CalendarMonth
 */
@@ -21,7 +18,6 @@ class CalendarMonth extends React.Component {
         this.renderDay = this.renderDay.bind(this);
         this.renderWeek = this.renderWeek.bind(this);
         this.renderMonthHeader = this.renderMonthHeader.bind(this);
-
         this.monthNames = Time.getMonthNames();
         this.today = Time.current();
     }
@@ -80,7 +76,7 @@ class CalendarMonth extends React.Component {
     // --------------------------- RENDER
 
     render(){
-        
+
         return (      
             <section className="container">
                 <ReactCSSTransitionGroup transitionName="month">

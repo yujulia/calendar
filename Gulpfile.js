@@ -65,6 +65,14 @@ gulp.task("scripts", function(){
     return browserify({
             entries: [gconfig.JS_SRC + gconfig.JS_BASE],
             transform: ["babelify", "reactify"],
+            paths: [
+                './node_modules',
+                './src/js/', 
+                './src/js/calendar/',
+                './src/js/calendar/views/',
+                './src/js/calendar/helpers/',
+                './src/js/calendar/components/'
+            ],
             debug: true,
             cache: {}, packageCache: {}, fullPaths: true
         })

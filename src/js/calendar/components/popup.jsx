@@ -8,7 +8,7 @@
 **/
 
 import React from "react/addons";
-import QuickEvent from "./quickevent.jsx";
+import QuickEvent from "quickevent.jsx";
 
 /** REACT component popup
 */

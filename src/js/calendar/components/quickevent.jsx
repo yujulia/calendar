@@ -14,7 +14,7 @@ input from this form
 **/
 
 import React from "react/addons";
-import CalButton from "./button.jsx";
+import CalButton from "button.jsx";
 
 /** REACT component popup
 */

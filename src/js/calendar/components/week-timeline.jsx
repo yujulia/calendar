@@ -3,8 +3,7 @@
 **/
 
 import React from "react/addons";
-
-import Time from "../helpers/time";
+import Time from "time";
 
 const minute = 1000 * 60;
 
