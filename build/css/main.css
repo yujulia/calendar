@@ -706,6 +706,8 @@ body {
       position: absolute;
       top: 5px;
       left: 5px; }
+  .month .on {
+    background-color: #fff8f7; }
 
 .hour {
   position: relative;

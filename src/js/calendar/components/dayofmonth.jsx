@@ -2,6 +2,7 @@
 
 */
 import React from "react/addons";
+import _ from "underscore";
 import Time from "time";
 
 /** REACT component dayofmonth
@@ -10,9 +11,13 @@ class DayOfMonth extends React.Component {
 
     constructor() {
         super();
+
         this.render = this.render.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
         this.componentWillUnmount = this.componentWillUnmount.bind(this);
+
+        this.handleClick = this.handleClick.bind(this);
+
         this.today = Time.current();
         this.monthNames = Time.getMonthNames();
     }
@@ -20,42 +25,47 @@ class DayOfMonth extends React.Component {
     // --------------------------- find pointer and start timer
 
     componentDidMount() {
-       
+       this.handleClick = _.debounce(this.handleClick, 100);
     }
 
     componentWillUnmount() {
       
     }
 
-    handleSubmit(){
-
+    handleClick(){
+        if (this.props.onDayClick) {
+            this.props.onDayClick(this.props.day);
+        }
     }
    
     render(){
 
-        let day = this.props.day, i = this.props.index,
-            dkey = "day"+day.id, 
-            dlkey = "daylabel"+day.id,
-            dayString='';
+        let day = this.props.day, 
+            dKey = ''+day.year+day.month+day.day,
+            dlkey = "dl" + dKey,
+            dayLabel='',
+            classArray = ['month__item'];
 
         if (day.day == 1) {
-            dayString = <span>{ this.monthNames[day.month].slice(0,3) } <span className="num">{day.day}</span></span>;
+            dayLabel = <span>{ this.monthNames[day.month].slice(0,3) } <span className="num">{day.day}</span></span>;
         } else {
-            dayString = <span className="num">{day.day}</span>;
+            dayLabel = <span className="num">{day.day}</span>;
         }
         if (day.month !== this.props.realmonth ) {
-            dayString = <span className="fade">{ dayString }</span>;
+            dayLabel = <span className="fade">{ dayLabel }</span>;
+        }
+        if (this.today.year == day.year && this.today.month == day.month && this.today.day == day.day) {
+            classArray.push('today');
+        } 
+        if (this.props.onDay === dKey) {
+            classArray.push('on');
+        } else {
+            classArray = _.without(classArray, "on"); 
         }
 
-        let todayClass = 'month__item';
-
-        if (this.today.year == day.year && this.today.month == day.month && this.today.day == day.day) {
-            todayClass += ' today';
-        } 
-
         return(
-            <td className={todayClass} data-month={day.month} data-day={ day.day } data-year={day.year} key={dkey}>
-                <span className="month__item__label" key={dlkey}>{ dayString }</span>
+            <td className={classArray.join(' ')} data-month={day.month} data-day={ day.day } data-year={day.year} key={dKey} onClick={ this.handleClick }>
+                <span className="month__item__label" key={dlkey}>{ dayLabel }</span>
             </td>
         );
     }
