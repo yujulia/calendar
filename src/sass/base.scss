@@ -137,7 +137,7 @@ body {
         color: $color-google;
         border-color: #fff;
 
-        &:hover {
+        &:hover, &:focus {
             background-color: #000;
             border-color: #000;
             color: #fff;
@@ -375,8 +375,9 @@ body {
         text-decoration: none;
         font-size: 25px;
 
-        &:hover {
+        &:hover, &:focus {
             color: #000;
+            outline: none;
         }
     }
 }
@@ -405,10 +406,15 @@ body {
     }
 
     &__text {
-        border: none;
+        border: solid 1px transparent;
         width: 100%;
         color: $color-lighter-font;
-        padding: 5px
+        padding: 5px;
+
+        &:focus{
+            outline: none;
+            border: solid 1px #000
+        }
     }
 
     &__action {
@@ -421,10 +427,17 @@ body {
         padding-top: 7px;  
         float: right;
         font-size: 12px;
+        text-decoration: none;
+        color: #fff;
+        outline: none;
 
         &:before {
             vertical-align: bottom;
             font-size: 16px;
+        }
+
+        &:hover, &:focus {
+            color: #000;
         }
     }
 }

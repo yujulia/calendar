@@ -60,7 +60,7 @@ class QuickEvent extends React.Component {
                 </fieldset>
                 <fieldset className="quickEvent__action">
                     <CalButton text="Save" classes="button--white" id="save" />
-                    <a className="quickEvent__edit icon-edit">Edit</a>   
+                    <a href="#" className="quickEvent__edit icon-edit">Edit</a>   
                 </fieldset>
             </form>
         );

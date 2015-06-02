@@ -45,6 +45,7 @@ class Popup extends React.Component {
     // --------------------------- move popup off screen
 
     closePopup(e){
+        e.preventDefault();
         this.popup.style.left = "-10000px";
         this.popup.style.top = "-10000px";
     }

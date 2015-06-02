@@ -70,6 +70,8 @@ class CalendarMonth extends React.Component {
     }
 
     // --------------------------- show the popup in the right place
+    // same thing will be used in week... off load the calculation
+
     showPopup(){
         
         let containerRECT = this.container.getBoundingClientRect(),
@@ -102,7 +104,6 @@ class CalendarMonth extends React.Component {
     // --------------------------- the popup has been built
 
     handlePopupMount(data){
-        console.log("pop mounted ", data);
         this.setState({
             popupWidth: data.width,
             popupHeight: data.height
@@ -152,7 +153,7 @@ class CalendarMonth extends React.Component {
     // --------------------------- RENDER
 
     render(){
-        console.log("render", this.state);
+
         return (      
             <section className="container" ref="container">
                 <ReactCSSTransitionGroup transitionName="month">

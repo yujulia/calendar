@@ -287,7 +287,7 @@ body {
     background-color: #fff;
     color: #dd4b39;
     border-color: #fff; }
-    .button--white:hover {
+    .button--white:hover, .button--white:focus {
       background-color: #000;
       border-color: #000;
       color: #fff; }
@@ -452,8 +452,9 @@ body {
     color: #fff;
     text-decoration: none;
     font-size: 25px; }
-    .popup__close:hover {
-      color: #000; }
+    .popup__close:hover, .popup__close:focus {
+      color: #000;
+      outline: none; }
 
 .use-icon .access-text {
   text-indent: -99999em; }
@@ -469,10 +470,13 @@ body {
       vertical-align: bottom;
       font-size: 20px; }
   .quickEvent__text {
-    border: none;
+    border: solid 1px transparent;
     width: 100%;
     color: #666;
     padding: 5px; }
+    .quickEvent__text:focus {
+      outline: none;
+      border: solid 1px #000; }
   .quickEvent__action {
     padding-top: 10px;
     margin-bottom: 0px; }
@@ -480,10 +484,15 @@ body {
     display: block;
     padding-top: 7px;
     float: right;
-    font-size: 12px; }
+    font-size: 12px;
+    text-decoration: none;
+    color: #fff;
+    outline: none; }
     .quickEvent__edit:before {
       vertical-align: bottom;
       font-size: 16px; }
+    .quickEvent__edit:hover, .quickEvent__edit:focus {
+      color: #000; }
 
 @-moz-document url-prefix() {
   .container {
