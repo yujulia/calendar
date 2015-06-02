@@ -53,7 +53,7 @@ class TimeLine extends React.Component {
         } 
 
         //  moved out of range so reset
-        if (this.minuteMark >= 60) {
+        if (this.minuteMark >= 59) {
             this.notset = true;
             this.node.style.display = "none";
             this.node.style.top = "-5px"; // hide the red line

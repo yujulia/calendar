@@ -14,10 +14,7 @@ class DayOfMonth extends React.Component {
 
         this.render = this.render.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
-        this.componentWillUnmount = this.componentWillUnmount.bind(this);
-
         this.handleClick = this.handleClick.bind(this);
-
         this.today = Time.current();
         this.monthNames = Time.getMonthNames();
     }
@@ -25,46 +22,23 @@ class DayOfMonth extends React.Component {
     // --------------------------- find pointer and start timer
 
     componentDidMount() {
-       this.handleClick = _.debounce(this.handleClick, 100);
+        this.handleClick = _.debounce(this.handleClick.bind(this), 250);
     }
 
-    componentWillUnmount() {
-      
-    }
+    // ---------------------------
 
     handleClick(){
-        // find out pos
-
-        let cont = document.querySelector(".container");
-
-        let bodyRect = cont.getBoundingClientRect();
-        let ELE = React.findDOMNode(this.refs.monthday);
-
-        let elemRect = ELE.getBoundingClientRect();
-        let offsetY   = elemRect.top - bodyRect.top;
-        let offsetX  = elemRect.left - bodyRect.left;
-
-        let h = ELE.offsetHeight;
-        let w = ELE.offsetWidth;
-
-        console.log("pos", offsetY, offsetX, h, w);
-
-        let test = document.querySelector(".popup");
-
-        console.log(test);
-
-        test.style.top = offsetY + "px"; // subtract popup size here i think
-        test.style.left = offsetX  + "px";
-
-
+        console.log("click");
         if (this.props.onDayClick) {
-            this.props.onDayClick(this.props.day);
+            this.props.onDayClick(this.props.data.day);
         }
     }
+
+    // ---------------------------
    
     render(){
 
-        let day = this.props.day, 
+        let day = this.props.data.day, 
             dKey = ''+day.year+day.month+day.day,
             dlkey = "dl" + dKey,
             dayLabel='',
@@ -75,13 +49,13 @@ class DayOfMonth extends React.Component {
         } else {
             dayLabel = <span className="num">{day.day}</span>;
         }
-        if (day.month !== this.props.realmonth ) {
+        if (day.month !== this.props.data.realmonth ) {
             dayLabel = <span className="fade">{ dayLabel }</span>;
         }
         if (this.today.year == day.year && this.today.month == day.month && this.today.day == day.day) {
             classArray.push('today');
         } 
-        if (this.props.onDay === dKey) {
+        if (this.props.data.onDay === dKey) {
             classArray.push('on');
         } else {
             classArray = _.without(classArray, "on"); 
@@ -94,6 +68,5 @@ class DayOfMonth extends React.Component {
         );
     }
 }
-
 
 export default DayOfMonth;

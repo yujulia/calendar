@@ -5,6 +5,9 @@
     parent also tells child that is selected to have some on state color
     this is poped up in the correct position
 
+    ADD a close animation fade out probably
+    add close handler
+
 **/
 
 import React from "react/addons";
@@ -18,16 +21,27 @@ class Popup extends React.Component {
         super();
         this.render = this.render.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
-        this.componentWillUnmount = this.componentWillUnmount.bind(this);
     }
 
-    // --------------------------- find pointer and start timer
+    // --------------------------- get the width and height of popup for calculations
 
     componentDidMount() {
-       
-    }
+        let popup = React.findDOMNode(this.refs.popup),
+            w = popup.offsetWidth,
+            h = popup.offsetHeight,
+            data = {
+                width: w,
+                height: h,
+                popup: popup
+            };
 
-    componentWillUnmount() {
+        console.log("popup mounted in popup");
+        if (this.props.onPopupMount) {
+            console.log("call popup mounted")
+            this.props.onPopupMount(data);
+        } else {
+            console.log("popup did not mount");
+        }
       
     }
    
@@ -36,7 +50,8 @@ class Popup extends React.Component {
 
         return (      
             <div className="popup" ref="popup">
-                placeholder text here
+                <a href="#" className="popup__close icon-close-round">close</a>
+                {quickevent}
             </div>
         );
     }

@@ -7,6 +7,8 @@ import Time from "time";
 import Day from "dayofmonth.jsx";
 import Popup from "popup.jsx";
 
+const BOUNCE_RESIZE = 250;
+
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 /** REACT component CalendarMonth
@@ -17,33 +19,73 @@ class CalendarMonth extends React.Component {
         super();
 
         this.render = this.render.bind(this);
-
+        this.componentDidMount = this.componentDidMount.bind(this);
+        this.handleResize = this.handleResize.bind(this);
         this.handleDayClick = this.handleDayClick.bind(this);
         this.renderDay = this.renderDay.bind(this);
         this.renderWeek = this.renderWeek.bind(this);
         this.renderMonthHeader = this.renderMonthHeader.bind(this);
+        this.handlePopupMount = this.handlePopupMount.bind(this);
 
         this.state = {
-            day : 0
+            day : 0,
+            popupWidth : 0,
+            popupHeight: 0,
+            containerWidth: 0
         }
     }
 
+    // --------------------------- 
+
+    componentDidMount() {
+        this.container = React.findDOMNode(this.refs.container);
+        this.day1Node = React.findDOMNode(this.refs.day1);
+        this.handleResize = _.debounce(this.handleResize, BOUNCE_RESIZE);
+        window.addEventListener("resize", this.handleResize);
+    }
+
+    // ---------------------------  handle resize of window
+
+    handleResize(){
+        // console.log(" month resize"); // move popup from edge if resized
+    }
+
     // --------------------------- day is clicked
+
     handleDayClick(clickedDay){
         let selectedDay = ''+clickedDay.year+clickedDay.month+clickedDay.day;
         this.setState({ day: selectedDay });
     }
 
+    // --------------------------- the popup has been built
+
+    handlePopupMount(data){
+        this.setState({
+            popupWidth: data.width,
+            popupHeight: data.height
+        });
+    }
+
     // --------------------------- render days of this month
+
     renderDay(day, i){
-        let dk = 'day'+day.year+day.month+day.day;
+        let dk = 'day'+i,
+            data = {
+                popupWidth : this.state.popupWidth,
+                popupHeight : this.state.popupHeight,
+                containerWidth: this.state.containerWidth,
+                day: day,
+                onDay: this.state.day,
+                realmonth: this.props.realmonth
+            };
 
         return(
-            <Day day={day} onDay={ this.state.day } onDayClick={this.handleDayClick} key={dk}/>
+            <Day onDayClick={this.handleDayClick} data={data} key={dk} ref={dk} />
         );
     }
 
     // --------------------------- render weeks of this month
+
     renderWeek(week, i){
         let wkey = "week"+i;
 
@@ -53,6 +95,7 @@ class CalendarMonth extends React.Component {
     }
 
     // --------------------------- render the week headers
+
     renderMonthHeader(day, i) {
         let mhkey = "mh"+i;
 
@@ -64,10 +107,11 @@ class CalendarMonth extends React.Component {
     }
 
     // --------------------------- RENDER
+
     render(){
 
         return (      
-            <section className="container">
+            <section className="container" ref="container">
                 <ReactCSSTransitionGroup transitionName="month">
                 <table className="month" key="m">
                     <thead className="month__header" key="mh">
@@ -80,7 +124,7 @@ class CalendarMonth extends React.Component {
                     </tbody>
                 </table>
                 </ReactCSSTransitionGroup>
-                <Popup />
+                <Popup onPopupMount={this.handlePopupMount}/>
             </section>
         );
     }

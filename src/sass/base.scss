@@ -45,6 +45,7 @@ body {
     border-bottom: $border;
     padding: 9px $pad-right 9px $pad-left;
     height: $nav-h; 
+    z-index: 60;
 
     .logo {
         @extend %nofrill;
@@ -158,6 +159,7 @@ body {
     margin-left: $aside-w;
     height: calc(100% - #{$nav-h});
     overflow-y: auto;
+    overflow-x: hidden;
     width: calc(100% - #{$aside-w});
 }
 
@@ -244,7 +246,7 @@ body {
 .month {
     width: calc(100% - 20px);
     height: 100%;
-    min-height: 400px;
+    min-height: 500px;
     table-layout: fixed;
     border-bottom: $border;
     border-collapse: separate;
