@@ -26,6 +26,7 @@ class CalendarMonth extends React.Component {
         this.renderWeek = this.renderWeek.bind(this);
         this.renderMonthHeader = this.renderMonthHeader.bind(this);
         this.handlePopupMount = this.handlePopupMount.bind(this);
+        this.showPopup = this.showPopup.bind(this);
 
         this.state = {
             day : 0,
@@ -40,6 +41,7 @@ class CalendarMonth extends React.Component {
     componentDidMount() {
         this.container = React.findDOMNode(this.refs.container);
         this.day1Node = React.findDOMNode(this.refs.day1);
+        this.popup =   React.findDOMNode(this.refs.popup);
         this.handleResize = _.debounce(this.handleResize, BOUNCE_RESIZE);
         window.addEventListener("resize", this.handleResize);
     }
@@ -55,7 +57,15 @@ class CalendarMonth extends React.Component {
     handleDayClick(clickedDay){
         let selectedDay = ''+clickedDay.year+clickedDay.month+clickedDay.day;
         this.setState({ day: selectedDay });
+
+        this.showPopup();
     }
+
+    showPopup(){
+        this.popup.style.left = "50%";
+        this.popup.style.top = "50%";
+    }
+
 
     // --------------------------- the popup has been built
 
@@ -124,7 +134,7 @@ class CalendarMonth extends React.Component {
                     </tbody>
                 </table>
                 </ReactCSSTransitionGroup>
-                <Popup onPopupMount={this.handlePopupMount}/>
+                <Popup onPopupMount={this.handlePopupMount} ref="popup"/>
             </section>
         );
     }

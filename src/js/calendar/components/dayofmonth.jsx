@@ -22,7 +22,7 @@ class DayOfMonth extends React.Component {
     // --------------------------- find pointer and start timer
 
     componentDidMount() {
-        this.handleClick = _.debounce(this.handleClick.bind(this), 250);
+        this.handleClick = _.debounce(this.handleClick.bind(this), 150);
     }
 
     // ---------------------------

@@ -11,7 +11,7 @@ class CalButton extends React.Component {
 
         this.render = this.render.bind(this);   
         this.handleClick = this.handleClick.bind(this);
-        this.handleClick = _.debounce(this.handleClick, 250);
+        this.handleClick = _.debounce(this.handleClick, 150);
         this.renderIcon = this.renderIcon.bind(this);
     }
 
@@ -28,8 +28,10 @@ class CalButton extends React.Component {
 
     // ---------------------------- render icon and hidden text
     renderIcon(){
+        let iconClass = "icon " + this.props.useicon;
         return(
-            <span className={this.props.useicon}>
+            <span className="use-icon">
+                <span className={iconClass} aria-hidden="true"></span>
                 <span className="access-text">{this.props.text}</span> 
             </span>
         );

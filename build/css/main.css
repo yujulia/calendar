@@ -609,12 +609,12 @@ body {
     .button--next:focus, .button--month:focus {
       border-left: solid 1px #dd4b39; }
   .button--white {
-    background-color: #000;
-    color: #fff;
-    border-color: #000; }
+    background-color: #fff;
+    color: #dd4b39;
+    border-color: #fff; }
     .button--white:hover {
       background-color: #000;
-      border-color: #fff;
+      border-color: #000;
       color: #fff; }
 
 .access-text {
@@ -756,7 +756,7 @@ body {
   background-color: #dd4b39;
   color: #fff;
   z-index: 9999;
-  padding: 10px;
+  padding: 20px 10px 10px 10px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); }
   .popup:after {
     height: 0;
@@ -769,6 +769,18 @@ body {
     position: absolute;
     content: " ";
     left: 50%; }
+  .popup__close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 25px; }
+    .popup__close:hover {
+      color: #000; }
+
+.use-icon .access-text {
+  text-indent: -99999em; }
 
 .quickEvent {
   width: 300px; }
@@ -792,8 +804,7 @@ body {
     display: block;
     padding-top: 7px;
     float: right;
-    font-size: 12px;
-    color: #000; }
+    font-size: 12px; }
     .quickEvent__edit:before {
       vertical-align: bottom;
       font-size: 16px; }

@@ -35,14 +35,9 @@ class Popup extends React.Component {
                 popup: popup
             };
 
-        console.log("popup mounted in popup");
         if (this.props.onPopupMount) {
-            console.log("call popup mounted")
             this.props.onPopupMount(data);
-        } else {
-            console.log("popup did not mount");
-        }
-      
+        } 
     }
    
     render(){
@@ -50,7 +45,10 @@ class Popup extends React.Component {
 
         return (      
             <div className="popup" ref="popup">
-                <a href="#" className="popup__close icon-close-round">close</a>
+                <a href="#" className="use-icon popup__close">
+                    <span className="icon icon-close-round"></span>
+                    <span className="access-text" aria-hidden="true">close</span>
+                </a>
                 {quickevent}
             </div>
         );
