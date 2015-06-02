@@ -410,7 +410,8 @@ body {
     background-color: transparent; }
 
 .today {
-  background-color: #f6f6f6; }
+  background-color: #f6f6f6;
+  color: #dd4b39; }
 
 .today.week__header__item {
   color: #dd4b39; }

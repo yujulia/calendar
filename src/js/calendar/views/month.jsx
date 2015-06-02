@@ -30,6 +30,7 @@ class CalendarMonth extends React.Component {
 
         this.state = {
             day : 0,
+            dayData : {},
             popupWidth : 0,
             popupHeight: 0,
             containerWidth: 0
@@ -54,22 +55,54 @@ class CalendarMonth extends React.Component {
 
     // --------------------------- day is clicked
 
-    handleDayClick(clickedDay){
-        let selectedDay = ''+clickedDay.year+clickedDay.month+clickedDay.day;
-        this.setState({ day: selectedDay });
+    handleDayClick(data){
+        let day = data.day,
+            selectedDay = ''+day.year+day.month+day.day;
 
-        this.showPopup();
+        this.setState({ 
+            day: selectedDay, 
+            dayData: data.day
+        });
+
+        this.dayElement = data.dayElement;
+        this.showPopup();        
+
     }
 
+    // --------------------------- show the popup in the right place
     showPopup(){
-        this.popup.style.left = "50%";
-        this.popup.style.top = "50%";
+        
+        let containerRECT = this.container.getBoundingClientRect(),
+            containerWidth = this.container.offsetWidth,
+            onedayRECT = this.dayElement.getBoundingClientRect(),
+            offsetY = onedayRECT.top - containerRECT.top,
+            offsetX = onedayRECT.left - containerRECT.left,
+            onedayHeight = this.dayElement.offsetHeight,
+            onedayWidth = this.dayElement.offsetWidth,
+            calcTop = offsetY - (this.state.popupHeight+10)/2,
+            calcLeft = offsetX - this.state.popupWidth/2 + onedayWidth/2;
+
+
+        if (calcTop <= 0) {
+            calcTop = offsetY + (onedayHeight/2);
+        } 
+        if (calcLeft <= 0) {
+            calcLeft = 20;
+        }
+
+        if ((calcLeft + this.state.popupWidth) > containerWidth) {
+            calcLeft = containerWidth - this.state.popupWidth - 30;
+        }
+
+        this.popup.style.top = calcTop + "px"; // subtract popup size here i think
+        this.popup.style.left = calcLeft + "px";
     }
 
 
     // --------------------------- the popup has been built
 
     handlePopupMount(data){
+        console.log("pop mounted ", data);
         this.setState({
             popupWidth: data.width,
             popupHeight: data.height
@@ -119,7 +152,7 @@ class CalendarMonth extends React.Component {
     // --------------------------- RENDER
 
     render(){
-
+        console.log("render", this.state);
         return (      
             <section className="container" ref="container">
                 <ReactCSSTransitionGroup transitionName="month">
@@ -134,7 +167,7 @@ class CalendarMonth extends React.Component {
                     </tbody>
                 </table>
                 </ReactCSSTransitionGroup>
-                <Popup onPopupMount={this.handlePopupMount} ref="popup"/>
+                <Popup onPopupMount={this.handlePopupMount} ref="popup" day={this.state.dayData}/>
             </section>
         );
     }

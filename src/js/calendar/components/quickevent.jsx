@@ -15,6 +15,7 @@ input from this form
 
 import React from "react/addons";
 import CalButton from "button.jsx";
+import Time from "time";
 
 /** REACT component popup
 */
@@ -25,7 +26,7 @@ class QuickEvent extends React.Component {
         this.render = this.render.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
         this.componentWillUnmount = this.componentWillUnmount.bind(this);
-       
+        this.monthNames = Time.getMonthNames();
     }
 
     // --------------------------- find pointer and start timer
@@ -43,12 +44,18 @@ class QuickEvent extends React.Component {
     }
    
     render(){
+        let day = this.props.day,
+        dayTitle = '';
+
+        if (day.month){
+            dayTitle = <span className="quickEvent__time" ref="quicktime">{ this.monthNames[day.month]} {day.day}, {day.year}</span>
+        }
+            
+
         return (      
             <form className="quickEvent" onSubmit={this.handleSubmit}>
                 <fieldset className="quickEvent__set">
-                    <label className="quickEvent__label icon-calendar">
-                        <span className="quickEvent__time" ref="quicktime">12/3/2 12:34pm</span>    
-                    </label>
+                    <label className="quickEvent__label icon-calendar">{dayTitle}</label>
                     <input className="quickEvent__text" id="quickName" type="text" placeholder="describe your event" ref="quickname" />
                 </fieldset>
                 <fieldset className="quickEvent__action">

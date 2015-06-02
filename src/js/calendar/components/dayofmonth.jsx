@@ -29,8 +29,12 @@ class DayOfMonth extends React.Component {
 
     handleClick(){
         console.log("click");
+        let data = {
+            day: this.props.data.day,
+            dayElement: React.findDOMNode(this.refs.day)
+        }
         if (this.props.onDayClick) {
-            this.props.onDayClick(this.props.data.day);
+            this.props.onDayClick(data);
         }
     }
 
@@ -62,7 +66,7 @@ class DayOfMonth extends React.Component {
         }
 
         return(
-            <td className={classArray.join(' ')} data-month={day.month} data-day={ day.day } data-year={day.year} key={dKey} ref="monthday" onClick={ this.handleClick }>
+            <td className={classArray.join(' ')} data-month={day.month} data-day={ day.day } data-year={day.year} key={dKey} ref="day" onClick={ this.handleClick }>
                 <span className="month__item__label" key={dlkey}>{ dayLabel }</span>
             </td>
         );

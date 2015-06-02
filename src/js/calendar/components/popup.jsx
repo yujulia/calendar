@@ -21,35 +21,47 @@ class Popup extends React.Component {
         super();
         this.render = this.render.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.closePopup = this.closePopup.bind(this);
     }
 
     // --------------------------- get the width and height of popup for calculations
 
     componentDidMount() {
-        let popup = React.findDOMNode(this.refs.popup),
-            w = popup.offsetWidth,
-            h = popup.offsetHeight,
+        this.popup = React.findDOMNode(this.refs.popup);
+
+        let w = this.popup.offsetWidth,
+            h = this.popup.offsetHeight,
             data = {
                 width: w,
                 height: h,
-                popup: popup
+                popup: this.popup
             };
 
         if (this.props.onPopupMount) {
             this.props.onPopupMount(data);
         } 
     }
+
+    // --------------------------- move popup off screen
+
+    closePopup(e){
+        this.popup.style.left = "-10000px";
+        this.popup.style.top = "-10000px";
+    }
    
+    // ---------------------------
+
     render(){
-        let quickevent = <QuickEvent />;
+        console.log("popup day", this.props.day);
+        let quickevent = <QuickEvent day={this.props.day}/>;
 
         return (      
             <div className="popup" ref="popup">
-                <a href="#" className="use-icon popup__close">
+                <a href="#" className="use-icon popup__close" onClick={ this.closePopup }>
                     <span className="icon icon-close-round"></span>
                     <span className="access-text" aria-hidden="true">close</span>
                 </a>
-                {quickevent}
+                { quickevent }
             </div>
         );
     }
