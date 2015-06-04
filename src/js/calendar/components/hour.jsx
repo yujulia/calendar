@@ -30,22 +30,36 @@ class Hour extends React.Component {
 
     // ---------------------------
 
-    handleClick(){
-        // let data = {
-        //     day: this.props.data.day,
-        //     dayElement: React.findDOMNode(this.refs.day)
-        // }
-        // if (this.props.onDayClick) {
-        //     this.props.onDayClick(data);
-        // }
+    handleClick(moreData){
+        let data = {
+            day: this.props.data.thisDay,
+            hour: this.props.data.hour
+        }
+        _.extend(data, moreData); // add data
+
+        if (this.props.onHourClick) {
+            this.props.onHourClick(data);
+        }
     }
+
+    // ---------------------------
 
     handleStartHourClick(){
-        console.log("top hour clicked", this.props.data.thisDay, this.props.data.hour);
+        let extData = {
+            minute: 0,
+            element: React.findDOMNode(this.refs.startHour)
+        }
+        this.handleClick(extData);
     }
 
+    // ---------------------------
+
     handleEndHourClick(){
-        console.log("end hour clicked", this.props.data.thisDay, this.props.data.hour);
+        let extData = {
+            minute: 30,
+            element: React.findDOMNode(this.refs.endHour)
+        }
+        this.handleClick(extData);
     }
 
     // ---------------------------

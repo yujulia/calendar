@@ -6,6 +6,7 @@ import $ from "jquery";
 import Time from "time";
 import TimePointer from "timepointer.jsx";
 import Hour from "hour.jsx";
+import Popup from "popup.jsx";
 
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -22,9 +23,20 @@ class CalendarWeek extends React.Component {
         this.renderDay = this.renderDay.bind(this);
         this.renderHour = this.renderHour.bind(this);
         this.renderWeekHeader = this.renderWeekHeader.bind(this);
+        this.handleHourClick = this.handleHourClick.bind(this);
+        this.showPopup = this.showPopup.bind(this);
+        this.handlePopupMount = this.handlePopupMount.bind(this);
 
         this.timeLabels = Time.getTimeLabels(); 
         this.today = Time.current();
+
+        this.state = {
+            day : 0,
+            dayData : {},
+            popupWidth : 0,
+            popupHeight: 0,
+            containerWidth: 0
+        }
     }
 
     // --------------------------- scroll to timeline area if it exists
@@ -37,21 +49,90 @@ class CalendarWeek extends React.Component {
             
             container.scrollTop = offset;
         }
+
+        // probably make parent do this
+        this.container = React.findDOMNode(this.refs.container);
+        this.popup =   React.findDOMNode(this.refs.popup);
+
+
+        this.day1Node = document.querySelector(".halfhour");
+        console.log(this.day1Node);
+    }
+
+    handlePopupMount(data){
+        this.setState({
+            popupWidth: data.width,
+            popupHeight: data.height
+        });
+    }
+
+    // ---------------------------
+    handleHourClick(data){
+        console.log("handle hour click");
+        this.dayElement = data.element;
+        this.setState({ 
+            dayData: data.day
+        });
+
+        this.showPopup();
+    }
+
+    showPopup(){
+
+        // the calculation for popup is different here...
+        
+        let popupType = ["popup"],
+            containerRECT = this.container.getBoundingClientRect(),
+            containerWidth = this.container.offsetWidth,
+            onedayRECT = this.dayElement.getBoundingClientRect(),
+            offsetY = onedayRECT.top - containerRECT.top,
+            offsetX = onedayRECT.left - containerRECT.left,
+            onedayHeight = this.dayElement.offsetHeight,
+            onedayWidth = this.dayElement.offsetWidth,
+            calcTop = offsetY - (this.state.popupHeight+10)/2,
+            calcLeft = offsetX - this.state.popupWidth/2 + onedayWidth/2;
+
+
+        // did we hit the top
+        if (calcTop <= 0) {
+            calcTop = offsetY + (onedayHeight/2);
+            popupType.push("popup--bottom");
+        } else {
+            popupType.push("popup--top");
+        }
+
+        // did we hit left or right
+        if (calcLeft <= 0) {
+            calcLeft = 20;
+            popupType.push("popup--left");
+        } else if ((calcLeft + this.state.popupWidth) > containerWidth) {
+            calcLeft = containerWidth - this.state.popupWidth - 50;   
+            popupType.push("popup--right");
+        }
+
+        let typeString = popupType.join(" ");
+        if (typeString !== this.popup.className) {
+            this.popup.className = typeString; 
+        }
+        
+        // let calcTop = 200, calcLeft = 300;
+
+        this.popup.style.top = calcTop + "px"; // subtract popup size here i think
+        this.popup.style.left = calcLeft + "px";
     }
 
     // --------------------------- render the week day 
 
     renderDay(hourID, day, i) {
 
-        let dhkey = day.day + hourID +i,
+        let dhkey = '' + day.year + day.day + hourID + i,
             hourData = {
                 thisDay: day,
                 hour: hourID,
                 index : i
             };
-
         return(
-            <Hour data={hourData} key={dhkey} />
+            <Hour data={hourData} key={dhkey} onHourClick={this.handleHourClick} ref={dhkey}/>
         )
 
     }
@@ -109,6 +190,7 @@ class CalendarWeek extends React.Component {
                 </table>
                 <TimePointer />
                 </ReactCSSTransitionGroup>
+                <Popup onPopupMount={this.handlePopupMount} ref="popup" day={this.state.dayData}/>
             </section>
         );
     }
