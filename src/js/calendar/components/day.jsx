@@ -7,7 +7,7 @@ import Time from "time";
 
 /** REACT component dayofmonth
 */
-class DayOfMonth extends React.Component {
+class Day extends React.Component {
 
     constructor() {
         super();
@@ -28,7 +28,6 @@ class DayOfMonth extends React.Component {
     // ---------------------------
 
     handleClick(){
-        console.log("click");
         let data = {
             day: this.props.data.day,
             dayElement: React.findDOMNode(this.refs.day)
@@ -73,4 +72,4 @@ class DayOfMonth extends React.Component {
     }
 }
 
-export default DayOfMonth;
+export default Day;

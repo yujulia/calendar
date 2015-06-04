@@ -5,7 +5,10 @@
 import React from "react/addons";
 import Time from "time";
 
-const minute = 1000 * 60;
+const MINUTE_IN_MS = 1000 * 60;
+const ON_CLASS = "timeLine timeLine--active";
+const OFF_CLASS = "timeLine";
+const END_OF_HOUR = 59; // since js time starts at 0;
 
 /** REACT component timeline
 */
@@ -29,7 +32,7 @@ class TimeLine extends React.Component {
         this.hour = this.node.dataset.hour;
         this.minuteMark = 0;
         this.minuteElapsed(); // initialize
-        this.timeout = setTimeout(this.minuteElapsed, minute);
+        this.timeout = setTimeout(this.minuteElapsed, MINUTE_IN_MS);
     }
 
     // --------------------------- clear the timer
@@ -43,9 +46,9 @@ class TimeLine extends React.Component {
     minuteElapsed(){
         let now = Time.getHourMark();
 
-        if (this.hour == now.hour) {
+        if (this.hour == now.hour+13) {
             if (this.notset){
-                this.node.style.display = "block";
+                this.node.className = ON_CLASS;
                 this.notset = false;
             }
             this.node.style.top = now.minute + "px";
@@ -53,15 +56,14 @@ class TimeLine extends React.Component {
         } 
 
         //  moved out of range so reset
-        if (this.minuteMark >= 59) {
+        if (this.minuteMark >= END_OF_HOUR) {
             this.notset = true;
-            this.node.style.display = "none";
-            this.node.style.top = "-5px"; // hide the red line
+            this.node.className = OFF_CLASS ;
             this.minuteMark = 0;
         } 
      
         clearTimeout(this.timeout);
-        this.timeout = setTimeout(this.minuteElapsed, minute);
+        this.timeout = setTimeout(this.minuteElapsed, MINUTE_IN_MS);
     }
 
     // ---------------------------

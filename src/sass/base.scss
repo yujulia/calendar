@@ -309,6 +309,10 @@ body {
         width: 100%;
         height: 2px;
         display: none;
+
+        &--active {
+            display: block;
+        }
     }
 
 }

@@ -2,10 +2,10 @@
 
 **/
 import React from "react/addons";
-
+import $ from "jquery";
 import Time from "time";
-import TimePointer from "week-timepointer.jsx";
-import TimeLine from "week-timeline.jsx";
+import TimePointer from "timepointer.jsx";
+import Hour from "hour.jsx";
 
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -16,14 +16,27 @@ class CalendarWeek extends React.Component {
     constructor() {
         super();
 
+        
         this.render = this.render.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
         this.renderDay = this.renderDay.bind(this);
         this.renderHour = this.renderHour.bind(this);
         this.renderWeekHeader = this.renderWeekHeader.bind(this);
 
         this.timeLabels = Time.getTimeLabels(); 
         this.today = Time.current();
-        
+    }
+
+    // --------------------------- scroll to timeline area if it exists
+
+    componentDidMount() {
+        let activeTimeline = document.querySelector(".timeLine--active");
+        if (activeTimeline){
+            let offset = $(activeTimeline).offset().top - 200,
+                container = React.findDOMNode(this.refs.container);
+            
+            container.scrollTop = offset;
+        }
     }
 
     // --------------------------- render the week day 
@@ -31,22 +44,16 @@ class CalendarWeek extends React.Component {
     renderDay(hourID, day, i) {
 
         let dhkey = day.day + hourID +i,
-            dhtopkey = dhkey+1,
-            dhbotkey = dhkey+2,
-            timelineKey = "timeline-" + hourID,
-            isToday = (this.today.year == day.year && this.today.month == day.month && this.today.day == day.day),
-            todayClass = isToday ? 'week__row__item today' : 'week__row__item',
-            timeline = isToday ? <TimeLine day={day} hour={hourID} key={timelineKey} /> : '';
+            hourData = {
+                thisDay: day,
+                hour: hourID,
+                index : i
+            };
 
-        return (
-            <td className={todayClass} key={dhkey} >
-                <div className="hour">
-                    <div className="halfhour" data-month={day.month} data-day={ day.day } data-year={day.year} data-hour={hourID} data-minute="0" key={dhtopkey}/>
-                    <div className="halfhour divider" data-month={day.month} data-day={ day.day } data-year={day.year} data-hour={hourID} data-minute="30" key={dhbotkey}/>
-                    {timeline}
-                </div>
-            </td>
-        );
+        return(
+            <Hour data={hourData} key={dhkey} />
+        )
+
     }
 
     // --------------------------- render the week 
@@ -85,7 +92,7 @@ class CalendarWeek extends React.Component {
     render(){
 
         return (      
-            <section className="container">
+            <section className="container" ref="container">
                 <ReactCSSTransitionGroup transitionName="week">
                 <table className="week" key="w">
                     <thead className="week__header" key="wh">

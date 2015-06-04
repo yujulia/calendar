@@ -4,7 +4,7 @@
 import React from "react/addons";
 import _ from "underscore";
 import Time from "time";
-import Day from "dayofmonth.jsx";
+import Day from "day.jsx";
 import Popup from "popup.jsx";
 
 const BOUNCE_RESIZE = 250;
@@ -104,13 +104,8 @@ class CalendarMonth extends React.Component {
         }
 
         let typeString = popupType.join(" ");
-        console.log("new type string ", typeString);
-
         if (typeString !== this.popup.className) {
-            // the new type is different
-            console.log("changing type");
-            this.popup.className = typeString;
-            
+            this.popup.className = typeString; 
         }
         
 
