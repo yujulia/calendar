@@ -2,7 +2,7 @@ import _ from "underscore";
 
 /** some useful date/time methods
 */
-let Time = () => {
+let Time = (() => {
 
     const WEEKDAYS = 7;
     const MINUTE_IN_HOUR = 60;
@@ -379,6 +379,6 @@ let Time = () => {
         getHourMark: () => { return findHourMark(); }
 
     }
-}();
+}());
 
 export default Time;
