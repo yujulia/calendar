@@ -74,7 +74,8 @@ class CalendarMonth extends React.Component {
 
     showPopup(){
         
-        let containerRECT = this.container.getBoundingClientRect(),
+        let popupType = ["popup"],
+            containerRECT = this.container.getBoundingClientRect(),
             containerWidth = this.container.offsetWidth,
             onedayRECT = this.dayElement.getBoundingClientRect(),
             offsetY = onedayRECT.top - containerRECT.top,
@@ -85,16 +86,33 @@ class CalendarMonth extends React.Component {
             calcLeft = offsetX - this.state.popupWidth/2 + onedayWidth/2;
 
 
+        // did we hit the top
         if (calcTop <= 0) {
             calcTop = offsetY + (onedayHeight/2);
-        } 
-        if (calcLeft <= 0) {
-            calcLeft = 20;
+            popupType.push("popup--bottom");
+        } else {
+            popupType.push("popup--top");
         }
 
-        if ((calcLeft + this.state.popupWidth) > containerWidth) {
-            calcLeft = containerWidth - this.state.popupWidth - 30;
+        // did we hit left or right
+        if (calcLeft <= 0) {
+            calcLeft = 20;
+            popupType.push("popup--left");
+        } else if ((calcLeft + this.state.popupWidth) > containerWidth) {
+            calcLeft = containerWidth - this.state.popupWidth - 50;   
+            popupType.push("popup--right");
         }
+
+        let typeString = popupType.join(" ");
+        console.log("new type string ", typeString);
+
+        if (typeString !== this.popup.className) {
+            // the new type is different
+            console.log("changing type");
+            this.popup.className = typeString;
+            
+        }
+        
 
         this.popup.style.top = calcTop + "px"; // subtract popup size here i think
         this.popup.style.left = calcLeft + "px";

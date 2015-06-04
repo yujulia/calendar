@@ -54,11 +54,10 @@ class Popup extends React.Component {
     // ---------------------------
 
     render(){
-        console.log("popup day", this.props.day);
         let quickevent = <QuickEvent day={this.props.day}/>;
 
         return (      
-            <div className="popup" ref="popup">
+            <div className="popup popup--top" ref="popup">
                 <a href="#" className="use-icon popup__close" onClick={ this.closePopup }>
                     <span className="icon icon-close-round"></span>
                     <span className="access-text" aria-hidden="true">close</span>
