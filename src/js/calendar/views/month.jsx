@@ -56,6 +56,9 @@ class CalendarMonth extends React.Component {
             dayData: data.day
         }); 
 
+        data.day.hour = null;
+        data.day.minute = null;
+
         let clickData = {
             target: data.dayElement,
             day: data.day,

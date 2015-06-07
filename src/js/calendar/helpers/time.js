@@ -343,6 +343,47 @@ let Time = (() => {
         }
     };
 
+    // ------------------------------------------- return an hour long
+
+    let hourLong = (date) => {
+        let timeframe = "", 
+            nextTimeframe = "",
+            hour = date.hour,
+            nexthour = date.hour + 1,
+            minute = date.minute;
+
+        if (hour === 0) {
+            timeframe = "am";
+            hour = 12; 
+        } else if (hour < 12) { 
+            timeframe = "am"; 
+        } else {
+            timeframe = "pm"; 
+            hour = hour - 12; 
+        }
+
+        if (nexthour == 24){
+            nexthour = 12; 
+            nextTimeframe = "am";
+        } else if (nexthour == 12 ) {
+            nextTimeframe = "pm";
+        } else if (nexthour > 12){
+            nexthour = nexthour -12;
+            nextTimeframe = "pm";
+        } else {
+            nextTimeframe = "am";
+        }
+
+        if (minute === 0){
+            minute = '';
+        } else if (date.minute < 10){
+            minute = ":0" + date.minute;
+        } else {
+            minute = ":" + date.minute;
+        }
+
+        return hour+minute+timeframe+" - "+nexthour+minute+nextTimeframe;
+    }
 
     return {
 
@@ -376,7 +417,9 @@ let Time = (() => {
 
         getMinuteMark: () => { return findMinuteMark(); },
 
-        getHourMark: () => { return findHourMark(); }
+        getHourMark: () => { return findHourMark(); },
+
+        getHourLong: (date) => { return hourLong(date); }
 
     }
 }());

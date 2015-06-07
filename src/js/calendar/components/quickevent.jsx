@@ -27,6 +27,7 @@ class QuickEvent extends React.Component {
         this.componentDidMount = this.componentDidMount.bind(this);
         this.componentWillUnmount = this.componentWillUnmount.bind(this);
         this.monthNames = Time.getMonthNames();
+        this.dayNames = Time.getDayNames();
     }
 
     // --------------------------- find pointer and start timer
@@ -44,13 +45,18 @@ class QuickEvent extends React.Component {
     }
    
     render(){
+
         let day = this.props.day,
-        dayTitle = '';
+            dayTitle = '',
+            dayofweek = this.dayNames[day.weekday],
+            hourString = (day.hour == null) ? '' : Time.getHourLong(day),
+            selectTime = (day.hour == null) ? '' : <span>, {hourString}</span>,
+            selectDate = <span>{ this.monthNames[day.month]} {day.day}</span>;
+            // console.log(day.hour, day.minute);
 
         if (day.month){
-            dayTitle = <span className="quickEvent__time" ref="quicktime">{ this.monthNames[day.month]} {day.day}, {day.year}</span>
+            dayTitle = <span className="quickEvent__time" ref="quicktime">{dayofweek}, {selectDate}{selectTime}</span>
         }
-            
 
         return (      
             <form className="quickEvent" onSubmit={this.handleSubmit}>

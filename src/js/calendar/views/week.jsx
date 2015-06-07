@@ -2,6 +2,7 @@
 
 **/
 import React from "react/addons";
+import _ from "underscore";
 import $ from "jquery";
 import Time from "time";
 import TimePointer from "timepointer.jsx";
@@ -15,9 +16,7 @@ let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 class CalendarWeek extends React.Component {
 
     constructor() {
-        super();
-
-        
+        super();        
         this.render = this.render.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
         this.renderDay = this.renderDay.bind(this);
@@ -63,6 +62,11 @@ class CalendarWeek extends React.Component {
     // ---------------------------
     handleHourClick(data){
 
+        _.extend(data.day, {
+            hour: data.hour,
+            minute: data.minute
+        });
+              
         // this data contains hour and minute, more than month
         this.setState({ 
             dayData: data.day

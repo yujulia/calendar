@@ -16,13 +16,11 @@ class TimeLine extends React.Component {
 
     constructor() {
         super();
-
         this.render = this.render.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
         this.componentWillUnmount = this.componentWillUnmount.bind(this);
         this.minuteElapsed = this.minuteElapsed.bind(this);
         this.notset = true;
-
     }
 
     // --------------------------- find the timeline node and start the timer

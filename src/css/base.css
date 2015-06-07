@@ -502,7 +502,6 @@ body {
   width: 300px; }
   .quickEvent__label {
     display: block;
-    text-transform: uppercase;
     font-size: 14px;
     margin-bottom: 10px; }
     .quickEvent__label:before {
