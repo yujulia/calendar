@@ -36,9 +36,13 @@ class QuickEvent extends React.Component {
        
     }
 
+    // --------------------------- 
+
     componentWillUnmount() {
       
     }
+
+    // --------------------------- 
 
     handleSubmit(){
 
@@ -62,7 +66,7 @@ class QuickEvent extends React.Component {
             <form className="quickEvent" onSubmit={this.handleSubmit}>
                 <fieldset className="quickEvent__set">
                     <label className="quickEvent__label icon-calendar">{dayTitle}</label>
-                    <input className="quickEvent__text" id="quickName" type="text" placeholder="describe your event" ref="quickname" />
+                    <input className="quickEvent__text" type="text" placeholder="describe your event" ref="quickname" />
                 </fieldset>
                 <fieldset className="quickEvent__action">
                     <CalButton text="Save" classes="button--white" id="save" />
@@ -72,6 +76,5 @@ class QuickEvent extends React.Component {
         );
     }
 }
-
 
 export default QuickEvent;

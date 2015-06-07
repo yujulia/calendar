@@ -15,6 +15,7 @@ class Calendar extends React.Component {
     constructor() {
         super();
         this.render = this.render.bind(this);
+        this.componentWillMount = this.componentWillMount.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
         this.componentWillUnmount = this.componentWillUnmount.bind(this);
         this.updateAppState = this.updateAppState.bind(this);
@@ -43,6 +44,15 @@ class Calendar extends React.Component {
         };
     }
 
+    // --------------------------- 
+
+    componentWillMount(){
+        this.callback = (function() { this.forceUpdate(); }).bind(this);
+        this.props.router.on("route", this.callback);
+
+        console.log("current route", this.props.router.current);
+    }
+
     // --------------------------- mounted
 
     componentDidMount() {
@@ -53,6 +63,7 @@ class Calendar extends React.Component {
 
     componentWillUnmount(){
         $(window).unbind("calendar-closepoup", this.unselectDay);
+        this.props.router.off("route", this.callback);
     }
 
     // ---------------------------  handle resize of window
@@ -161,9 +172,11 @@ class Calendar extends React.Component {
         }
         if ((view === "week") && (view !== this.state.viewType)) {
             this.updateAppState("current", { week: true, month: false, viewType: view});
+            this.props.router.navigate("week", { trigger : true });
         }
         if ((view === "month") && (view !== this.state.viewType)) {
             this.updateAppState("current", { week: false, month: true, viewType: view});
+            this.props.router.navigate("month", { trigger : true });
         }
     }
 
@@ -187,6 +200,8 @@ class Calendar extends React.Component {
                 today: this.state.today,
                 dateRange: this.state.dateRange
             };
+
+        console.log("c render ", this.props.router.current);
 
         return (
             <main className="calendar" >
