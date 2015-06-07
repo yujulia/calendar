@@ -47,12 +47,12 @@ class QuickEvent extends React.Component {
     render(){
 
         let day = this.props.day,
+            weekday = day.weekday,
             dayTitle = '',
-            dayofweek = this.dayNames[day.weekday],
+            dayofweek = (day.weekday !== undefined) ? this.dayNames[weekday].slice(0,3) : '',
             hourString = (day.hour == null) ? '' : Time.getHourLong(day),
             selectTime = (day.hour == null) ? '' : <span>, {hourString}</span>,
             selectDate = <span>{ this.monthNames[day.month]} {day.day}</span>;
-            // console.log(day.hour, day.minute);
 
         if (day.month){
             dayTitle = <span className="quickEvent__time" ref="quicktime">{dayofweek}, {selectDate}{selectTime}</span>

@@ -37,7 +37,7 @@ class Nav extends React.Component {
                     <CalButton text="Prev" id="prev" useicon="icon-prev" onBtnClick={this.handleClick}/>
                     <CalButton text="Next" id="next" useicon="icon-next" onBtnClick={this.handleClick}/>
                 </div>
-                <date className="nav__today">{this.props.dateRange}</date>
+                <date className="nav__today">{this.props.view.dateRange}</date>
                 <div className="nav__views">
                     <CalButton text="Week" id="week" on={this.props.view.week} onBtnClick={this.handleClick}/>
                     <CalButton text="Month" id="month" on={this.props.view.month} onBtnClick={this.handleClick} />

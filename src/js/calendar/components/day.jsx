@@ -30,7 +30,7 @@ class Day extends React.Component {
     handleClick(e){
         let data = {
             day: this.props.data.day,
-            dayElement: React.findDOMNode(this.refs.day)
+            element: React.findDOMNode(this.refs.day)
         }
         if (this.props.onDayClick) {
             this.props.onDayClick(data);

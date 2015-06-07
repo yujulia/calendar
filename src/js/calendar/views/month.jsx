@@ -2,6 +2,7 @@
 
 **/
 import React from "react/addons";
+import $ from "jquery";
 import _ from "underscore";
 import Time from "time";
 import Day from "day.jsx";
@@ -17,32 +18,40 @@ class CalendarMonth extends React.Component {
         super();
         this.render = this.render.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.componentWillUnmount = this.componentWillUnmount.bind(this);
         this.handleDayClick = this.handleDayClick.bind(this);
         this.renderDay = this.renderDay.bind(this);
         this.renderWeek = this.renderWeek.bind(this);
         this.renderMonthHeader = this.renderMonthHeader.bind(this);
+        this.unselectDay = this.unselectDay.bind(this);
 
-        this.popup = null;
         this.container = null; 
         
         this.state = {
-            day : 0,
-            dayData : {}
+            day: 0,
+            dayData: {}
         }
     }
 
-    // --------------------------- 
+    // --------------------------- mounted
 
     componentDidMount() {
-        this.popup = React.findDOMNode(this.refs.popup);
         this.container = React.findDOMNode(this.refs.container);
+        $(window).on("calendar-closepoup", this.unselectDay);
+    }
 
-        let parentData = {
-            container: this.container,
-            popup: this.popup
-        }
+    // --------------------------- unmounting
 
-        this.props.loadChildData(parentData);
+    componentWillUnmount(){
+        $(window).unbind("calendar-closepoup", this.unselectDay);
+    }
+
+    // --------------------------- unselect if popup is closed
+
+    unselectDay(){
+        if (this.state.day !== 0){
+            this.setState({ day: 0 });   
+        }   
     }
 
     // --------------------------- day is clicked
@@ -51,21 +60,15 @@ class CalendarMonth extends React.Component {
         let day = data.day,
             selectedDay = ''+day.year+day.month+day.day;
 
+        _.extend(day, { hour: null, minute: null });
+
         this.setState({ 
             day: selectedDay, 
-            dayData: data.day
+            dayData: data.day,
+            target: data.element
         }); 
 
-        data.day.hour = null;
-        data.day.minute = null;
-
-        let clickData = {
-            target: data.dayElement,
-            day: data.day,
-            type: "day"
-        }
-
-        this.props.triggerPopup(clickData);
+        this.props.triggerPopup(); 
     }
 
     // --------------------------- render days of this month
@@ -75,7 +78,7 @@ class CalendarMonth extends React.Component {
             data = {
                 day: day,
                 onDay: this.state.day,
-                realmonth: this.props.realmonth
+                realmonth: this.props.data.realMonth
             };
 
         return(
@@ -108,6 +111,13 @@ class CalendarMonth extends React.Component {
     // --------------------------- RENDER
 
     render(){
+        let popupData = {
+            type: "day",
+            day: this.state.dayData,
+            target: this.state.target,
+            container: this.container,
+            showPopup: this.props.data.popupshow
+        };
 
         return (      
             <section className="container" ref="container">
@@ -119,11 +129,11 @@ class CalendarMonth extends React.Component {
                         </tr>
                     </thead>
                     <tbody key="mb">
-                        { this.props.data.map(this.renderWeek) }
+                        { this.props.data.month.map(this.renderWeek) }
                     </tbody>
                 </table>
                 </ReactCSSTransitionGroup>
-                <Popup ref="popup" day={this.state.dayData}/>
+                <Popup ref="popup" data={popupData} />
             </section>
         );
     }

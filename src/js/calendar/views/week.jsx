@@ -26,7 +26,6 @@ class CalendarWeek extends React.Component {
 
         this.timeLabels = Time.getTimeLabels(); 
         this.today = Time.current();
-        this.popup = null;
         this.container = null; 
 
         this.state = {
@@ -40,6 +39,7 @@ class CalendarWeek extends React.Component {
     componentDidMount() {
 
         // if there is an active timeline scroll the window so we can see it
+
         let activeTimeline = document.querySelector(".timeLine--active");
         if (activeTimeline){
             let offset = $(activeTimeline).offset().top - 200,
@@ -48,18 +48,11 @@ class CalendarWeek extends React.Component {
             container.scrollTop = offset;
         }
 
-        this.popup = React.findDOMNode(this.refs.popup);
         this.container = React.findDOMNode(this.refs.container);
-
-        let parentData = {
-            container: this.container,
-            popup: this.popup
-        }
-
-        this.props.loadChildData(parentData);
     }
 
-    // ---------------------------
+    // --------------------------- a half hour chunk clicked
+
     handleHourClick(data){
 
         _.extend(data.day, {
@@ -67,18 +60,12 @@ class CalendarWeek extends React.Component {
             minute: data.minute
         });
               
-        // this data contains hour and minute, more than month
         this.setState({ 
-            dayData: data.day
-        }); // this populates data in popup
+            dayData: data.day,
+            target: data.element
+        }); 
 
-        let clickData = {
-            target: data.element,
-            day: data.day,
-            type: "halfhour"
-        }
-
-        this.props.triggerPopup(clickData);
+        this.props.triggerPopup();
     }
  
     // --------------------------- render the week day 
@@ -104,7 +91,7 @@ class CalendarWeek extends React.Component {
                 <th className="week__row__label" data-time={timeID} key={wrlkey}>
                     {label}
                 </th>
-                { this.props.data.map(function(timeID){ return this.renderDay.apply(this, arguments) }.bind(this, timeID)) }
+                { this.props.data.week.map(function(timeID){ return this.renderDay.apply(this, arguments) }.bind(this, timeID)) }
             </tr>
         );
     }
@@ -130,6 +117,14 @@ class CalendarWeek extends React.Component {
     // --------------------------- RETURN
     render(){
 
+        let popupData = {
+            type: "halfhour",
+            day: this.state.dayData,
+            target: this.state.target,
+            container: this.container,
+            showPopup: this.props.data.popupshow
+        };
+
         return (      
             <section className="container" ref="container">
                 <ReactCSSTransitionGroup transitionName="week">
@@ -139,7 +134,7 @@ class CalendarWeek extends React.Component {
                             <th className="week__row__label empty" key="whre">
                                 <span key="whres" aria-hidden="true">00pm</span>
                             </th>
-                            { this.props.data.map(this.renderWeekHeader) }
+                            { this.props.data.week.map(this.renderWeekHeader) }
                         </tr>
                     </thead>
                     <tbody key="wb">
@@ -148,7 +143,7 @@ class CalendarWeek extends React.Component {
                 </table>
                 <TimePointer />
                 </ReactCSSTransitionGroup>
-                <Popup ref="popup" day={this.state.dayData}/>
+                <Popup ref="popup" data={popupData}/>
             </section>
         );
     }
