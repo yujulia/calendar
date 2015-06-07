@@ -4,10 +4,11 @@
 import React from "react";
 import _ from "underscore";
 import $ from "jquery";
+import Time from "time";
 import Nav from "nav.jsx";
 import CalendarWeek from "week.jsx";
 import CalendarMonth from "month.jsx";
-import Time from "time";
+import Aside from "aside.jsx";
 
 class Calendar extends React.Component {
 
@@ -190,7 +191,7 @@ class Calendar extends React.Component {
         return (
             <main className="calendar" >
                 <Nav view={viewData} onToggleView={ this.handleToggleView } onAnyClick={this.closePopup} />
-                <aside className="calendar__aside">aside content </aside>
+                <Aside />
                 { week }{ month }
             </main>
         );

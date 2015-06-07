@@ -91,7 +91,11 @@ class CalendarWeek extends React.Component {
                 <th className="week__row__label" data-time={timeID} key={wrlkey}>
                     {label}
                 </th>
-                { this.props.data.week.map(function(timeID){ return this.renderDay.apply(this, arguments) }.bind(this, timeID)) }
+                { this.props.data.week.map(
+                    function(timeID){ 
+                        return this.renderDay.apply(this, arguments);
+                    }.bind(this, timeID)) 
+                }
             </tr>
         );
     }

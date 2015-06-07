@@ -45,6 +45,7 @@ body {
         height: 100%;
         width: $aside-w;
         float: left;
+        padding: 20px;
     }
 }
 
@@ -153,6 +154,19 @@ body {
             color: #fff;
         }
     }
+
+    &--red {
+        background-color: $color-google;
+        color: #fff;
+        border-color: $color-google;
+
+        &:hover, &:focus {
+            background-color: #000;
+            border-color: #000;
+            color: #fff;
+        }
+    }
+
 }
 
 .access-text { 
