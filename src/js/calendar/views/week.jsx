@@ -24,24 +24,23 @@ class CalendarWeek extends React.Component {
         this.renderHour = this.renderHour.bind(this);
         this.renderWeekHeader = this.renderWeekHeader.bind(this);
         this.handleHourClick = this.handleHourClick.bind(this);
-        this.showPopup = this.showPopup.bind(this);
-        this.handlePopupMount = this.handlePopupMount.bind(this);
 
         this.timeLabels = Time.getTimeLabels(); 
         this.today = Time.current();
+        this.popup = null;
+        this.container = null; 
 
         this.state = {
             day : 0,
-            dayData : {},
-            popupWidth : 0,
-            popupHeight: 0,
-            containerWidth: 0
+            dayData : {}
         }
     }
 
     // --------------------------- scroll to timeline area if it exists
 
     componentDidMount() {
+
+        // if there is an active timeline scroll the window so we can see it
         let activeTimeline = document.querySelector(".timeLine--active");
         if (activeTimeline){
             let offset = $(activeTimeline).offset().top - 200,
@@ -50,81 +49,37 @@ class CalendarWeek extends React.Component {
             container.scrollTop = offset;
         }
 
-        // probably make parent do this
+        this.popup = React.findDOMNode(this.refs.popup);
         this.container = React.findDOMNode(this.refs.container);
-        this.popup =   React.findDOMNode(this.refs.popup);
 
+        let parentData = {
+            container: this.container,
+            popup: this.popup
+        }
 
-        this.day1Node = document.querySelector(".halfhour");
-        console.log(this.day1Node);
-    }
-
-    handlePopupMount(data){
-        this.setState({
-            popupWidth: data.width,
-            popupHeight: data.height
-        });
+        this.props.loadChildData(parentData);
     }
 
     // ---------------------------
     handleHourClick(data){
-        console.log("handle hour click");
-        this.dayElement = data.element;
+
+        // this data contains hour and minute, more than month
         this.setState({ 
             dayData: data.day
-        });
+        }); // this populates data in popup
 
-        this.showPopup();
+        let clickData = {
+            target: data.element,
+            day: data.day,
+            type: "halfhour"
+        }
+
+        this.props.triggerPopup(clickData);
     }
-
-    showPopup(){
-
-        // the calculation for popup is different here...
-        
-        let popupType = ["popup"],
-            containerRECT = this.container.getBoundingClientRect(),
-            containerWidth = this.container.offsetWidth,
-            onedayRECT = this.dayElement.getBoundingClientRect(),
-            offsetY = onedayRECT.top - containerRECT.top,
-            offsetX = onedayRECT.left - containerRECT.left,
-            onedayHeight = this.dayElement.offsetHeight,
-            onedayWidth = this.dayElement.offsetWidth,
-            calcTop = offsetY - (this.state.popupHeight+10)/2,
-            calcLeft = offsetX - this.state.popupWidth/2 + onedayWidth/2;
-
-
-        // did we hit the top
-        if (calcTop <= 0) {
-            calcTop = offsetY + (onedayHeight/2);
-            popupType.push("popup--bottom");
-        } else {
-            popupType.push("popup--top");
-        }
-
-        // did we hit left or right
-        if (calcLeft <= 0) {
-            calcLeft = 20;
-            popupType.push("popup--left");
-        } else if ((calcLeft + this.state.popupWidth) > containerWidth) {
-            calcLeft = containerWidth - this.state.popupWidth - 50;   
-            popupType.push("popup--right");
-        }
-
-        let typeString = popupType.join(" ");
-        if (typeString !== this.popup.className) {
-            this.popup.className = typeString; 
-        }
-        
-        // let calcTop = 200, calcLeft = 300;
-
-        this.popup.style.top = calcTop + "px"; // subtract popup size here i think
-        this.popup.style.left = calcLeft + "px";
-    }
-
+ 
     // --------------------------- render the week day 
 
     renderDay(hourID, day, i) {
-
         let dhkey = '' + day.year + day.day + hourID + i,
             hourData = {
                 thisDay: day,
@@ -134,7 +89,6 @@ class CalendarWeek extends React.Component {
         return(
             <Hour data={hourData} key={dhkey} onHourClick={this.handleHourClick} ref={dhkey}/>
         )
-
     }
 
     // --------------------------- render the week 
@@ -190,7 +144,7 @@ class CalendarWeek extends React.Component {
                 </table>
                 <TimePointer />
                 </ReactCSSTransitionGroup>
-                <Popup onPopupMount={this.handlePopupMount} ref="popup" day={this.state.dayData}/>
+                <Popup ref="popup" day={this.state.dayData}/>
             </section>
         );
     }

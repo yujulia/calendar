@@ -35,7 +35,17 @@ body {
 }
 
 .calendar {
+    @extend %clearfix;
     position: relative;
+    width: 100%;
+    height: 100%;
+
+    &__aside {
+        @extend %clearfix;
+        height: 100%;
+        width: $aside-w;
+        float: left;
+    }
 }
 
 .nav {

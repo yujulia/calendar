@@ -1,4 +1,4 @@
-.container:after {
+.calendar:after, .calendar__aside:after, .container:after {
   content: "";
   display: table;
   clear: both; }
@@ -216,7 +216,13 @@ body {
   font: 13px Arial, sans-serif; }
 
 .calendar {
-  position: relative; }
+  position: relative;
+  width: 100%;
+  height: 100%; }
+  .calendar__aside {
+    height: 100%;
+    width: 200px;
+    float: left; }
 
 .nav {
   display: flex;

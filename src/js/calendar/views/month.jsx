@@ -7,8 +7,6 @@ import Time from "time";
 import Day from "day.jsx";
 import Popup from "popup.jsx";
 
-const BOUNCE_RESIZE = 250;
-
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 /** REACT component CalendarMonth
@@ -17,40 +15,34 @@ class CalendarMonth extends React.Component {
 
     constructor() {
         super();
-
         this.render = this.render.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
-        this.handleResize = this.handleResize.bind(this);
         this.handleDayClick = this.handleDayClick.bind(this);
         this.renderDay = this.renderDay.bind(this);
         this.renderWeek = this.renderWeek.bind(this);
         this.renderMonthHeader = this.renderMonthHeader.bind(this);
-        this.handlePopupMount = this.handlePopupMount.bind(this);
-        this.showPopup = this.showPopup.bind(this);
 
+        this.popup = null;
+        this.container = null; 
+        
         this.state = {
             day : 0,
-            dayData : {},
-            popupWidth : 0,
-            popupHeight: 0,
-            containerWidth: 0
+            dayData : {}
         }
     }
 
     // --------------------------- 
 
     componentDidMount() {
+        this.popup = React.findDOMNode(this.refs.popup);
         this.container = React.findDOMNode(this.refs.container);
-        this.day1Node = React.findDOMNode(this.refs.day1);
-        this.popup =   React.findDOMNode(this.refs.popup);
-        this.handleResize = _.debounce(this.handleResize, BOUNCE_RESIZE);
-        window.addEventListener("resize", this.handleResize);
-    }
 
-    // ---------------------------  handle resize of window
+        let parentData = {
+            container: this.container,
+            popup: this.popup
+        }
 
-    handleResize(){
-        // console.log(" month resize"); // move popup from edge if resized
+        this.props.loadChildData(parentData);
     }
 
     // --------------------------- day is clicked
@@ -62,65 +54,15 @@ class CalendarMonth extends React.Component {
         this.setState({ 
             day: selectedDay, 
             dayData: data.day
-        });
+        }); 
 
-        this.dayElement = data.dayElement;
-        this.showPopup();        
-
-    }
-
-    // --------------------------- show the popup in the right place
-    // same thing will be used in week... off load the calculation
-
-    showPopup(){
-        
-        let popupType = ["popup"],
-            containerRECT = this.container.getBoundingClientRect(),
-            containerWidth = this.container.offsetWidth,
-            onedayRECT = this.dayElement.getBoundingClientRect(),
-            offsetY = onedayRECT.top - containerRECT.top,
-            offsetX = onedayRECT.left - containerRECT.left,
-            onedayHeight = this.dayElement.offsetHeight,
-            onedayWidth = this.dayElement.offsetWidth,
-            calcTop = offsetY - (this.state.popupHeight+10)/2,
-            calcLeft = offsetX - this.state.popupWidth/2 + onedayWidth/2;
-
-
-        // did we hit the top
-        if (calcTop <= 0) {
-            calcTop = offsetY + (onedayHeight/2);
-            popupType.push("popup--bottom");
-        } else {
-            popupType.push("popup--top");
+        let clickData = {
+            target: data.dayElement,
+            day: data.day,
+            type: "day"
         }
 
-        // did we hit left or right
-        if (calcLeft <= 0) {
-            calcLeft = 20;
-            popupType.push("popup--left");
-        } else if ((calcLeft + this.state.popupWidth) > containerWidth) {
-            calcLeft = containerWidth - this.state.popupWidth - 50;   
-            popupType.push("popup--right");
-        }
-
-        let typeString = popupType.join(" ");
-        if (typeString !== this.popup.className) {
-            this.popup.className = typeString; 
-        }
-        
-
-        this.popup.style.top = calcTop + "px"; // subtract popup size here i think
-        this.popup.style.left = calcLeft + "px";
-    }
-
-
-    // --------------------------- the popup has been built
-
-    handlePopupMount(data){
-        this.setState({
-            popupWidth: data.width,
-            popupHeight: data.height
-        });
+        this.props.triggerPopup(clickData);
     }
 
     // --------------------------- render days of this month
@@ -128,9 +70,6 @@ class CalendarMonth extends React.Component {
     renderDay(day, i){
         let dk = 'day'+i,
             data = {
-                popupWidth : this.state.popupWidth,
-                popupHeight : this.state.popupHeight,
-                containerWidth: this.state.containerWidth,
                 day: day,
                 onDay: this.state.day,
                 realmonth: this.props.realmonth
@@ -181,7 +120,7 @@ class CalendarMonth extends React.Component {
                     </tbody>
                 </table>
                 </ReactCSSTransitionGroup>
-                <Popup onPopupMount={this.handlePopupMount} ref="popup" day={this.state.dayData}/>
+                <Popup ref="popup" day={this.state.dayData}/>
             </section>
         );
     }

@@ -46,7 +46,7 @@ class TimeLine extends React.Component {
     minuteElapsed(){
         let now = Time.getHourMark();
 
-        if (this.hour == now.hour+13) {
+        if (this.hour == now.hour) {
             if (this.notset){
                 this.node.className = ON_CLASS;
                 this.notset = false;

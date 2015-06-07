@@ -11,21 +11,26 @@ class Nav extends React.Component {
 
         this.render = this.render.bind(this);   
         this.handleClick = this.handleClick.bind(this);
+        this.handleAllClicks = this.handleAllClicks.bind(this);
     }
 
     // --------------------------- toggle view specified by button
 
     handleClick(viewType){  
-        if (this.props.onToggleView) {
-            this.props.onToggleView(viewType);
-        }
+        this.props.onToggleView(viewType);
+        
+    }
+
+    // --------------------------- this includes clicks on empty space
+    handleAllClicks(){
+        this.props.onAnyClick();
     }
 
     // --------------------------- RENDER
 
     render(){
         return (
-            <nav className="nav">
+            <nav className="nav" onClick={this.handleAllClicks}>
                 <h1 className="logo">Calendar</h1>
                 <div className="nav__time">
                     <CalButton text="Today" id="today" on={this.props.view.today} onBtnClick={this.handleClick}/>

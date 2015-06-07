@@ -1,13 +1,4 @@
 /*! Calendar event popup
-
-    this is always attached to the main view
-    when something is clicked, pip to parent calendar
-    parent also tells child that is selected to have some on state color
-    this is poped up in the correct position
-
-    ADD a close animation fade out probably
-    add close handler
-
 **/
 
 import React from "react/addons";
@@ -21,35 +12,15 @@ class Popup extends React.Component {
         super();
         this.render = this.render.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
-        this.closePopup = this.closePopup.bind(this);
+        this.popup = null; // set in mount
     }
 
     // --------------------------- get the width and height of popup for calculations
 
     componentDidMount() {
         this.popup = React.findDOMNode(this.refs.popup);
-
-        let w = this.popup.offsetWidth,
-            h = this.popup.offsetHeight,
-            data = {
-                width: w,
-                height: h,
-                popup: this.popup
-            };
-
-        if (this.props.onPopupMount) {
-            this.props.onPopupMount(data);
-        } 
     }
 
-    // --------------------------- move popup off screen
-
-    closePopup(e){
-        e.preventDefault();
-        this.popup.style.left = "-10000px";
-        this.popup.style.top = "-10000px";
-    }
-   
     // ---------------------------
 
     render(){
@@ -57,7 +28,7 @@ class Popup extends React.Component {
 
         return (      
             <div className="popup popup--top" ref="popup">
-                <a href="#" className="use-icon popup__close" onClick={ this.closePopup }>
+                <a href="#" className="use-icon popup__close">
                     <span className="icon icon-close-round"></span>
                     <span className="access-text" aria-hidden="true">close</span>
                 </a>
@@ -66,6 +37,5 @@ class Popup extends React.Component {
         );
     }
 }
-
 
 export default Popup;

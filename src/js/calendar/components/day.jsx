@@ -27,7 +27,7 @@ class Day extends React.Component {
 
     // ---------------------------
 
-    handleClick(){
+    handleClick(e){
         let data = {
             day: this.props.data.day,
             dayElement: React.findDOMNode(this.refs.day)
