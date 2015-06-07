@@ -3,7 +3,10 @@
 
 import React from "react/addons";
 import $ from "jquery";
+import _ from "underscore";
 import QuickEvent from "quickevent.jsx";
+
+const BOUNCE_RESIZE = 250;
 
 /** REACT component popup
 */
@@ -13,6 +16,8 @@ class Popup extends React.Component {
         super();
         this.render = this.render.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.componentWillUnmount = this.componentWillUnmount.bind(this);
+        this.handleResize = this.handleResize.bind(this);
         this.closePopup = this.closePopup.bind(this);
         this.movePopup = this.movePopup.bind(this);
         this.sendClosePopup = this.sendClosePopup.bind(this);
@@ -31,6 +36,23 @@ class Popup extends React.Component {
         this.popup.element = React.findDOMNode(this.refs.popup);
         this.popup.width = this.popup.element.offsetWidth;
         this.popup.height = this.popup.element.offsetHeight;
+
+        this.handleResize = _.debounce(this.handleResize, BOUNCE_RESIZE);
+        $(window).on("resize", this.handleResize);
+    }
+
+    // ---------------------------
+
+    componentWillUnmount(){
+        $(window).unbind("resize", this.handleResize);
+    }
+
+    // --------------------------- window resized move tooltip
+
+    handleResize(){
+        if (this.popup.show){
+            this.movePopup();
+        }
     }
 
     // --------------------------- close the popup by moving offscreen

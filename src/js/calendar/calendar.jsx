@@ -9,8 +9,6 @@ import CalendarWeek from "week.jsx";
 import CalendarMonth from "month.jsx";
 import Time from "time";
 
-const BOUNCE_RESIZE = 250;
-
 class Calendar extends React.Component {
 
     constructor() {
@@ -18,7 +16,6 @@ class Calendar extends React.Component {
         this.render = this.render.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
         this.componentWillUnmount = this.componentWillUnmount.bind(this);
-        this.handleResize = this.handleResize.bind(this);
         this.updateAppState = this.updateAppState.bind(this);
         this.handleToggleView = this.handleToggleView.bind(this);
 
@@ -48,15 +45,12 @@ class Calendar extends React.Component {
     // --------------------------- mounted
 
     componentDidMount() {
-        this.handleResize = _.debounce(this.handleResize, BOUNCE_RESIZE);
-        $(window).on("resize", this.handleResize);
         $(window).on("calendar-closepoup", this.closePopup);
     }
 
     // --------------------------- unmounting
 
     componentWillUnmount(){
-        $(window).unbind("resize", this.handleResize);
         $(window).unbind("calendar-closepoup", this.unselectDay);
     }
 
