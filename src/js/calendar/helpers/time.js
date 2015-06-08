@@ -1,7 +1,8 @@
-import _ from "underscore";
-
 /** some useful date/time methods
 */
+
+import _ from "underscore";
+
 let Time = (() => {
 
     const WEEKDAYS = 7;

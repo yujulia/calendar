@@ -33,6 +33,7 @@
     "autoprefixer-core": "^5.1.11",
     "babelify": "^6.1.2",
     "backbone": "^1.2.1",
+    "backbone-localstorage": "^0.3.2",
     "browser-sync": "^2.7.1",
     "browserify": "^10.1.0",
     "browserify-shim": "^3.8.6",

@@ -53,6 +53,7 @@ class QuickEvent extends React.Component {
         let day = this.props.day,
             weekday = day.weekday,
             dayTitle = '',
+            dateStr = day.year + "-" + day.month + "-" + day.day + "-" + day.hour + "-" + day.minute,
             dayofweek = (day.weekday !== undefined) ? this.dayNames[weekday].slice(0,3) : '',
             hourString = (day.hour == null) ? '' : Time.getHourLong(day),
             selectTime = (day.hour == null) ? '' : <span>, {hourString}</span>,
@@ -69,6 +70,8 @@ class QuickEvent extends React.Component {
                     <input className="quickEvent__text" type="text" placeholder="describe your event" ref="quickname" />
                 </fieldset>
                 <fieldset className="quickEvent__action">
+                    <input type="hidden" name="date" value={dateStr} />
+
                     <CalButton text="Save" classes="button--white" id="save" />
                     <a href="#" className="quickEvent__edit icon-edit">Edit</a>   
                 </fieldset>

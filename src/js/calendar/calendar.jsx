@@ -192,22 +192,24 @@ class Calendar extends React.Component {
                 realMonth: this.state.realMonth.getMonth(),
                 popupshow: this.state.popupshow
             },
-            week = this.state.week ? <CalendarWeek data={weekData} triggerPopup={this.triggerPopup} /> : '',
-            month = this.state.month ? <CalendarMonth data={monthData} triggerPopup={this.triggerPopup} /> : '',
             viewData = { 
                 week: this.state.week, 
                 month: this.state.month, 
                 today: this.state.today,
                 dateRange: this.state.dateRange
-            };
+            },
+            week = <CalendarWeek data={weekData} triggerPopup={this.triggerPopup} />,
+            month = <CalendarMonth data={monthData} triggerPopup={this.triggerPopup} />,
+            displayView = <div>nothing</div>;
 
-        console.log("c render ", this.props.router.current);
+        if (this.props.router.current == "week"){ displayView = week; }
+        if (this.props.router.current == "month"){ displayView = month; }
 
         return (
             <main className="calendar" >
                 <Nav view={viewData} onToggleView={ this.handleToggleView } onAnyClick={this.closePopup} />
                 <Aside />
-                { week }{ month }
+                { displayView }
             </main>
         );
     }
